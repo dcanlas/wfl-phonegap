@@ -4,9 +4,7 @@ app.constant("Config", {
   "CommentUrl": "data/comments.json",
   "FriendsUrl": "data/friends.json",
   "MessagesUrl": "data/messages.json",
-  "MessageUrl": "data/message.json",
-  "ProductUrl": "data/products.json",
-  "WordPress": "http://example.com/",
+  "MessageUrl": "data/message.json"
 })
 // config contact
 app.constant("ConfigContact", {
