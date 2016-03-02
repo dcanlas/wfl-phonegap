@@ -1,0 +1,86 @@
+[
+  {
+    "_id": 1,
+	 "title": "John Doe",
+    "message_date": "30-06-2015",
+	 "message" : "Haii",
+	 "from" : "1"
+  },
+  {
+    "_id": 2,
+	 "title": "John Doe",
+    "message_date": "30-06-2015",
+	 "message" : "Test messages",
+	 "from" : "1"
+  },
+  {
+    "_id": 3,
+	 "title": "Max",
+    "message_date": "30-06-2015",
+	 "message" : "A long message with hello world, beep beep",
+	 "from" : "2"
+  },
+  {
+    "_id": 4,
+	 "title": "John Doe",
+    "message_date": "30-06-2015",
+	 "message" : "Lorem ipsum",
+	 "from" : "1"
+  },
+  {
+    "_id": 5,
+	 "title": "John Doe",
+    "message_date": "30-06-2015",
+	 "message" : "Lorem ipsum dolor sit amet, consectetuer",
+	 "from" : "1"
+  },
+  {
+    "_id": 6,
+	 "title": "John Doe",
+    "message_date": "30-06-2015",
+	 "message" : "Lorem ipsum dolor sit amet, consectetuer",
+	 "from" : "1"
+  },
+  {
+    "_id": 7,
+	 "title": "Max",
+    "message_date": "30-06-2015",
+	 "message" : "Lorem ipsum dolor sit amet, consectetuer",
+	 "from" : "2"
+  },
+  {
+    "_id": 8,
+	 "title": "John Doe",
+    "message_date": "30-06-2015",
+	 "message" : "Lorem ipsum dolor sit amet, consectetuer",
+	 "from" : "1"
+  },
+  {
+    "_id": 9,
+	 "title": "Max",
+    "message_date": "30-06-2015",
+	 "message" : "Lorem ipsum dolor sit amet, consectetuer",
+	 "from" : "2"
+  },
+  {
+    "_id": 10,
+	 "title": "Max",
+    "message_date": "01-07-2015",
+	 "message" : "Lorem ipsum dolor sit amet, consectetuer",
+	 "from" : "2"
+  },
+  {
+    "_id": 11,
+	 "title": "John Doe",
+    "message_date": "02-07-2015",
+	 "message" : "Lorem ipsum dolor sit amet, consectetuer",
+	 "from" : "1"
+  },
+  {
+    "_id": 12,
+	 "title": "John Doe",
+    "message_date": "03-07-2015",
+	 "message" : "Lorem ipsum dolor sit amet, consectetuer",
+	 "from" : "1"
+  }
+]
