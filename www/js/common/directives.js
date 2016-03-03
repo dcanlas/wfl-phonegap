@@ -26,4 +26,4 @@ app.directive('dir', function($compile, $parse) {
 	  }, true);
 	}
  }
-})
+});

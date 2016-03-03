@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="YourApp">
+<html ng-app="WflApp">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
@@ -12,7 +12,8 @@
 	 	google.load("feeds", "1");
 	 </script> 
     <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+    <!-- TODO: make sure to replace this with ionic.bundle.min.js later -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
     <!-- your app's js -->
     <script src="js/common/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
@@ -27,6 +28,22 @@
     <script src="js/common/filters.js"></script>
     <script src="js/common/directives.js"></script>
     <!-- your app's js -->
+    <!--This needs to be bundled later possibly with requirejs or grunt-->
+    <script src="js/controllers/MainCtrl.js"></script>
+    <script src="js/controllers/LoginCtrl.js"></script>
+    <script src="js/controllers/ForgotCtrl.js"></script>
+    <script src="js/controllers/FriendsCtrl.js"></script>
+    <script src="js/controllers/GalleryCtrl.js"></script>
+    <script src="js/controllers/IntroCtrl.js"></script>
+    <script src="js/controllers/ProfileCtrl.js"></script>
+    <script src="js/controllers/SignUpCtrl.js"></script>
+    <script src="js/controllers/SettingsCtrl.js"></script>
+    <script src="js/controllers/SocialProfileCtrl.js"></script>
+    <script src="js/controllers/ContactCtrl.js"></script>
+    <script src="js/controllers/AdmobCtrl.js"></script>
+    <script src="js/controllers/PushCtrl.js"></script>
+    <script src="js/controllers/MessagesCtrl.js"></script>
+    <script src="js/controllers/MessageCtrl.js"></script>
   </head>
   <body>
     <!--
