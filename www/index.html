@@ -1,56 +1,63 @@
 <!DOCTYPE html>
 <html ng-app="WflApp">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>MobSocial</title>
-    <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script>
-	 	google.load("feeds", "1");
-	 </script> 
-    <!-- ionic/angularjs js -->
-    <!-- TODO: make sure to replace this with ionic.bundle.min.js later -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <!-- your app's js -->
-    <script src="js/common/ng-cordova.min.js"></script>
-    <script src="cordova.js"></script>
-    <!-- main app js -->
-    <script src="js/modules/angular-ios9-uiwebview.patch.js"></script>
-    <script src="js/main/controllers.js"></script>
-    <script src="js/main/data.js"></script>
-    <!-- common js -->
-    <script src="js/common/push.js"></script>
-    <script src="js/common/app.js"></script>
-    <script src="js/common/router.js"></script>
-    <script src="js/common/filters.js"></script>
-    <script src="js/common/directives.js"></script>
-    <!-- your app's js -->
-    <!--This needs to be bundled later possibly with requirejs or grunt-->
-    <script src="js/controllers/MainCtrl.js"></script>
-    <script src="js/controllers/LoginCtrl.js"></script>
-    <script src="js/controllers/ForgotCtrl.js"></script>
-    <script src="js/controllers/FriendsCtrl.js"></script>
-    <script src="js/controllers/GalleryCtrl.js"></script>
-    <script src="js/controllers/IntroCtrl.js"></script>
-    <script src="js/controllers/ProfileCtrl.js"></script>
-    <script src="js/controllers/SignUpCtrl.js"></script>
-    <script src="js/controllers/SettingsCtrl.js"></script>
-    <script src="js/controllers/SocialProfileCtrl.js"></script>
-    <script src="js/controllers/ContactCtrl.js"></script>
-    <script src="js/controllers/AdmobCtrl.js"></script>
-    <script src="js/controllers/PushCtrl.js"></script>
-    <script src="js/controllers/MessagesCtrl.js"></script>
-    <script src="js/controllers/MessageCtrl.js"></script>
-  </head>
-  <body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>MobSocial</title>
+        <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script>
+            google.load("feeds", "1");
+        </script>
+        <!-- ionic/angularjs js -->
+        <!-- TODO: make sure to replace this with ionic.bundle.min.js later -->
+        <script src="lib/ionic/js/ionic.bundle.js"></script>
+        <!-- your app's js -->
+        <script src="js/common/ng-cordova.min.js"></script>
+        <script src="cordova.js"></script>
+        <!-- Firebase -->
+        <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+        <!-- AngularFire -->
+        <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+        <!-- main app js -->
+        <script src="js/modules/angular-ios9-uiwebview.patch.js"></script>
+        <script src="js/main/controllers.js"></script>
+        <script src="js/main/data.js"></script>
+        <!-- common js -->
+        <script src="js/common/push.js"></script>
+        <script src="js/common/app.js"></script>
+        <script src="js/common/router.js"></script>
+        <script src="js/common/filters.js"></script>
+        <script src="js/common/directives.js"></script>
+        <!-- your app's js -->
+        <!--This needs to be bundled later possibly with requirejs or grunt-->
+        <!--Controllers-->
+        <script src="js/controllers/MainCtrl.js"></script>
+        <script src="js/controllers/LoginCtrl.js"></script>
+        <script src="js/controllers/ForgotCtrl.js"></script>
+        <script src="js/controllers/FriendsCtrl.js"></script>
+        <script src="js/controllers/GalleryCtrl.js"></script>
+        <script src="js/controllers/IntroCtrl.js"></script>
+        <script src="js/controllers/ProfileCtrl.js"></script>
+        <script src="js/controllers/SignUpCtrl.js"></script>
+        <script src="js/controllers/SettingsCtrl.js"></script>
+        <script src="js/controllers/SocialProfileCtrl.js"></script>
+        <script src="js/controllers/ContactCtrl.js"></script>
+        <script src="js/controllers/AdmobCtrl.js"></script>
+        <script src="js/controllers/PushCtrl.js"></script>
+        <script src="js/controllers/MessagesCtrl.js"></script>
+        <script src="js/controllers/MessageCtrl.js"></script>
+        <!--Factories-->
+        <script src="js/factories/firebaseMain.js"></script>
+    </head>
+    <body>
     <!--
       The views will be rendered in the <ion-nav-view> directive below
       Templates are in the /templates folder (but you could also
       have templates inline in this html file if you'd like).
     -->
-    <ion-nav-view></ion-nav-view>
-  </body>
+        <ion-nav-view></ion-nav-view>
+    </body>
 </html>
