@@ -26,3 +26,7 @@ app.constant("PushNoti", {
 app.constant("FirebaseConfig", {
   "url": "https://dazzling-heat-6981.firebaseio.com"
 });
+//Facebook config
+app.constant("FbConfig", {
+  "permissions": ["public_profile", "email", "user_friends"]
+});

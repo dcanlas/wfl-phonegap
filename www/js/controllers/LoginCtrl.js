@@ -1,6 +1,6 @@
 // login page of app //
-app.controller('LoginCtrl', ['$state', '$scope', '$cordovaFacebook', '$cordovaToast', 'authService', 'firebaseMain', 'userService',
-    function($state, $scope, $cordovaFacebook, $cordovaToast, authService, firebaseMain, userService) {
+app.controller('LoginCtrl', ['$state', '$scope', '$cordovaToast', 'authService', 'firebaseMain', 'userService',
+    function($state, $scope, $cordovaToast, authService, firebaseMain, userService) {
 
         $scope.credentials = {
             email: "",
@@ -18,6 +18,16 @@ app.controller('LoginCtrl', ['$state', '$scope', '$cordovaFacebook', '$cordovaTo
                     $cordovaToast.showLongBottom(error.message);
                 });
 
+        };
+
+        $scope.doFbLogin = function doFbLogin() {
+            authService.authenticateFb().then(function success(authData) {
+                if (authData && authData.uid) {
+                    $state.go('app.features');
+                }
+            }, function err(error) {
+               $cordovaToast.showLongBottom("Error in fb login", error);
+            });
         };
 
         //Todo: we probably don't need this later but it is nice for testing

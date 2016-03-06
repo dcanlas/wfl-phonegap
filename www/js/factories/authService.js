@@ -1,5 +1,5 @@
-app.factory('authService', ['$q', '$rootScope', '$state', '$cordovaToast', '$firebaseAuth', 'firebaseMain', 'userService',
-    function authService($q, $rootScope, $state, $cordovaToast, $firebaseAuth, firebaseMain, userService) {
+app.factory('authService', ['$q', '$rootScope', '$state', '$cordovaFacebook', '$cordovaToast', 'FbConfig', '$firebaseAuth', 'firebaseMain', 'userService',
+    function authService($q, $rootScope, $state, $cordovaFacebook, $cordovaToast, FbConfig, $firebaseAuth, firebaseMain, userService) {
 
         var ref = firebaseMain.ref,
             authDeferred = $q.defer(),
@@ -10,6 +10,7 @@ app.factory('authService', ['$q', '$rootScope', '$state', '$cordovaToast', '$fir
                 getAuthentication: getAuthentication,
                 logout: logout,
                 authenticate: authenticate,
+                authenticateFb: authenticateFb,
                 authPromise: authDeferred.promise,
                 authenticated: false
             };
@@ -25,6 +26,29 @@ app.factory('authService', ['$q', '$rootScope', '$state', '$cordovaToast', '$fir
                 }
                 return authData;
             });
+        }
+
+        function fbAuthCb(error, authData) {
+            if (error) {
+                console.log('Firebase login failed! ', error);
+            }
+            else {
+                console.log("fb auth success, ", authData);
+            }
+        }
+
+        function authenticateFb() {
+            if (ionic.Platform.isWebView()) {
+                return $cordovaFacebook.login(FbConfig.permissions).then(function (success) {
+                    console.log("fb success: ", success);
+                    auth.$authWithOAuthToken('facebook', success.authResponse.accessToken, fbAuthCb);
+                }, function (error) {
+                    console.log('cordova auth error: ', error);
+                });
+            }
+            else {
+                return auth.$authWithOAuthPopup('facebook', fbAuthCb);
+            }
         }
 
         function userLoggedOut() {
