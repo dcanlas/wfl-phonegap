@@ -28,12 +28,25 @@ app.factory('authService', ['$q', '$rootScope', '$state', '$cordovaFacebook', '$
             });
         }
 
+        function setFbUser(authData) {
+            userService.getCurrentUser(authData.uid)
+                .then(function success(user) {
+                    userService.setCurrentUser(user);
+                }, function error(err) {
+                    console.log("error")
+                    if (err === "NO_USER") {
+
+                    }
+                });
+        }
+
         function fbAuthCb(error, authData) {
             if (error) {
                 console.log('Firebase login failed! ', error);
             }
             else {
                 console.log("fb auth success, ", authData);
+                setFbUser(authData);
             }
         }
 
@@ -54,7 +67,9 @@ app.factory('authService', ['$q', '$rootScope', '$state', '$cordovaFacebook', '$
         function userLoggedOut() {
             $state.go('app.login');
             userService.removeCurrentUser();
-            $cordovaToast.showLongBottom("Please login.");
+            if (!$rootScope.firstAuthCheck) {
+                $cordovaToast.showLongBottom("Please login.");
+            }
             //stop watching for auth changes.
             eventWatcher();
         }

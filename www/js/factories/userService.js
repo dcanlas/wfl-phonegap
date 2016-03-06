@@ -27,7 +27,7 @@ app.factory('userService',
                     deferred.resolve(user);
                 }
                 else {
-                    deferred.reject("no user found");
+                    deferred.reject("NO_USER");
                 }
             }, function err(error) {
                 deferred.reject(error);

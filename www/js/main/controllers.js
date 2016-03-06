@@ -41,10 +41,12 @@ app.run(function ($rootScope, $state, $cordovaToast, myPushNotification, authSer
     }
 
     //check if we are logged in
+    $rootScope.firstAuthCheck = true;
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
         if (!authService.authenticated && toState.name === 'app.login') {
             authService.getAuthentication();
             authService.authPromise.then(function suc(authData) {
+                $rootScope.firstAuthCheck = false;
                 $state.go('app.features');
                 event.preventDefault();
             }, function err(error) {
