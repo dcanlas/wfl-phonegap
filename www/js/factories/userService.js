@@ -35,12 +35,31 @@ app.factory('userService',
             return deferred.promise;
         }
 
+        function setCurrentUser(user) {
+            if (!currentUser) {
+                currentUser = user;
+                console.log("user has been set");
+            } else {
+                console.log("this should happen only once!");
+            }
+        }
+
+        function getCurrentUser() {
+            return currentUser;
+        }
+
+        function removeCurrentUser() {
+            currentUser = null;
+        }
+
 
         return {
             createUser: createUser,
             saveUser: saveUser,
             getUser: getUser,
-            currentUser: currentUser
+            setCurrentUser: setCurrentUser,
+            getCurrentUser: getCurrentUser,
+            removeCurrentUser: removeCurrentUser
         };
     }]
 );
