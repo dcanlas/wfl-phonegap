@@ -5,10 +5,10 @@
 				<img title="" alt="" src="img/logomain.png" class="">
 			</p>
 			<label class="item item-input">
-				<input type="email" placeholder="email">
+				<input ng-model="credentials.email" type="email" placeholder="email">
 			</label>
 			<label class="item item-input">
-				<input type="password" placeholder="password">
+				<input ng-model="credentials.password" type="password" placeholder="password">
 			</label>
 
 			<a ng-href="#/app/forgot" class="button button-clear button-block button-assertive">
@@ -16,6 +16,9 @@
 			</a>
 			<button ng-click="doLogin();" class="button button-block button-assertive">
 				LOGIN
+			</button>
+			<button ng-click="doFacebookLogin();" class="button button-block button-positive">
+				LOGIN w/ FACEBOOK
 			</button>
 			<button class="button button-clear button-block">
 				Don't have an account?

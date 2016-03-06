@@ -1,7 +1,9 @@
 app.factory('userService',
     ['$q', 'firebaseMain', function userService($q, firebaseMain) {
 
-        var ref = firebaseMain.userRef;
+        var ref = firebaseMain.userRef,
+            currentUser = null;
+
 
         function createUser(id, name, email, displayName, friends) {
             return {
@@ -37,7 +39,8 @@ app.factory('userService',
         return {
             createUser: createUser,
             saveUser: saveUser,
-            getUser: getUser
+            getUser: getUser,
+            currentUser: currentUser
         };
     }]
 );

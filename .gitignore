@@ -53,3 +53,8 @@ IOS/www/
 .idea/workspace.xml
 .idea/misc.xml
 .idea/*
+
+#ionic stuff
+platforms/*
+platforms
+.tmp
