@@ -1,5 +1,5 @@
-app.factory('userService',
-    ['$q', 'firebaseMain', function userService($q, firebaseMain) {
+app.factory('userService', ['$q', '$cordovaFacebook', 'firebaseMain',
+    function userService($q, $cordovaFacebook, firebaseMain) {
 
         var ref = firebaseMain.userRef,
             currentUser = null;
@@ -44,6 +44,15 @@ app.factory('userService',
             }
         }
 
+        function createFbUser() {
+            return $cordovaFacebook.api('me', ['public_profile', 'email'])
+                .then(function success(data) {
+                    console.log('fbdata: ', data);
+                }, function err(error) {
+                    console.log("cannot retrieve fb user: ", error);
+                })
+        }
+
         function getCurrentUser() {
             return currentUser;
         }
@@ -59,7 +68,8 @@ app.factory('userService',
             getUser: getUser,
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
-            removeCurrentUser: removeCurrentUser
+            removeCurrentUser: removeCurrentUser,
+            createFbUser: createFbUser
         };
     }]
 );

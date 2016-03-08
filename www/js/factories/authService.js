@@ -21,52 +21,54 @@ app.factory('authService', ['$q', '$rootScope', '$state', '$cordovaFacebook', '$
                 password: password
             }).then(function suc(authData) {
                 //set to see if user logs out somehow
-                if (!svc.authenticated) {
-                    getAuthentication();
-                }
+                getAuthentication();
                 return authData;
             });
         }
 
         function setFbUser(authData) {
-            userService.getCurrentUser(authData.uid)
+            console.log('being called here');
+            userService.getUser(authData.uid)
                 .then(function success(user) {
                     userService.setCurrentUser(user);
                 }, function error(err) {
-                    console.log("error")
+                    console.log("error", err);
                     if (err === "NO_USER") {
-
+                        //we don't have this user in our db yet, create user.
+                        userService.createFbUser();
                     }
                 });
-        }
-
-        function fbAuthCb(error, authData) {
-            if (error) {
-                console.log('Firebase login failed! ', error);
-            }
-            else {
-                console.log("fb auth success, ", authData);
-                setFbUser(authData);
-            }
         }
 
         function authenticateFb() {
             if (ionic.Platform.isWebView()) {
                 return $cordovaFacebook.login(FbConfig.permissions).then(function (success) {
-                    console.log("fb success: ", success);
-                    auth.$authWithOAuthToken('facebook', success.authResponse.accessToken, fbAuthCb);
+                    auth.$authWithOAuthToken('facebook', success.authResponse.accessToken)
+                        .then(function (authData) {
+                            console.log("fblogin it worked: ", authData);
+                        })
+                        .catch(function err(error) {
+                            console.log("fblogin went wrong, ", error);
+                        });
                 }, function (error) {
                     console.log('cordova auth error: ', error);
                 });
             }
             else {
-                return auth.$authWithOAuthPopup('facebook', fbAuthCb);
+                return auth.$authWithOAuthPopup('facebook')
+                    .then(function (authData) {
+                        console.log("fblogin it worked: ", authData);
+                    })
+                    .catch(function err(error) {
+                        console.log("fblogin went wrong, ", error);
+                    });
             }
         }
 
         function userLoggedOut() {
             $state.go('app.login');
             userService.removeCurrentUser();
+            //we need this so that the toast doesn't show on app load.
             if (!$rootScope.firstAuthCheck) {
                 $cordovaToast.showLongBottom("Please login.");
             }
@@ -77,11 +79,17 @@ app.factory('authService', ['$q', '$rootScope', '$state', '$cordovaFacebook', '$
         onAuthCallback = function(authData) {
             if (authData) {
                 authDeferred.resolve(authData);
+                console.log("authData: ", authData);
                 svc.authenticated = true;
-                userService.getUser(authData.uid)
-                    .then(function(user) {
-                        userService.setCurrentUser(user);
-                    });
+                if (authData.provider === 'facebook') {
+                    setFbUser(authData);
+                }
+                else {
+                    userService.getUser(authData.uid)
+                        .then(function(user) {
+                            userService.setCurrentUser(user);
+                        });
+                }
             }
             else {
                 authDeferred.reject("User is logged out");
