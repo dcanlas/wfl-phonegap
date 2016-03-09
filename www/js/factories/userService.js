@@ -44,10 +44,12 @@ app.factory('userService', ['$q', '$cordovaFacebook', 'firebaseMain',
             }
         }
 
-        function createFbUser() {
-            return $cordovaFacebook.api('me', ['public_profile', 'email'])
+        function createFbUser(authData) {
+            return $cordovaFacebook.api('me?fields=name,email', ['public_profile', 'email'])
                 .then(function success(data) {
-                    console.log('fbdata: ', data);
+                    var user = createUser(authData.uid, data.name, data.email, data.name.toLowerCase());
+                    user.fbId = data.id
+                    return saveUser(user);
                 }, function err(error) {
                     console.log("cannot retrieve fb user: ", error);
                 })

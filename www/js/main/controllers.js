@@ -74,10 +74,10 @@ app.config(function($ionicConfigProvider) {
 /* Features Controller */
 app.controller('FeaturesCtrl', ['$scope', 'Features', function($scope, Features) {
     $scope.items = Features.items;
-}])
+}]);
 /* About us Controller */
 app.controller('AboutCtrl', ['$scope', function($scope) {
-}])
+}]);
 
 
 

@@ -26,26 +26,13 @@ app.factory('authService', ['$q', '$rootScope', '$state', '$cordovaFacebook', '$
             });
         }
 
-        function setFbUser(authData) {
-            console.log('being called here');
-            userService.getUser(authData.uid)
-                .then(function success(user) {
-                    userService.setCurrentUser(user);
-                }, function error(err) {
-                    console.log("error", err);
-                    if (err === "NO_USER") {
-                        //we don't have this user in our db yet, create user.
-                        userService.createFbUser();
-                    }
-                });
-        }
-
         function authenticateFb() {
             if (ionic.Platform.isWebView()) {
                 return $cordovaFacebook.login(FbConfig.permissions).then(function (success) {
-                    auth.$authWithOAuthToken('facebook', success.authResponse.accessToken)
+                    return auth.$authWithOAuthToken('facebook', success.authResponse.accessToken)
                         .then(function (authData) {
-                            console.log("fblogin it worked: ", authData);
+                            getAuthentication();
+                            return authData;
                         })
                         .catch(function err(error) {
                             console.log("fblogin went wrong, ", error);
@@ -57,12 +44,26 @@ app.factory('authService', ['$q', '$rootScope', '$state', '$cordovaFacebook', '$
             else {
                 return auth.$authWithOAuthPopup('facebook')
                     .then(function (authData) {
-                        console.log("fblogin it worked: ", authData);
+                        getAuthentication();
+                        return authData;
                     })
                     .catch(function err(error) {
                         console.log("fblogin went wrong, ", error);
                     });
             }
+        }
+
+        function setFbUser(authData) {
+            userService.getUser(authData.uid)
+                .then(function success(user) {
+                    userService.setCurrentUser(user);
+                }, function error(err) {
+                    console.log("error", err);
+                    if (err === "NO_USER") {
+                        //we don't have this user in our db yet, create user.
+                        userService.createFbUser(authData);
+                    }
+                });
         }
 
         function userLoggedOut() {
