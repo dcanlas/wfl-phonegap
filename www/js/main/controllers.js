@@ -43,11 +43,11 @@ app.run(function ($rootScope, $state, $cordovaToast, myPushNotification, authSer
     //check if we are logged in
     $rootScope.firstAuthCheck = true;
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-        if (!authService.authenticated && toState.name === 'app.login') {
+        if (!authService.authenticated && toState.name === 'login') {
             authService.getAuthentication();
             authService.authPromise.then(function suc(authData) {
                 $rootScope.firstAuthCheck = false;
-                $state.go('app.features');
+                $state.go('dashboard.messages');
                 event.preventDefault();
             }, function err(error) {
                 //user needs to login first
@@ -68,6 +68,7 @@ app.service('myService', ['$http', function($http) {
 // logo in back button can be replaced from /templates/sidebar-menu.html file
 app.config(function($ionicConfigProvider) {
     $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back').previousTitleText(false);
+    $ionicConfigProvider.tabs.position('bottom');
 });
 
 
