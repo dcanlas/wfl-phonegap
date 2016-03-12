@@ -43,15 +43,19 @@ app.run(function ($rootScope, $state, $cordovaToast, myPushNotification, authSer
     //check if we are logged in
     $rootScope.firstAuthCheck = true;
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-        if (!authService.authenticated && toState.name === 'login') {
+        if ($rootScope.firstAuthCheck && !authService.authenticated && toState.name === 'login') {
+            console.log("im getting here ");
             authService.getAuthentication();
+            $rootScope.firstAuthCheck = false;
             authService.authPromise.then(function suc(authData) {
-                $rootScope.firstAuthCheck = false;
+                console.log("and here");
                 $state.go('dashboard.messages');
                 event.preventDefault();
             }, function err(error) {
+                console.log("freaking here");
                 //user needs to login first
-                $state.go('app.login');
+                //event.preventDefault();
+                //$state.go('login');
             });
         }
     });

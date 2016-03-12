@@ -20,6 +20,7 @@ app.controller('SignUpCtrl', ['$state', '$scope', '$cordovaToast', 'firebaseMain
                 userService.saveUser(myUser)
                     .then(function(user) {
                         console.log('save user success');
+                        $state.go('login');
                         $cordovaToast.showLongBottom("Registration successful!");
                     }, function err(error) {
                         console.log(error);

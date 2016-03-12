@@ -67,7 +67,7 @@ app.factory('authService', ['$q', '$rootScope', '$state', '$cordovaFacebook', '$
         }
 
         function userLoggedOut() {
-            $state.go('app.login');
+            $state.go('login');
             userService.removeCurrentUser();
             //we need this so that the toast doesn't show on app load.
             if (!$rootScope.firstAuthCheck) {

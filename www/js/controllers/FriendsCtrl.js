@@ -25,5 +25,9 @@ app.controller('FriendsCtrl', ['$scope', 'Friends', function($scope, Friends) {
         $scope.postsCompleted = false;
         $scope.getPosts();
         $scope.$broadcast('scroll.refreshComplete');
-    }
+    };
+
+    $scope.addFriend = function addFriend() {
+        return false;
+    };
 }]);
