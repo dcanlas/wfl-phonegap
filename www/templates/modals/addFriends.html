@@ -1,0 +1,20 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-light bar-header item-input-inset">
+        <form ng-submit="searchUser()" class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" placeholder="Search" ng-model="modalValues.searchTerm">
+        </form>
+        <button class="button button-clear"
+                ng-click="closeModal()">
+            Cancel
+        </button>
+    </ion-header-bar>
+    <ion-content>
+
+        <ion-list>
+            <ion-item ng-repeat="user in userResult">
+                {{user.name}}
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-modal-view>
