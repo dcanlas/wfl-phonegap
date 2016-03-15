@@ -12,9 +12,17 @@
     <ion-content>
 
         <ion-list>
-            <ion-item ng-repeat="user in userResult">
-                {{user.name}}
+            <ion-item class="item-avatar item-button-right"
+                      ng-repeat="user in userResult"
+                      ng-if="user.id !== currentUser.id">
+                <img ng-if="user.picUrl" ng-src="{{user.picUrl}}" alt="profile" />
+                <img ng-if="!user.picUrl" src="http://3.bp.blogspot.com/-zR75pEKCSSU/VYGjwNogrmI/AAAAAAAAA1Y/xgPrSXra3fE/s200-c/darts-102919_1280.jpg" alt="profile" />
+                <h2 class="item-text-center item-text-wrap">{{user.name}}</h2>
+                <button class="button button-clear ion-plus-round"
+                        ng-click="addFriend(user)">
+                </button>
             </ion-item>
         </ion-list>
+        <h2 ng-show="noUserResult">No users found.</h2>
     </ion-content>
 </ion-modal-view>

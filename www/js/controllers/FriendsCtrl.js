@@ -1,11 +1,13 @@
 /* Friends controller */
-app.controller('FriendsCtrl', ['$cordovaToast', '$firebaseArray', '$ionicModal', '$scope', 'firebaseMain', 'Friends',
-    function($cordovaToast, $firebaseArray, $ionicModal, $scope, firebaseMain, Friends) {
+app.controller('FriendsCtrl', ['$cordovaToast', '$firebaseArray', '$ionicModal', '$scope', 'firebaseMain', 'userService', 'Friends',
+    function($cordovaToast, $firebaseArray, $ionicModal, $scope, firebaseMain, userService, Friends) {
 
         //Page variables
         $scope.items = [];
         $scope.times = 0 ;
         $scope.postsCompleted = false;
+        $scope.currentUser = userService.getCurrentUser();
+        $scope.noUserResult = false;
 
         //Modal variables
         $scope.modalValues = {
@@ -21,6 +23,15 @@ app.controller('FriendsCtrl', ['$cordovaToast', '$firebaseArray', '$ionicModal',
             else {
                 var query = firebaseMain.userRef.orderByChild("displayName").startAt(term).endAt(term + '\uf8ff');
                 $scope.userResult = $firebaseArray(query);
+                $scope.userResult.$loaded(function() {
+                    console.log("result updated");
+                    if ($scope.userResult.length === 0) {
+                        $scope.noUserResult = true;
+                    }
+                    else {
+                        $scope.noUserResult = false;
+                    }
+                });
             }
         };
 
@@ -55,6 +66,15 @@ app.controller('FriendsCtrl', ['$cordovaToast', '$firebaseArray', '$ionicModal',
             $scope.postsCompleted = false;
             $scope.getPosts();
             $scope.$broadcast('scroll.refreshComplete');
+        };
+
+        $scope.addFriend = function addFriend(friend) {
+            return userService.addFriendToUser(friend)
+                .then(function success() {
+                    console.log("added friend ", friend);
+                }, function err(error) {
+                    console.log("add failed ", error);
+                });
         };
 
         $scope.addFriendModal = function addFriendModal() {
