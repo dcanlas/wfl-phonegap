@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
         <title>WFL</title>
-        <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
+        <!-- compiled css output -->
+        <link href="css/ionic.app.css" rel="stylesheet">
 
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script>
@@ -33,26 +33,27 @@
         <script src="js/common/directives.js"></script>
         <!-- your app's js -->
         <!--This needs to be bundled later possibly with requirejs or grunt-->
-        <!--Controllers-->
-        <script src="js/controllers/MainCtrl.js"></script>
-        <script src="js/controllers/LoginCtrl.js"></script>
+        <!-- inject:js -->
+        <script src="js/controllers/AdmobCtrl.js"></script>
+        <script src="js/controllers/ContactCtrl.js"></script>
         <script src="js/controllers/ForgotCtrl.js"></script>
         <script src="js/controllers/FriendsCtrl.js"></script>
         <script src="js/controllers/GalleryCtrl.js"></script>
         <script src="js/controllers/IntroCtrl.js"></script>
-        <script src="js/controllers/ProfileCtrl.js"></script>
-        <script src="js/controllers/SignUpCtrl.js"></script>
-        <script src="js/controllers/SettingsCtrl.js"></script>
-        <script src="js/controllers/SocialProfileCtrl.js"></script>
-        <script src="js/controllers/ContactCtrl.js"></script>
-        <script src="js/controllers/AdmobCtrl.js"></script>
-        <script src="js/controllers/PushCtrl.js"></script>
-        <script src="js/controllers/MessagesCtrl.js"></script>
+        <script src="js/controllers/LoginCtrl.js"></script>
+        <script src="js/controllers/MainCtrl.js"></script>
         <script src="js/controllers/MessageCtrl.js"></script>
-        <!--Factories-->
+        <script src="js/controllers/MessagesCtrl.js"></script>
+        <script src="js/controllers/ProfileCtrl.js"></script>
+        <script src="js/controllers/PushCtrl.js"></script>
+        <script src="js/controllers/SettingsCtrl.js"></script>
+        <script src="js/controllers/SignUpCtrl.js"></script>
+        <script src="js/controllers/SocialProfileCtrl.js"></script>
+        <script src="js/factories/authService.js"></script>
         <script src="js/factories/firebaseMain.js"></script>
         <script src="js/factories/userService.js"></script>
-        <script src="js/factories/authService.js"></script>
+        <!-- endinject -->
+
     </head>
     <body>
     <!--

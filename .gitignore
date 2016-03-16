@@ -58,3 +58,7 @@ IOS/www/
 platforms/*
 platforms
 .tmp
+
+#node stuff
+node_modules
+node_modules/*

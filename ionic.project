@@ -1,4 +1,13 @@
 {
   "name": "WFL",
-  "app_id": "0456a947"
+  "app_id": "0456a947",
+  "gulpStartupTasks": [
+    "sass",
+    "watch",
+    "index"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }
