@@ -5,21 +5,22 @@
         </button>
     </ion-nav-buttons>
     <ion-content class="post-content">
+        <!--Todo: we probably don't need this refresher-->
         <ion-refresher
                 pulling-text="Pull to refresh..."
                 on-refresh="doRefresh()">
         </ion-refresher>
-        <div class="list card">
-            <a href="#/dashboard/profile" class="item item-avatar" ng-repeat="item in items">
-                <img ng-src="{{item.image}}"></img>
-                <h2>{{item.title}}</h2>
-                <h2>@{{item.title}}</h2>
-            </a>
-        </div>
-        <ion-infinite-scroll
-                ng-if="postsCompleted == false"
-                on-infinite="getPosts()"
-                distance="10%">
-        </ion-infinite-scroll>
+        <ion-list>
+            <ion-item class="item-avatar item-button-right"
+                      ng-repeat="friend in friends">
+                <img ng-if="friend.picUrl" ng-src="{{friend.picUrl}}" alt="profile" />
+                <img ng-if="!friend.picUrl" src="http://3.bp.blogspot.com/-zR75pEKCSSU/VYGjwNogrmI/AAAAAAAAA1Y/xgPrSXra3fE/s200-c/darts-102919_1280.jpg" alt="profile" />
+                <h2>{{friend.name}}</h2>
+                <p>some stuff here later</p>
+                <button class="button button-clear">
+                    foo
+                </button>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>

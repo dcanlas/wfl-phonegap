@@ -66,6 +66,10 @@ app.factory('userService', ['$q', '$firebaseObject', '$cordovaFacebook', 'fireba
             currentUser = null;
         }
 
+        function getCurrentUserRef() {
+            return currentUserRef;
+        }
+
         function addFriendToUser(friend) {
             var updateObj = {},
                 userPath = currentUser.id + "/friends/" + friend.id,
@@ -85,7 +89,8 @@ app.factory('userService', ['$q', '$firebaseObject', '$cordovaFacebook', 'fireba
             getCurrentUser: getCurrentUser,
             removeCurrentUser: removeCurrentUser,
             createFbUser: createFbUser,
-            addFriendToUser: addFriendToUser
+            addFriendToUser: addFriendToUser,
+            getCurrentUserRef: getCurrentUserRef
         };
     }]
 );

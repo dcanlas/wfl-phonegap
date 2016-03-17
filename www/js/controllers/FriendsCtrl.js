@@ -2,12 +2,23 @@
 app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicModal', '$scope', 'firebaseMain', 'userService', 'Friends',
     function(_, $cordovaToast, $firebaseArray, $ionicModal, $scope, firebaseMain, userService, Friends) {
 
+        //Controller variables
+        var friendsRef = userService.getCurrentUserRef().child('friends');
+
         //Page variables
         $scope.items = [];
         $scope.times = 0 ;
         $scope.postsCompleted = false;
         $scope.currentUser = userService.getCurrentUser();
         $scope.noUserResult = false;
+
+        //Note: by using $firebaseArray, this object is sync with server so it auto-updates
+        $scope.friends = $firebaseArray(friendsRef);
+
+        $scope.friends.$loaded(function () {
+            //Add something here later?
+            console.log("it loaded:", $scope.friends);
+        });
 
         //Modal variables
         $scope.modalValues = {
@@ -41,7 +52,30 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicMo
             $scope.addModal = modal;
         });
 
+        $scope.addFriend = function addFriend(friend) {
+            return userService.addFriendToUser(friend)
+                .then(function success() {
+                    console.log("added friend ", friend);
+                }, function err(error) {
+                    console.log("add failed ", error);
+                });
+        };
+
+        $scope.addFriendModal = function addFriendModal() {
+            $scope.addModal.show();
+        };
+
+        $scope.closeModal = function closeModal() {
+            $scope.addModal.hide();
+        };
+
+        $scope.$on('$destroy', function() {
+            $scope.addModal.remove();
+        });
+
         // load more content function
+        //below is for delayed infinite scrolling which is unused right now
+        //uses ion-infinite-scroll
         $scope.getPosts = function(){
             Friends.getFriends()
                 .success(function (posts) {
@@ -64,26 +98,5 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicMo
             $scope.getPosts();
             $scope.$broadcast('scroll.refreshComplete');
         };
-
-        $scope.addFriend = function addFriend(friend) {
-            return userService.addFriendToUser(friend)
-                .then(function success() {
-                    console.log("added friend ", friend);
-                }, function err(error) {
-                    console.log("add failed ", error);
-                });
-        };
-
-        $scope.addFriendModal = function addFriendModal() {
-            $scope.addModal.show();
-        };
-
-        $scope.closeModal = function closeModal() {
-            $scope.addModal.hide();
-        }
-
-        $scope.$on('$destroy', function() {
-            $scope.addModal.remove();
-        });
     }
 ]);
