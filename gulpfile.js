@@ -29,8 +29,7 @@ gulp.task('index', function(){
 gulp.task('watch', function() {
     gulp.watch(paths.sass, ['sass']);
     gulp.watch([
-        paths.javascript,
-        paths.css
+        paths.javascript
     ], ['index']);
 });
 

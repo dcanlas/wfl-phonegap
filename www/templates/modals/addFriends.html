@@ -13,8 +13,7 @@
 
         <ion-list>
             <ion-item class="item-avatar item-button-right"
-                      ng-repeat="user in userResult"
-                      ng-if="user.id !== currentUser.id">
+                      ng-repeat="user in userResult">
                 <img ng-if="user.picUrl" ng-src="{{user.picUrl}}" alt="profile" />
                 <img ng-if="!user.picUrl" src="http://3.bp.blogspot.com/-zR75pEKCSSU/VYGjwNogrmI/AAAAAAAAA1Y/xgPrSXra3fE/s200-c/darts-102919_1280.jpg" alt="profile" />
                 <h2 class="item-text-center item-text-wrap">{{user.name}}</h2>

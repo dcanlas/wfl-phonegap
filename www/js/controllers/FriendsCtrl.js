@@ -1,6 +1,6 @@
 /* Friends controller */
-app.controller('FriendsCtrl', ['$cordovaToast', '$firebaseArray', '$ionicModal', '$scope', 'firebaseMain', 'userService', 'Friends',
-    function($cordovaToast, $firebaseArray, $ionicModal, $scope, firebaseMain, userService, Friends) {
+app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicModal', '$scope', 'firebaseMain', 'userService', 'Friends',
+    function(_, $cordovaToast, $firebaseArray, $ionicModal, $scope, firebaseMain, userService, Friends) {
 
         //Page variables
         $scope.items = [];
@@ -22,15 +22,12 @@ app.controller('FriendsCtrl', ['$cordovaToast', '$firebaseArray', '$ionicModal',
             }
             else {
                 var query = firebaseMain.userRef.orderByChild("displayName").startAt(term).endAt(term + '\uf8ff');
-                $scope.userResult = $firebaseArray(query);
-                $scope.userResult.$loaded(function() {
-                    console.log("result updated");
-                    if ($scope.userResult.length === 0) {
-                        $scope.noUserResult = true;
-                    }
-                    else {
-                        $scope.noUserResult = false;
-                    }
+                var initResults = $firebaseArray(query);
+                initResults.$loaded(function() {
+                    $scope.userResult = _.filter(initResults, function(item) {
+                        return item.id !== $scope.currentUser.id;
+                    });
+                    $scope.noUserResult = $scope.userResult.length === 0;
                 });
             }
         };
