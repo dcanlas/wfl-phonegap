@@ -1,15 +1,10 @@
-<ion-view view-title="Friends">
+<ion-view view-title="WFL">
     <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-person-add"
                 ng-click="addFriendModal()">
         </button>
     </ion-nav-buttons>
     <ion-content class="post-content">
-        <!--Todo: we probably don't need this refresher-->
-        <ion-refresher
-                pulling-text="Pull to refresh..."
-                on-refresh="doRefresh()">
-        </ion-refresher>
         <ion-list>
             <ion-item class="item-avatar item-button-right"
                       ng-repeat="friend in friends">

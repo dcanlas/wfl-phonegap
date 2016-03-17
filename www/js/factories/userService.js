@@ -2,6 +2,7 @@ app.factory('userService', ['$q', '$firebaseObject', '$cordovaFacebook', 'fireba
     function userService($q, $firebaseObject, $cordovaFacebook, firebaseMain) {
 
         var ref = firebaseMain.userRef,
+            userSetDeferred = $q.defer(),
             currentUser = null,
             currentUserRef = null; //a firebase ref to the user object
 
@@ -40,6 +41,7 @@ app.factory('userService', ['$q', '$firebaseObject', '$cordovaFacebook', 'fireba
             if (!currentUser) {
                 currentUser = $firebaseObject(ref.child(user.id));
                 currentUserRef = ref.child(user.id);
+                userSetDeferred.resolve(currentUser);
                 console.log("user has been set");
             } else {
                 console.log("this should happen only once!");
@@ -90,7 +92,8 @@ app.factory('userService', ['$q', '$firebaseObject', '$cordovaFacebook', 'fireba
             removeCurrentUser: removeCurrentUser,
             createFbUser: createFbUser,
             addFriendToUser: addFriendToUser,
-            getCurrentUserRef: getCurrentUserRef
+            getCurrentUserRef: getCurrentUserRef,
+            waitForUserSet: userSetDeferred.promise
         };
     }]
 );

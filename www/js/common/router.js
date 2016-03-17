@@ -24,22 +24,22 @@ app.config(function($stateProvider, $urlRouterProvider) {
             abstract: true,
             templateUrl: "templates/dashboard.html"
         })
+        // friends page
+        .state('dashboard.friends', {
+            url: "/friends",
+            views: {
+                'friends-list' :{
+                    templateUrl: "templates/friends.html",
+                    controller: "FriendsCtrl"
+                }
+            }
+        })
         .state('dashboard.messages', {
             url: "/messages",
             views: {
                 'messages-tab' :{
                     templateUrl: "templates/messages.html",
                     controller: "MessagesCtrl"
-                }
-            }
-        })
-        // friends page
-        .state('dashboard.friends', {
-            url: "/friends",
-            views: {
-                'friends-tab' :{
-                    templateUrl: "templates/friends.html",
-                    controller: "FriendsCtrl"
                 }
             }
         })

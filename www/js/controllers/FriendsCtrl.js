@@ -3,7 +3,7 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicMo
     function(_, $cordovaToast, $firebaseArray, $ionicModal, $scope, firebaseMain, userService, Friends) {
 
         //Controller variables
-        var friendsRef = userService.getCurrentUserRef().child('friends');
+        var friendsRef;
 
         //Page variables
         $scope.items = [];
@@ -12,12 +12,14 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicMo
         $scope.currentUser = userService.getCurrentUser();
         $scope.noUserResult = false;
 
-        //Note: by using $firebaseArray, this object is sync with server so it auto-updates
-        $scope.friends = $firebaseArray(friendsRef);
-
-        $scope.friends.$loaded(function () {
-            //Add something here later?
-            console.log("it loaded:", $scope.friends);
+        userService.waitForUserSet.then(function() {
+            friendsRef = userService.getCurrentUserRef().child('friends');
+            //Note: by using $firebaseArray, this object is sync with server so it auto-updates
+            $scope.friends = $firebaseArray(friendsRef);
+            $scope.friends.$loaded(function () {
+                //Add something here later?
+                console.log("it loaded:", $scope.friends);
+            });
         });
 
         //Modal variables

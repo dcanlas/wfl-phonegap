@@ -47,7 +47,7 @@ app.run(function ($rootScope, $state, $cordovaToast, myPushNotification, authSer
             authService.getAuthentication();
             $rootScope.firstAuthCheck = false;
             authService.authPromise.then(function suc(authData) {
-                $state.go('dashboard.messages');
+                $state.go('dashboard.friends');
                 event.preventDefault();
             }, function err(error) {
                 console.log("user not authenticated");
