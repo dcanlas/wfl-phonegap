@@ -28,9 +28,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('dashboard.friends', {
             url: "/friends",
             views: {
-                'friends-list' :{
+                'pageContent' :{
                     templateUrl: "templates/friends.html",
                     controller: "FriendsCtrl"
+                }
+            }
+        })
+        .state('dashboard.message', {
+            url: "/message",
+            views: {
+                'pageContent' :{
+                    templateUrl: "templates/message.html",
+                    controller: "MessageCtrl"
                 }
             }
         })
@@ -70,17 +79,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     controller: "ContactCtrl"
                 }
             }
-        })
-
-        .state('app.message', {
-            url: "/message",
-            views: {
-                'menuContent' :{
-                    templateUrl: "templates/message.html",
-                    controller: "MessageCtrl"
-                }
-            }
         });
+
     //  login page
     $urlRouterProvider.otherwise("/login");
 });

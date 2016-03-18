@@ -1,6 +1,6 @@
 /* Friends controller */
-app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicModal', '$scope', 'firebaseMain', 'userService', 'Friends',
-    function(_, $cordovaToast, $firebaseArray, $ionicModal, $scope, firebaseMain, userService, Friends) {
+app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicModal', '$scope', '$state', 'firebaseMain', 'userService', 'Friends',
+    function(_, $cordovaToast, $firebaseArray, $ionicModal, $scope, $state, firebaseMain, userService, Friends) {
 
         //Controller variables
         var friendsRef;
@@ -9,10 +9,10 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicMo
         $scope.items = [];
         $scope.times = 0 ;
         $scope.postsCompleted = false;
-        $scope.currentUser = userService.getCurrentUser();
         $scope.noUserResult = false;
 
         userService.waitForUserSet.then(function() {
+            $scope.currentUser = userService.getCurrentUser();
             friendsRef = userService.getCurrentUserRef().child('friends');
             //Note: by using $firebaseArray, this object is sync with server so it auto-updates
             $scope.friends = $firebaseArray(friendsRef);
@@ -21,6 +21,12 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicMo
                 console.log("it loaded:", $scope.friends);
             });
         });
+
+        //actions on friends
+        $scope.sendMessage = function sendMessage(user) {
+            console.log("send to user: ", user);
+            $state.go('dashboard.message');
+        };
 
         //Modal variables
         $scope.modalValues = {

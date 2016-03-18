@@ -4,17 +4,38 @@
                 ng-click="addFriendModal()">
         </button>
     </ion-nav-buttons>
-    <ion-content class="post-content">
-        <ion-list>
-            <ion-item class="item-avatar item-button-right"
-                      ng-repeat="friend in friends">
-                <img ng-if="friend.picUrl" ng-src="{{friend.picUrl}}" alt="profile" />
-                <img ng-if="!friend.picUrl" src="http://3.bp.blogspot.com/-zR75pEKCSSU/VYGjwNogrmI/AAAAAAAAA1Y/xgPrSXra3fE/s200-c/darts-102919_1280.jpg" alt="profile" />
-                <h2>{{friend.name}}</h2>
-                <p>some stuff here later</p>
+    <ion-content id="friends-page" class="post-content">
+        <div class="item friend-item user-item">
+            <div class="food-image"></div>
+            <div class="user-image">
+                <img ng-if="currentUser.picUrl" ng-src="{{currentUser.picUrl}}" alt="profile" />
+                <img ng-if="!currentUser.picUrl" src="http://3.bp.blogspot.com/-zR75pEKCSSU/VYGjwNogrmI/AAAAAAAAA1Y/xgPrSXra3fE/s200-c/darts-102919_1280.jpg" alt="profile" />
+            </div>
+            <h2 class="user-name">{{currentUser.name}}</h2>
+            <p class="user-desc">some stuff here</p>
+            <div class="actions">
                 <button class="button button-clear">
                     foo
                 </button>
+            </div>
+        </div>
+        <ion-list>
+            <ion-item class="friend-item"
+                      ng-repeat="friend in friends">
+                <div class="food-image"></div>
+                <div class="user-image">
+                    <img ng-if="friend.picUrl" ng-src="{{friend.picUrl}}" alt="profile" />
+                    <img ng-if="!friend.picUrl" src="http://3.bp.blogspot.com/-zR75pEKCSSU/VYGjwNogrmI/AAAAAAAAA1Y/xgPrSXra3fE/s200-c/darts-102919_1280.jpg" alt="profile" />
+                </div>
+                <div class="text-container" ng-click="sendMessage(friend)">
+                    <h2>{{friend.name}}</h2>
+                    <p>some stuff here later</p>
+                </div>
+                <div class="actions">
+                    <button class="button button-clear">
+                        foo
+                    </button>
+                </div>
             </ion-item>
         </ion-list>
     </ion-content>
