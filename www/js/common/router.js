@@ -22,7 +22,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('dashboard', {
             url: "/dashboard",
             abstract: true,
-            templateUrl: "templates/dashboard.html"
+            templateUrl: "templates/dashboard.html",
+            resolve: {
+                //we need to inject userSet into child controllers so we can wait for it
+                userSet: ['userService', function(userService) {
+                    //this basically waits for user to be set before even showing dashboard
+                    return userService.waitForUserSet;
+                }]
+            }
         })
         // friends page
         .state('dashboard.friends', {
@@ -35,7 +42,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
         .state('dashboard.message', {
-            url: "/message",
+            url: "/message/{friendId}",
             views: {
                 'pageContent' :{
                     templateUrl: "templates/message.html",

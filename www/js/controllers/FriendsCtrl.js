@@ -1,6 +1,6 @@
 /* Friends controller */
-app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicModal', '$scope', '$state', 'firebaseMain', 'userService', 'Friends',
-    function(_, $cordovaToast, $firebaseArray, $ionicModal, $scope, $state, firebaseMain, userService, Friends) {
+app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicModal', '$scope', '$state', 'firebaseMain', 'userService', 'userSet', 'Friends',
+    function FriendsCtrlFunction(_, $cordovaToast, $firebaseArray, $ionicModal, $scope, $state, firebaseMain, userService, userSet, Friends) {
 
         //Controller variables
         var friendsRef;
@@ -11,21 +11,19 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicMo
         $scope.postsCompleted = false;
         $scope.noUserResult = false;
 
-        userService.waitForUserSet.then(function() {
-            $scope.currentUser = userService.getCurrentUser();
-            friendsRef = userService.getCurrentUserRef().child('friends');
-            //Note: by using $firebaseArray, this object is sync with server so it auto-updates
-            $scope.friends = $firebaseArray(friendsRef);
-            $scope.friends.$loaded(function () {
-                //Add something here later?
-                console.log("it loaded:", $scope.friends);
-            });
+        $scope.currentUser = userService.getCurrentUser();
+        friendsRef = userService.getCurrentUserRef().child('friends');
+        //Note: by using $firebaseArray, this object is sync with server so it auto-updates
+        $scope.friends = $firebaseArray(friendsRef);
+        $scope.friends.$loaded(function () {
+            //Add something here later?
+            console.log("it loaded:", $scope.friends);
         });
 
         //actions on friends
         $scope.sendMessage = function sendMessage(user) {
             console.log("send to user: ", user);
-            $state.go('dashboard.message');
+            $state.go('dashboard.message', {friendId: user.$id});
         };
 
         //Modal variables
