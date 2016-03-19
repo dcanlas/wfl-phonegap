@@ -4,7 +4,7 @@
                 ng-click="addFriendModal()">
         </button>
     </ion-nav-buttons>
-    <ion-content id="friends-page" class="post-content">
+    <ion-content id="friends-page" class="post-content has-footer">
         <div class="item friend-item user-item">
             <div class="food-image"></div>
             <div class="user-image">
@@ -21,7 +21,7 @@
         </div>
         <ion-list>
             <ion-item class="friend-item"
-                      ng-repeat="friend in friends">
+                      ng-repeat="friend in friends | filter : searchFriend">
                 <div class="food-image"></div>
                 <div class="user-image">
                     <img ng-if="friend.picUrl" ng-src="{{friend.picUrl}}" alt="profile" />
@@ -39,4 +39,10 @@
             </ion-item>
         </ion-list>
     </ion-content>
+    <ion-footer-bar class="bar-light item-input-inset">
+        <label class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" placeholder="Type friend name to search" ng-model="searchFriend">
+        </label>
+    </ion-footer-bar>
 </ion-view>

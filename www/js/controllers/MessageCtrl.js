@@ -1,11 +1,29 @@
 // single message
-app.controller('MessageCtrl', ['$ionicScrollDelegate', '$scope', '$stateParams', 'messageService', 'userSet', 'Messages',
-    function messageCtrlFunction($ionicScrollDelegate, $scope, $stateParams, messageService, userSet, Messages){
+app.controller('MessageCtrl', ['_', '$ionicScrollDelegate', '$firebaseObject', '$scope', '$stateParams', 'firebaseMain', 'messageService', 'userSet',
+    function messageCtrlFunction(_, $ionicScrollDelegate, $firebaseObject, $scope, $stateParams, firebaseMain, messageService, userSet){
 
-        messageService.getMessagesWithFriend($stateParams.friendId)
-            .then(function(data) {
-                console.log("my messages: ", data.messages);
-            });
+        $scope.messages = [];
+        $scope.postsCompleted = false; //this is for infinite scrolling later
+
+        //get our friend object
+        var friendRef = firebaseMain.userRef.child($stateParams.friendId);
+        $scope.friendObj = $firebaseObject(friendRef);
+
+        // load more content function
+        $scope.getMessages = function getMessages() {
+            messageService.getMessagesWithFriend($stateParams.friendId)
+                .then(function (data) {
+                    console.log("my messages: ", data.messages);
+                    var messages = _.filter(data.messages, function (msg) {
+                        return msg.$id !== 'tempMessage';
+                    });
+                    $scope.messages = $scope.messages.concat(messages);
+                    console.log('messages ', $scope.messages);
+                    $ionicScrollDelegate.scrollBottom();
+                    //todo: paginate stuff later, we just pull all messages for now.
+                    $scope.postsCompleted = true;
+                });
+        };
 
 
         /*
@@ -13,27 +31,11 @@ app.controller('MessageCtrl', ['$ionicScrollDelegate', '$scope', '$stateParams',
         ------------------
          */
 
-        $scope.messages = [];
-        $scope.postsCompleted = false;
-        // load more content function
-        $scope.getPosts = function(){
-            Messages.getMessage()
-                .success(function (posts) {
-                    $scope.messages = $scope.messages.concat(posts);
-                    //console.log($scope.messages);
-                    $scope.$broadcast('scroll.infiniteScrollComplete');
-                    $ionicScrollDelegate.scrollBottom();
-                    $scope.postsCompleted = true;
-                })
-                .error(function (error) {
-                    $scope.items = [];
-                });
-        };
         // pull to refresh buttons
         $scope.doRefresh = function(){
             $scope.messages = [];
             $scope.postsCompleted = false;
-            $scope.getPosts();
+            $scope.getMessages();
             $scope.$broadcast('scroll.refreshComplete');
         };
         $scope.addMesage = function(){

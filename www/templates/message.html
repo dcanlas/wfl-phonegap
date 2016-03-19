@@ -1,4 +1,5 @@
-<ion-view view-title="John doe">
+<ion-view>
+    <ion-nav-title>{{friendObj.name}}</ion-nav-title>
     <ion-content class="post-content-message">
         <ion-refresher
                 pulling-text="Pull to refresh..."
@@ -35,7 +36,7 @@
         </div>
         <ion-infinite-scroll
                 ng-if="postsCompleted == false"
-                on-infinite="getPosts()"
+                on-infinite="getMessages()"
                 distance="10%">
         </ion-infinite-scroll>
     </ion-content>
