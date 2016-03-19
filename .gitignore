@@ -62,3 +62,7 @@ platforms
 #node stuff
 node_modules
 node_modules/*
+
+#bower stuff
+bower_components
+bower_components/*

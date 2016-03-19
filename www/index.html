@@ -16,6 +16,8 @@
         <script src="lib/ionic/js/ionic.bundle.js"></script>
         <script src="lib/underscore/underscore-min.js"></script>
         <script src="lib/angular-underscore-module/angular-underscore-module.js"></script>
+        <script src="lib/moment/moment.min.js"></script>
+        <script src="lib/angular-moment/angular-moment.min.js"></script>
         <!-- your app's js -->
         <script src="js/common/ng-cordova.min.js"></script>
         <script src="cordova.js"></script>
@@ -36,6 +38,10 @@
         <!-- your app's js -->
         <!--This needs to be bundled later possibly with requirejs or grunt-->
         <!-- inject:js -->
+        <script src="js/factories/authService.js"></script>
+        <script src="js/factories/firebaseMain.js"></script>
+        <script src="js/factories/messageService.js"></script>
+        <script src="js/factories/userService.js"></script>
         <script src="js/controllers/AdmobCtrl.js"></script>
         <script src="js/controllers/ContactCtrl.js"></script>
         <script src="js/controllers/ForgotCtrl.js"></script>
@@ -51,10 +57,6 @@
         <script src="js/controllers/SettingsCtrl.js"></script>
         <script src="js/controllers/SignUpCtrl.js"></script>
         <script src="js/controllers/SocialProfileCtrl.js"></script>
-        <script src="js/factories/authService.js"></script>
-        <script src="js/factories/firebaseMain.js"></script>
-        <script src="js/factories/messageService.js"></script>
-        <script src="js/factories/userService.js"></script>
         <!-- endinject -->
 
     </head>

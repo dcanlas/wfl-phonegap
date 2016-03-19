@@ -1,9 +1,10 @@
 // single message
-app.controller('MessageCtrl', ['_', '$ionicScrollDelegate', '$firebaseObject', '$scope', '$stateParams', 'firebaseMain', 'messageService', 'userSet',
-    function messageCtrlFunction(_, $ionicScrollDelegate, $firebaseObject, $scope, $stateParams, firebaseMain, messageService, userSet){
+app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebaseObject', '$scope', '$stateParams', 'firebaseMain', 'messageService', 'userService', 'userSet',
+    function messageCtrlFunction(_, moment, $ionicScrollDelegate, $firebaseObject, $scope, $stateParams, firebaseMain, messageService, userService, userSet){
 
         $scope.messages = [];
         $scope.postsCompleted = false; //this is for infinite scrolling later
+        $scope.currentUser = userService.getCurrentUser();
 
         //get our friend object
         var friendRef = firebaseMain.userRef.child($stateParams.friendId);
@@ -13,16 +14,24 @@ app.controller('MessageCtrl', ['_', '$ionicScrollDelegate', '$firebaseObject', '
         $scope.getMessages = function getMessages() {
             messageService.getMessagesWithFriend($stateParams.friendId)
                 .then(function (data) {
-                    console.log("my messages: ", data.messages);
-                    var messages = _.filter(data.messages, function (msg) {
-                        return msg.$id !== 'tempMessage';
-                    });
-                    $scope.messages = $scope.messages.concat(messages);
+                    $scope.messages = data.messages;
                     console.log('messages ', $scope.messages);
                     $ionicScrollDelegate.scrollBottom();
                     //todo: paginate stuff later, we just pull all messages for now.
                     $scope.postsCompleted = true;
                 });
+        };
+
+        $scope.addMesage = function addMessage(){
+            var newMessage = {
+                message: $scope.dataMessage,
+                from: $scope.currentUser.id,
+                date: moment().valueOf()
+            };
+            console.log("new message, ", newMessage);
+            $scope.messages.$add(newMessage);
+            $scope.dataMessage = "";
+            $ionicScrollDelegate.scrollBottom();
         };
 
 
@@ -38,17 +47,6 @@ app.controller('MessageCtrl', ['_', '$ionicScrollDelegate', '$firebaseObject', '
             $scope.getMessages();
             $scope.$broadcast('scroll.refreshComplete');
         };
-        $scope.addMesage = function(){
-            var newMessage = new function() {
-                this.message = $scope.datamessage;
-                this.from = '2';
-                this._id	= '12';
-                this.title	= 'sample';
-                this.image	= 'http://3.bp.blogspot.com/-bTWNRjookMQ/VYGjnv5nKtI/AAAAAAAAA08/wXshQ9sNDeU/s100-c/blank-792125_1280.jpg';
-            };
-            $scope.messages = $scope.messages.concat(newMessage);
-            $scope.datamessage = "";
-            $ionicScrollDelegate.scrollBottom();
-        };
+
     }
 ]);

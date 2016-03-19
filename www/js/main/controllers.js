@@ -4,7 +4,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('WflApp', ['ionic', 'firebase', 'ngSanitize', 'ngCordova','ngIOS9UIWebViewPatch', 'underscore']);
+var app = angular.module('WflApp', ['ionic', 'firebase', 'ngSanitize', 'ngCordova','ngIOS9UIWebViewPatch', 'underscore', 'angularMoment']);
 // not necessary for a web based app // needed for cordova/ phonegap application
 app.run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -68,6 +68,20 @@ app.service('myService', ['$http', function($http) {
 app.config(function($ionicConfigProvider) {
     $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back').previousTitleText(false);
     $ionicConfigProvider.tabs.position('bottom');
+});
+
+//Setting moment's relative date formatting.
+app.config(function(moment) {
+    moment.locale('en', {
+        calendar: {
+            sameDay: 'LT',
+            nextDay: '[Tomorrow]',
+            nextWeek: 'dddd',
+            lastDay: '[Yesterday]',
+            lastWeek: 'DD/MM/YYYY',
+            sameElse: 'DD/MM/YYYY'
+        }
+    });
 });
 
 
