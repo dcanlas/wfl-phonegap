@@ -75,6 +75,7 @@ app.factory('authService', ['$q', '$rootScope', '$state', '$cordovaFacebook', '$
             }
             //stop watching for auth changes.
             eventWatcher();
+            logout();
         }
 
         onAuthCallback = function(authData) {

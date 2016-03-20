@@ -31,8 +31,20 @@ app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebase
             console.log("new message, ", newMessage);
             $scope.messages.$add(newMessage);
             $scope.dataMessage = "";
-            $ionicScrollDelegate.scrollBottom();
         };
+
+        function scrollHack() {
+            $ionicScrollDelegate.scrollBottom();
+        }
+
+        //this allows the scroll to be smooth
+        window.addEventListener('native.keyboardhide', scrollHack);
+        window.addEventListener('native.keyboardshow', scrollHack);
+
+        $scope.$on('$destroy', function() {
+            window.removeEventListener('native.keyboardhide', scrollHack);
+            window.removeEventListener('native.keyboardshow', scrollHack);
+        });
 
 
         /*
