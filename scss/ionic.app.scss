@@ -2,10 +2,12 @@
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
-@import "../www/lib/ionic/scss/ionic";
-@import "mob-template-style";
 @import "helper-styles";
 @import "friends-page";
+@import "ionic-overrides";
+//Note: these two files need to be last.
+@import "../www/lib/ionic/scss/ionic";
+@import "mob-template-style";
 
 .item-text-center {
   display: -webkit-box;

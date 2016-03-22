@@ -1,24 +1,24 @@
-<ion-view view-title="WFL">
+<ion-view view-title="WFL" id="friends-page">
     <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-person-add"
                 ng-click="addFriendModal()">
         </button>
     </ion-nav-buttons>
-    <ion-content id="friends-page" class="post-content has-footer">
-        <div class="item friend-item user-item">
-            <div class="food-image"></div>
-            <div class="user-image">
-                <img ng-if="currentUser.picUrl" ng-src="{{currentUser.picUrl}}" alt="profile" />
-                <img ng-if="!currentUser.picUrl" src="http://3.bp.blogspot.com/-zR75pEKCSSU/VYGjwNogrmI/AAAAAAAAA1Y/xgPrSXra3fE/s200-c/darts-102919_1280.jpg" alt="profile" />
-            </div>
-            <h2 class="user-name">{{currentUser.name}}</h2>
-            <p class="user-desc">some stuff here</p>
-            <div class="actions">
-                <button class="button button-clear">
-                    foo
-                </button>
-            </div>
+    <div class="bar bar-subheader friend-item user-item">
+        <div class="food-image"></div>
+        <div class="user-image">
+            <img ng-if="currentUser.picUrl" ng-src="{{currentUser.picUrl}}" alt="profile" />
+            <img ng-if="!currentUser.picUrl" src="http://3.bp.blogspot.com/-zR75pEKCSSU/VYGjwNogrmI/AAAAAAAAA1Y/xgPrSXra3fE/s200-c/darts-102919_1280.jpg" alt="profile" />
         </div>
+        <h2 class="user-name">{{currentUser.name}}</h2>
+        <p class="user-desc">some stuff here</p>
+        <div class="actions">
+            <button class="button button-clear">
+                foo
+            </button>
+        </div>
+    </div>
+    <ion-content class="post-content has-footer has-header has-subheader">
         <ion-list>
             <ion-item class="friend-item"
                       ng-repeat="friend in friends | filter : searchFriend">
