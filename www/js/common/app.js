@@ -30,3 +30,4 @@ app.constant("FirebaseConfig", {
 app.constant("FbConfig", {
   "permissions": ["public_profile", "email", "user_friends"]
 });
+
