@@ -2,8 +2,6 @@
 //Todo: rename this to main.js or app.js later
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
 var app = angular.module('WflApp', ['ionic', 'firebase', 'ngSanitize', 'ngCordova','ngIOS9UIWebViewPatch', 'underscore', 'angularMoment']);
 // not necessary for a web based app // needed for cordova/ phonegap application
 app.run(function($ionicPlatform) {
@@ -18,10 +16,45 @@ app.run(function($ionicPlatform) {
             // remove the status bar on iOS or change it to use white instead of dark colors.
             StatusBar.styleDefault();
         }
+
+        //for local notification with ios.
+        if(ionic.Platform.isIOS() === "iOS") {
+            window.plugin.notification.local.promptForPermission();
+        }
+
+        /*
+        This is for later when we do push notification
+
+        var push = PushNotification.init({
+            "android": {"senderID": "346504465337", "sound": true},
+            "ios": {"alert": "true", "badge": "true", "sound": "true"}
+        });
+
+        push.on('registration', function(data) {
+            // data.registrationId
+            console.log('my reg id: ', data.registrationId);
+        });
+
+        push.on('notification', function(data) {
+            console.log('message ', data.message);
+            alert(data.title+" Message: " +data.message);
+            // data.message,
+            // data.title,
+            // data.count,
+            // data.sound,
+            // data.image,
+            // data.additionalData
+        });
+
+        push.on('error', function(e) {
+            // e.message
+            console.log('error', e.message);
+        });
+         */
     });
 });
 //app run getting device id
-app.run(function ($rootScope, $state, $cordovaToast, myPushNotification, authService) {
+app.run(function ($rootScope, $state, $cordovaToast, myPushNotification, authService, localNotificationService) {
     // app device ready
     document.addEventListener("deviceready", function(){
         if(!localStorage.device_token_syt || localStorage.device_token_syt == '-1'){
@@ -38,8 +71,9 @@ app.run(function ($rootScope, $state, $cordovaToast, myPushNotification, authSer
     $rootScope.set_device_token = function (token) {
         localStorage.device_token_syt = token;
         return localStorage.device_token_syt;
-    }
+    };
 
+    localNotificationService.init();
     //check if we are logged in
     $rootScope.firstAuthCheck = true;
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
