@@ -4,18 +4,22 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 var app = angular.module('WflApp', ['ionic', 'firebase', 'ngSanitize', 'ngCordova','ngIOS9UIWebViewPatch', 'underscore', 'angularMoment']);
 // not necessary for a web based app // needed for cordova/ phonegap application
-app.run(function($ionicPlatform) {
+app.run(function($ionicPlatform, $cordovaStatusbar) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
         if(window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         }
+        /*
         if(window.StatusBar) {
             // Set the statusbar to use the default style, tweak this to
             // remove the status bar on iOS or change it to use white instead of dark colors.
             StatusBar.styleDefault();
         }
+        */
+        //set status bar to red.
+        $cordovaStatusbar.styleHex('#FF0000');
 
         //for local notification with ios.
         if(ionic.Platform.isIOS() === "iOS") {
