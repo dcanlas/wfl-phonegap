@@ -3,6 +3,23 @@ This file contains styles that can be extended and used
 by the app
 */
 
+//Splash screen
+#splash {
+    background-color: #ef473a;
+
+    .container {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #splash-title {
+        color: white;
+        font-size: 40px;
+    }
+}
+
 //Colors
 $gray-text: #666666;
 

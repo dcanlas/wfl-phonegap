@@ -1,6 +1,6 @@
 /* main controller function */
-app.controller('MainCtrl', ['$scope', '$ionicSideMenuDelegate', '$ionicHistory', '$cordovaFacebook',
-    function($scope, $ionicSideMenuDelegate, $ionicHistory, $cordovaFacebook) {
+app.controller('MainCtrl', ['$scope', '$ionicSideMenuDelegate', '$ionicHistory', '$cordovaFacebook', 'authService',
+    function($scope, $ionicSideMenuDelegate, $ionicHistory, $cordovaFacebook, authService) {
         // Toggle left function for app sidebar
         $scope.toggleLeft = function() {
             $ionicSideMenuDelegate.toggleLeft();
@@ -31,5 +31,9 @@ app.controller('MainCtrl', ['$scope', '$ionicSideMenuDelegate', '$ionicHistory',
                 console.log("error yo");
             });
         };
+
+        $scope.logout = function logout() {
+            authService.logout();
+        }
     }
 ]);

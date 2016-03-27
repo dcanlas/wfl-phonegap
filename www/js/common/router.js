@@ -6,6 +6,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             abstract: true,
             templateUrl: "templates/sidebar-menu.html"
         })
+        .state('splash', {
+            url: "/splash",
+            templateUrl: "templates/splash.html",
+            controller: "SplashCtrl"
+        })
         //  login page
         .state('login', {
             url: "/login",
@@ -89,5 +94,5 @@ app.config(function($stateProvider, $urlRouterProvider) {
         });
 
     //  login page
-    $urlRouterProvider.otherwise("/login");
+    $urlRouterProvider.otherwise("/splash");
 });

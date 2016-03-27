@@ -1,6 +1,6 @@
 /* Friends controller */
-app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicModal', '$scope', '$state', 'firebaseMain', 'userService', 'userSet', 'Friends',
-    function FriendsCtrlFunction(_, $cordovaToast, $firebaseArray, $ionicModal, $scope, $state, firebaseMain, userService, userSet, Friends) {
+app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicModal', '$scope', '$state', 'firebaseMain', 'userService', 'Friends',
+    function FriendsCtrlFunction(_, $cordovaToast, $firebaseArray, $ionicModal, $scope, $state, firebaseMain, userService, Friends) {
 
         //Controller variables
         var friendsRef;

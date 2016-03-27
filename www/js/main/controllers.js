@@ -19,12 +19,18 @@ app.run(function($ionicPlatform, $cordovaStatusbar) {
         }
         */
         //set status bar to red.
-        $cordovaStatusbar.styleHex('#FF0000');
+        if (window.StatusBar) {
+            $cordovaStatusbar.styleHex('#FF0000');
+        }
 
         //for local notification with ios.
         if(ionic.Platform.isIOS() === "iOS") {
             window.plugin.notification.local.promptForPermission();
         }
+
+        $ionicPlatform.on('pause', function() {
+            console.log("entering background");
+        });
 
         /*
         This is for later when we do push notification
@@ -77,21 +83,8 @@ app.run(function ($rootScope, $state, $cordovaToast, myPushNotification, authSer
         return localStorage.device_token_syt;
     };
 
-    localNotificationService.init();
-    //check if we are logged in
-    $rootScope.firstAuthCheck = true;
-    $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-        if ($rootScope.firstAuthCheck && !authService.authenticated && toState.name === 'login') {
-            authService.getAuthentication();
-            $rootScope.firstAuthCheck = false;
-            authService.authPromise.then(function suc(authData) {
-                $state.go('dashboard.friends');
-                event.preventDefault();
-            }, function err(error) {
-                console.log("user not authenticated");
-            });
-        }
-    });
+    //Todo: uncomment this later.
+    //localNotificationService.init();
 });
 //myservice device registration id to localstorage
 app.service('myService', ['$http', function($http) {

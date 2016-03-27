@@ -1,35 +1,36 @@
-app.factory('localNotificationService', ['_', 'moment', '$ionicPlatform', '$cordovaLocalNotification',
-    function localNotificationService(_, moment, $ionicPlatform, $cordovaLocalNotification) {
+app.factory('localNotificationService', ['_', 'moment', '$rootScope', '$ionicPlatform', '$cordovaLocalNotification',
+    function localNotificationService(_, moment, $rootScope, $ionicPlatform, $cordovaLocalNotification) {
         var deviceMode = false;
         var isInit = false;
 
         function init() {
-            console.log("getting here");
             if (!isInit) {
                 isInit = true;
                 $ionicPlatform.ready(function() {
-                    console.log("it's ready");
-                    deviceMode = true;
-                    //sample code below
-                    var alarmTime = new Date();
-                    alarmTime.setMinutes(alarmTime.getMinutes() + 1);
-                    setLunchNotification();
+                    if(window.cordova) {
+                        deviceMode = true;
+                        setLunchNotification();
 
-                    $cordovaLocalNotification.isScheduled("1234").then(function(isScheduled) {
-                        alert("Notification 1234 Scheduled: " + isScheduled);
-                    });
-
+                        $cordovaLocalNotification.isScheduled("1234").then(function(isScheduled) {
+                            alert("Notification 1234 Scheduled: " + isScheduled);
+                        });
+                    }
+                });
+                //note: below is not working, change it later
+                $rootScope.$on('$cordovaLocalNotification:click', function(event, notification, state) {
+                    alert(notification.id + " was clicked " + state);
+                    console.log('click event triggered on');
                 });
             }
         }
 
         function setLunchNotification() {
-            $cordovaLocalNotification.schedule({
+            console.log('local', $cordovaLocalNotification);
+            $cordovaLocalNotification.add({
                 id: "1234",
-                date: moment().add(1, 'm').toDate(),
-                message: "Update what you're eating for lunch!",
+                date: moment().add(30, 's').toDate(),
+                text: "Update what you're eating for lunch!",
                 title: "Lunch Time!",
-                autoCancel: true,
                 sound: null,
                 icon: 'file://img/anon36.png'
             }).then(function () {

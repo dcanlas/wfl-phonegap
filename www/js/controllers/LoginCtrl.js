@@ -12,7 +12,9 @@ app.controller('LoginCtrl', ['$state', '$scope', '$cordovaToast', 'authService',
             authService.authenticate($scope.credentials.email, $scope.credentials.password)
                 .then(function success(authData) {
                     console.log("login success: ", authData.uid);
-                    $state.go('dashboard.friends');
+                    userService.waitForUserSet.then(function() {
+                        $state.go('dashboard.friends');
+                    });
                 }, function err(error) {
                     console.log("can't login ", error);
                     $cordovaToast.showLongBottom(error.message);
@@ -23,7 +25,9 @@ app.controller('LoginCtrl', ['$state', '$scope', '$cordovaToast', 'authService',
         $scope.doFbLogin = function doFbLogin() {
             authService.authenticateFb().then(function success(authData) {
                 if (authData && authData.uid) {
-                    $state.go('dashboard.friends');
+                    userService.waitForUserSet.then(function() {
+                        $state.go('dashboard.friends');
+                    });
                 }
             }, function err(error) {
                $cordovaToast.showLongBottom("Error in fb login", error);
