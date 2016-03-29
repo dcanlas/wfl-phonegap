@@ -1,6 +1,6 @@
 // single message
-app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebaseObject', '$scope', '$stateParams', 'firebaseMain', 'messageService', 'userService', 'userSet',
-    function messageCtrlFunction(_, moment, $ionicScrollDelegate, $firebaseObject, $scope, $stateParams, firebaseMain, messageService, userService, userSet){
+app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebaseObject', '$scope', '$stateParams', 'firebaseMain', 'foodIcons', 'messageService', 'userService', 'userSet',
+    function messageCtrlFunction(_, moment, $ionicScrollDelegate, $firebaseObject, $scope, $stateParams, firebaseMain, foodIcons, messageService, userService, userSet){
 
         $scope.messages = [];
         $scope.postsCompleted = false; //this is for infinite scrolling later
@@ -9,6 +9,10 @@ app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebase
         //get our friend object
         var friendRef = firebaseMain.userRef.child($stateParams.friendId);
         $scope.friendObj = $firebaseObject(friendRef);
+
+        //Food grid related stuff
+        $scope.foodIcons = foodIcons.getFoods();
+        $scope.foodSize = foodIcons.foodSize;
 
         // load more content function
         $scope.getMessages = function getMessages() {

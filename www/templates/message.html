@@ -1,44 +1,63 @@
-<ion-view>
+<ion-view id="message-view">
     <ion-nav-title>{{friendObj.name}}</ion-nav-title>
-    <ion-content class="post-content-message has-footer">
-        <ion-refresher
-                pulling-text="Pull to refresh..."
-                on-refresh="doRefresh()">
-        </ion-refresher>
-        <div class="list">
-            <div class="">
-                <div ng-repeat="message in messages" class="message-wrapper">
+    <ion-content class="has-footer" scroll="false">
+        <div class="flex-container">
 
-                    <div ng-if="message.from == friendObj.id">
-                        <div class="chat-bubble left">
-                            <div class="message preword">
-                                {{message.message}}
+            <ion-scroll class="message-list">
+                <ion-refresher
+                        pulling-text="Pull to refresh..."
+                        on-refresh="doRefresh()">
+                </ion-refresher>
+                <div class="list">
+                    <div class="">
+                        <div ng-repeat="message in messages" class="message-wrapper">
+
+                            <div ng-if="message.from == friendObj.id">
+                                <div class="chat-bubble left">
+                                    <div class="message preword">
+                                        {{message.message}}
+                                    </div>
+                                    <div class="message-detail">
+                                        <span>{{message.date | amCalendar}}</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="message-detail">
-                                <span>{{message.date | amCalendar}}</span>
+                            <div ng-if="message.from == currentUser.id">
+                                <div class="chat-bubble right">
+                                    <div class="message preword">
+                                        {{message.message}}
+                                    </div>
+                                    <div class="message-detail">
+                                        <span>{{message.date | amCalendar}}</span>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="cf"></div>
                         </div>
                     </div>
-                    <div ng-if="message.from == currentUser.id">
-                        <div class="chat-bubble right">
-                            <div class="message preword">
-                                {{message.message}}
-                            </div>
-                            <div class="message-detail">
-                                <span>{{message.date | amCalendar}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cf"></div>
                 </div>
+                <ion-infinite-scroll
+                        ng-if="postsCompleted == false"
+                        on-infinite="getMessages()"
+                        distance="10%">
+                </ion-infinite-scroll>
+            </ion-scroll>
+
+            <div class="food-grid" ng-init="foodSet = (foodIcons | groupItems:4)">
+                <div class="row" ng-repeat="iconRow in foodSet">
+                    <div class="col" ng-repeat="item in iconRow">
+                        <div class="food-item"
+                             alt="{{item.name}}"
+                             ng-style="{'background-position': ($index * foodSize)+'px '+($parent.$index * foodSize)+'px' }">
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
         </div>
-        <ion-infinite-scroll
-                ng-if="postsCompleted == false"
-                on-infinite="getMessages()"
-                distance="10%">
-        </ion-infinite-scroll>
     </ion-content>
+
     <div class="bar bar-footer bar-stable comment-stable-main" keyboard-attach>
         <form  class="comment-form-main" method="post" ng-submit="addMesage(postForm.$valid)" name="postForm" novalidate>
             <div class="row small-font row-comment">
@@ -53,4 +72,5 @@
             </div>
         </form>
     </div>
+
 </ion-view>

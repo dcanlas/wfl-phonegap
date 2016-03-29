@@ -1,6 +1,6 @@
 // login page of app //
-app.controller('SplashCtrl', ['$state', 'authService', 'userService',
-    function($state, authService, userService) {
+app.controller('SplashCtrl', ['$state', 'authService',
+    function($state, authService) {
 
         if(!authService.authenticated) {
             authService.getAuthentication();

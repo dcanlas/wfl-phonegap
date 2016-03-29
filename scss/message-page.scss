@@ -1,0 +1,25 @@
+#message-view {
+
+    .flex-container {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+
+        .message-list {
+            flex: 2;
+        }
+        .food-grid {
+            flex: 1;
+            border-top: 2px solid darkred;
+            background: whitesmoke;
+
+            .food-item {
+                width: 32px;
+                height: 32px;
+                background: url('../img/food-spritesheet.png');
+                margin: 0 auto;
+            }
+        }
+    }
+
+}
