@@ -13,18 +13,18 @@ app.factory('foodIcons', ['_',
         var foodSize = 32;
 
         var foods = [
-            {name: 'bento', type: foodTypes.other},
-            {name: 'burger', type: foodTypes.other},
-            {name: 'hotdog', type: foodTypes.meat},
-            {name: 'pasta', type: foodTypes.other},
-            {name: 'ice-cream', type: foodTypes.dessert},
-            {name: 'kabob', type: foodTypes.meat},
-            {name: 'ramen', type: foodTypes.other},
-            {name: 'tacos', type: foodTypes.other},
-            {name: 'pancake', type: foodTypes.other},
-            {name: 'pizza', type: foodTypes.other},
-            {name: 'lamb-rack', type: foodTypes.meat},
-            {name: 'burrito', type: foodTypes.other}
+            {name: 'bento', type: foodTypes.other, x: 0, y: 0},
+            {name: 'burger', type: foodTypes.other, x: -1, y: 0},
+            {name: 'hotdog', type: foodTypes.meat, x: -2, y: 0},
+            {name: 'pasta', type: foodTypes.other, x: -3, y: 0},
+            {name: 'ice-cream', type: foodTypes.dessert, x: 0, y: -1},
+            {name: 'kabob', type: foodTypes.meat, x: -1, y: -1},
+            {name: 'ramen', type: foodTypes.other, x: -2, y: -1},
+            {name: 'tacos', type: foodTypes.other, x: -3, y: -1},
+            {name: 'pancake', type: foodTypes.other, x: 0, y: -2},
+            {name: 'pizza', type: foodTypes.other, x: -1, y: -2},
+            {name: 'lamb-rack', type: foodTypes.meat, x: -2, y: -2},
+            {name: 'burrito', type: foodTypes.other, x: -3, y: -2}
         ];
 
         function getFoods(type) {

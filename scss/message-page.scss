@@ -7,11 +7,24 @@
 
         .message-list {
             flex: 2;
+
+            .food-message {
+                width: 32px;
+                height: 32px;
+                background: url('../img/food-spritesheet.png');
+                margin: 2px auto;
+            }
+
         }
+
         .food-grid {
             flex: 1;
             border-top: 2px solid darkred;
             background: whitesmoke;
+
+            .selected-icon {
+                background-color: #5a5a5a;
+            }
 
             .food-item {
                 width: 32px;
@@ -20,6 +33,10 @@
                 margin: 0 auto;
             }
         }
+    }
+
+    #send-button {
+        margin: 0 auto;
     }
 
 }

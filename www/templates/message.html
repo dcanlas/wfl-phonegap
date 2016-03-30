@@ -14,8 +14,13 @@
 
                             <div ng-if="message.from == friendObj.id">
                                 <div class="chat-bubble left">
-                                    <div class="message preword">
+                                    <div class="message preword" ng-if="message.message">
                                         {{message.message}}
+                                    </div>
+                                    <div class="food-message"
+                                         alt="{{message.food.name}}"
+                                         ng-if="message.food"
+                                         ng-style="{'background-position': (message.food.x * foodSize)+'px '+(message.food.y * foodSize)+'px' }">
                                     </div>
                                     <div class="message-detail">
                                         <span>{{message.date | amCalendar}}</span>
@@ -24,8 +29,13 @@
                             </div>
                             <div ng-if="message.from == currentUser.id">
                                 <div class="chat-bubble right">
-                                    <div class="message preword">
+                                    <div class="message preword" ng-if="message.message">
                                         {{message.message}}
+                                    </div>
+                                    <div class="food-message"
+                                         alt="{{message.food.name}}"
+                                         ng-if="message.food"
+                                         ng-style="{'background-position': (message.food.x * foodSize)+'px '+(message.food.y * foodSize)+'px' }">
                                     </div>
                                     <div class="message-detail">
                                         <span>{{message.date | amCalendar}}</span>
@@ -45,10 +55,13 @@
 
             <div class="food-grid" ng-init="foodSet = (foodIcons | groupItems:4)">
                 <div class="row" ng-repeat="iconRow in foodSet">
-                    <div class="col" ng-repeat="item in iconRow">
+                    <div class="col"
+                         ng-class="{'selected-icon': foodSelected === item}"
+                         ng-repeat="item in iconRow"
+                         ng-click="selectFood(item)">
                         <div class="food-item"
                              alt="{{item.name}}"
-                             ng-style="{'background-position': ($index * foodSize)+'px '+($parent.$index * foodSize)+'px' }">
+                             ng-style="{'background-position': (item.x * foodSize)+'px '+(item.y * foodSize)+'px' }">
                         </div>
                     </div>
                 </div>
@@ -59,18 +72,10 @@
     </ion-content>
 
     <div class="bar bar-footer bar-stable comment-stable-main" keyboard-attach>
-        <form  class="comment-form-main" method="post" ng-submit="addMesage(postForm.$valid)" name="postForm" novalidate>
-            <div class="row small-font row-comment">
-                <span class="col-75">
-                    <label class="item item-input comment-div-label">
-                        <textarea class="comment-main-text" required ng-model="dataMessage" name="message" placeholder="Message" auto-focus></textarea>
-                    </label>
-                </span>
-                <span class="col-25">
-                    <button ng-disabled="postForm.$invalid"  class="button button-block button-assertive button-comment"><span class="icon ion-android-send"></span></button>
-                </span>
-            </div>
-        </form>
+        <button id="send-button" class="button button-block button-assertive"
+                ng-click="addMessage()">
+            SEND
+        </button>
     </div>
 
 </ion-view>

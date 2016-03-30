@@ -13,6 +13,11 @@ app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebase
         //Food grid related stuff
         $scope.foodIcons = foodIcons.getFoods();
         $scope.foodSize = foodIcons.foodSize;
+        $scope.foodSelected = false;
+
+        $scope.selectFood = function selectFood(item) {
+            $scope.foodSelected = item;
+        };
 
         // load more content function
         $scope.getMessages = function getMessages() {
@@ -26,21 +31,26 @@ app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebase
                 });
         };
 
-        $scope.addMesage = function addMessage(){
-            var newMessage = {
-                message: $scope.dataMessage,
-                from: $scope.currentUser.id,
-                date: moment().valueOf()
-            };
-            console.log("new message, ", newMessage);
-            $scope.messages.$add(newMessage);
-            $scope.dataMessage = "";
+        $scope.addMessage = function addMessage(){
+            console.log("myselected: ", $scope.foodSelected);
+            if ($scope.foodSelected) {
+                var newMessage = {
+                    food: $scope.foodSelected,
+                    from: $scope.currentUser.id,
+                    date: moment().valueOf()
+                };
+                console.log("new message, ", newMessage);
+                $scope.messages.$add(newMessage);
+                $scope.foodSelected = false;
+                scrollHack();
+            }
         };
 
         function scrollHack() {
             $ionicScrollDelegate.scrollBottom();
         }
 
+        /*
         //this allows the scroll to be smooth
         window.addEventListener('native.keyboardhide', scrollHack);
         window.addEventListener('native.keyboardshow', scrollHack);
@@ -49,6 +59,7 @@ app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebase
             window.removeEventListener('native.keyboardhide', scrollHack);
             window.removeEventListener('native.keyboardshow', scrollHack);
         });
+        */
 
 
         /*
