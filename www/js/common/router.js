@@ -55,20 +55,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-        .state('dashboard.messages', {
-            url: "/messages",
-            views: {
-                'messages-tab' :{
-                    templateUrl: "templates/messages.html",
-                    controller: "MessagesCtrl"
-                }
-            }
-        })
         // profile page
         .state('dashboard.profile', {
             url: "/profile",
             views: {
-                'profile-tab' :{
+                'pageContent' :{
                     templateUrl: "templates/profile.html",
                     controller: "ProfileCtrl"
                 }

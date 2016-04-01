@@ -22,13 +22,13 @@
         <ion-content>
             <div class="main-sidebar-profile">
                 <div class="profile-info">
-                    <img id="profile-image"
-                         src="http://3.bp.blogspot.com/-zR75pEKCSSU/VYGjwNogrmI/AAAAAAAAA1Y/xgPrSXra3fE/s200-c/darts-102919_1280.jpg">
-                    <a menu-close-keep-history href="#/app/profile" class="profile-name">John Doe</a>
+                    <img id="profile-image" ng-if="user.picUrl" ng-src="{{user.picUrl}}" alt="profile" />
+                    <img id="profile-image" ng-if="!user.picUrl" src="http://3.bp.blogspot.com/-zR75pEKCSSU/VYGjwNogrmI/AAAAAAAAA1Y/xgPrSXra3fE/s200-c/darts-102919_1280.jpg" alt="profile" />
+                    <a menu-close-keep-history href="#/dashboard/profile" class="profile-name">{{user.name}}</a>
                 </div>
             </div>
             <ion-list>
-                <ion-item menu-close-keep-history href="#/app/profile" class="item-icon-left">
+                <ion-item menu-close-keep-history href="#/dashboard/profile" class="item-icon-left">
                     <i class="icon ion-ios-home"></i>
                     Profile
                 </ion-item>
