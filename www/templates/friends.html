@@ -6,9 +6,8 @@
     </ion-nav-buttons>
     <div class="bar bar-subheader friend-item user-item">
         <div class="food-image"></div>
-        <div class="user-image">
+        <div class="user-image profile-picture">
             <img ng-if="currentUser.picUrl" ng-src="{{currentUser.picUrl}}" alt="profile" />
-            <img ng-if="!currentUser.picUrl" src="http://3.bp.blogspot.com/-zR75pEKCSSU/VYGjwNogrmI/AAAAAAAAA1Y/xgPrSXra3fE/s200-c/darts-102919_1280.jpg" alt="profile" />
         </div>
         <h2 class="user-name">{{currentUser.name}}</h2>
         <p class="user-desc">some stuff here</p>
@@ -23,9 +22,8 @@
             <ion-item class="friend-item"
                       ng-repeat="friend in friends | filter : searchFriend">
                 <div class="food-image"></div>
-                <div class="user-image">
+                <div class="user-image profile-picture">
                     <img ng-if="friend.picUrl" ng-src="{{friend.picUrl}}" alt="profile" />
-                    <img ng-if="!friend.picUrl" src="http://3.bp.blogspot.com/-zR75pEKCSSU/VYGjwNogrmI/AAAAAAAAA1Y/xgPrSXra3fE/s200-c/darts-102919_1280.jpg" alt="profile" />
                 </div>
                 <div class="text-container" ng-click="sendMessage(friend)">
                     <h2>{{friend.name}}</h2>

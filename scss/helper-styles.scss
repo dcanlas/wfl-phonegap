@@ -20,6 +20,12 @@ by the app
     }
 }
 
+//General class stylings
+.profile-picture {
+    background: url('../img/blank-profile.png') no-repeat;
+    background-size: cover;
+}
+
 //Colors
 $gray-text: #666666;
 
