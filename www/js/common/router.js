@@ -57,7 +57,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         // profile page
         .state('dashboard.profile', {
-            url: "/profile",
+            url: "/profile/{userId}",
             views: {
                 'pageContent' :{
                     templateUrl: "templates/profile.html",

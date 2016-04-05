@@ -1,0 +1,45 @@
+#profile-page {
+    $img-size: 60px;
+
+    #profile-top {
+        position: relative;
+        height: 80px;
+        border-bottom: 2px solid red;
+        box-sizing: border-box;
+        padding: 10px;
+
+        .profile-picture {
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 6px;
+            border-radius: 50%;
+            width: $img-size;
+            height: $img-size;
+            padding: 2px;
+            background: red;
+
+            .pic {
+                width: 100%;
+                border-radius: 50%;
+            }
+        }
+
+        .details {
+            display: inline-block;
+            vertical-align: top;
+
+            .text {
+                color: black;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+        }
+
+        #change-pic {
+            position: absolute;
+            bottom: -5px;
+            right: 5px;
+        }
+    }
+}

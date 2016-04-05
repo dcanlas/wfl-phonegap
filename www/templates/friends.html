@@ -7,7 +7,9 @@
     <div class="bar bar-subheader friend-item user-item">
         <div class="food-image"></div>
         <div class="user-image profile-picture">
-            <img ng-if="currentUser.picUrl" ng-src="{{currentUser.picUrl}}" alt="profile" />
+            <img ng-if="currentUser.picData || currentUser.picUrl"
+                ng-src="{{currentUser.picData ? ('data:image/jpeg;base64,' + currentUser.picData) : currentUser.picUrl }}"
+                alt="profile" />
         </div>
         <h2 class="user-name">{{currentUser.name}}</h2>
         <p class="user-desc">some stuff here</p>
@@ -23,7 +25,9 @@
                       ng-repeat="friend in friends | filter : searchFriend">
                 <div class="food-image"></div>
                 <div class="user-image profile-picture">
-                    <img ng-if="friend.picUrl" ng-src="{{friend.picUrl}}" alt="profile" />
+                    <img ng-if="friend.picData || friend.picUrl"
+                        ng-src="{{friend.picData ? ('data:image/jpeg;base64,' + friend.picData) : friend.picUrl }}"
+                        alt="profile" />
                 </div>
                 <div class="text-container" ng-click="sendMessage(friend)">
                     <h2>{{friend.name}}</h2>

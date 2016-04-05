@@ -20,15 +20,8 @@
     </ion-side-menu-content>
     <ion-side-menu side="left">
         <ion-content>
-            <div class="main-sidebar-profile">
-                <div class="profile-info">
-                    <img id="profile-image" ng-if="user.picUrl" ng-src="{{user.picUrl}}" alt="profile" />
-                    <img id="profile-image" ng-if="!user.picUrl" src="../img/blank-profile.png" alt="profile" />
-                    <a menu-close-keep-history href="#/dashboard/profile" class="profile-name">{{user.name}}</a>
-                </div>
-            </div>
             <ion-list>
-                <ion-item menu-close-keep-history href="#/dashboard/profile" class="item-icon-left">
+                <ion-item menu-close-keep-history ui-sref="dashboard.profile({userId: user.$id})" class="item-icon-left">
                     <i class="icon ion-ios-home"></i>
                     Profile
                 </ion-item>
