@@ -11,8 +11,11 @@
                 ng-src="{{currentUser.picData ? ('data:image/jpeg;base64,' + currentUser.picData) : currentUser.picUrl }}"
                 alt="profile" />
         </div>
-        <h2 class="user-name">{{currentUser.name}}</h2>
-        <p class="user-desc">some stuff here</p>
+        <div class="box"
+             ui-sref="dashboard.profile({userId: currentUser.id})">
+            <h2 class="user-name">{{currentUser.name}}</h2>
+            <p class="user-desc">some stuff here</p>
+        </div>
         <div class="actions">
             <button class="button button-clear">
                 foo

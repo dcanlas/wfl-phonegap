@@ -30,7 +30,8 @@
         }
 
         .food-image {
-            background: gray;
+            background: url('../img/empty-plate.png');
+            background-size: cover;
             top: 16px;
             left: 10px;
             @extend %image-def;
