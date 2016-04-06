@@ -65,3 +65,39 @@
     }
 
 }
+
+#add-friends-modal {
+    $img-size: 40px;
+
+    .user-list {
+
+        .user-item {
+            padding: 10px 80px 10px 20px;
+
+            .profile-picture {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: $margin * 2;
+                padding: 0;
+                @include round-pic($img-size);
+
+                img {
+                    border-radius: 50%;
+                }
+            }
+
+            .user-name {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+
+    }
+
+    .no-result {
+        text-align: center;
+        font-size: 20px;
+        color: #555555;
+    }
+
+}

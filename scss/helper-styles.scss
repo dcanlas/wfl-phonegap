@@ -26,6 +26,13 @@ by the app
     background-size: cover;
 }
 
+@mixin round-pic($size) {
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+    border: 2px solid red;
+}
+
 //Colors
 $gray-text: #666666;
 

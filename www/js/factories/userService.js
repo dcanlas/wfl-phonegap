@@ -74,13 +74,13 @@ app.factory('userService', ['$q', '$firebaseObject', '$cordovaFacebook', 'fireba
 
         function addFriendToUser(friend) {
             var updateObj = {},
-                userPath = currentUser.id + "/friends/" + friend.id,
-                friendPath = friend.id + "/friends/" + currentUser.id,
-                userObj = { name: currentUser.name, picUrl: currentUser.picUrl || null },
-                friendObj = { name: friend.name, picUrl: friend.picUrl || null };
+                userPath = currentUser.id + "/" + friend.id,
+                friendPath = friend.id + "/" + currentUser.id,
+                userObj = { name: currentUser.name },
+                friendObj = { name: friend.name };
             updateObj[userPath] = friendObj;
             updateObj[friendPath] = userObj;
-            return ref.update(updateObj);
+            return firebaseMain.friendsRef.update(updateObj);
         }
 
         return {

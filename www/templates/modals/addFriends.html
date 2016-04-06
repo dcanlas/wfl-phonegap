@@ -1,4 +1,4 @@
-<ion-modal-view>
+<ion-modal-view id="add-friends-modal">
     <ion-header-bar class="bar-light bar-header item-input-inset">
         <form ng-submit="searchUser()" class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
@@ -11,17 +11,34 @@
     </ion-header-bar>
     <ion-content>
 
-        <ion-list>
-            <ion-item class="item-avatar item-button-right"
+        <ion-list class="user-list">
+            <ion-item class="item-button-right user-item"
                       ng-repeat="user in userResult">
-                <img ng-if="user.picUrl" ng-src="{{user.picUrl}}" alt="profile" />
-                <img ng-if="!user.picUrl" src="http://3.bp.blogspot.com/-zR75pEKCSSU/VYGjwNogrmI/AAAAAAAAA1Y/xgPrSXra3fE/s200-c/darts-102919_1280.jpg" alt="profile" />
-                <h2 class="item-text-center item-text-wrap">{{user.name}}</h2>
-                <button class="button button-clear ion-plus-round"
+                  <div class="profile-picture">
+                      <img ng-if="user.picData || user.picUrl"
+                          ng-src="{{user.picData ? ('data:image/jpeg;base64,' + user.picData) : user.picUrl }}"
+                          alt="profile" />
+                  </div>
+                  <h2 class="user-name item-text-wrap">{{user.name}}</h2>
+                  <button class="button button-clear ion-plus-round"
                         ng-click="addFriend(user)">
-                </button>
+                  </button>
             </ion-item>
         </ion-list>
-        <h2 ng-show="noUserResult">No users found.</h2>
+        <div class="item item-divider" ng-if="currentFriends.length > 0">
+            Current Friends
+        </div>
+        <ion-list class="user-list" ng-if="currentFriends.length > 0">
+            <ion-item class="user-item"
+                    ng-repeat="user in currentFriends">
+                <div class="profile-picture">
+                    <img ng-if="user.picData || user.picUrl"
+                        ng-src="{{user.picData ? ('data:image/jpeg;base64,' + user.picData) : user.picUrl }}"
+                        alt="profile" />
+                </div>
+                <h2 class="user-name item-text-wrap">{{user.name}}</h2>
+            </ion-item>
+        </ion-list>
+        <h2 ng-show="noUserResult" class="no-result">No users found.</h2>
     </ion-content>
 </ion-modal-view>

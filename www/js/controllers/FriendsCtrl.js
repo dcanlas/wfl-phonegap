@@ -12,7 +12,7 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicMo
         $scope.noUserResult = false;
 
         $scope.currentUser = userService.getCurrentUser();
-        friendsRef = userService.getCurrentUserRef().child('friends');
+        friendsRef = firebaseMain.friendsRef.child($scope.currentUser.$id);
         //Note: by using $firebaseArray, this object is sync with server so it auto-updates
         $scope.friends = $firebaseArray(friendsRef);
         $scope.friends.$loaded(function () {
@@ -41,10 +41,22 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicMo
                 var query = firebaseMain.userRef.orderByChild("displayName").startAt(term).endAt(term + '\uf8ff');
                 var initResults = $firebaseArray(query);
                 initResults.$loaded(function() {
-                    $scope.userResult = _.filter(initResults, function(item) {
+                    var myFriends = [],
+                        notFriends = [],
+                        friendIdMap = {};
+                    var newResults = _.filter(initResults, function(item) {
                         return item.id !== $scope.currentUser.id;
                     });
-                    $scope.noUserResult = $scope.userResult.length === 0;
+                    //create a hash of friends we already have for easy lookup.
+                    _.each($scope.friends, function(item) {
+                        friendIdMap[item.$id] = true;
+                    });
+                    _.each(newResults, function(item) {
+                        friendIdMap[item.id] ? myFriends.push(item) : notFriends.push(item);
+                    });
+                    $scope.userResult = notFriends;
+                    $scope.currentFriends = myFriends;
+                    $scope.noUserResult = newResults.length === 0;
                 });
             }
         };
@@ -72,6 +84,8 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicMo
         };
 
         $scope.closeModal = function closeModal() {
+            $scope.userResult = [];
+            $scope.currentFriends = [];
             $scope.addModal.hide();
         };
 
