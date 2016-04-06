@@ -74,6 +74,11 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicMo
             return userService.addFriendToUser(friend)
                 .then(function success() {
                     console.log("added friend ", friend);
+                    $scope.userResult = _.filter($scope.userResult, function(item) {
+                        return item.id !== friend.id;
+                    });
+                    $scope.currentFriends.push(friend);
+                    $scope.$apply();
                 }, function err(error) {
                     console.log("add failed ", error);
                 });

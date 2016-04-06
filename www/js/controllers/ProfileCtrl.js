@@ -7,7 +7,6 @@ app.controller('ProfileCtrl', ['$ionicActionSheet', '$scope', '$stateParams', 'c
 
         userService.getUser($stateParams.userId)
             .then(function gotUser(user) {
-                console.log("the user: ", user);
                 $scope.user = user;
             });
 
@@ -55,7 +54,8 @@ app.controller('ProfileCtrl', ['$ionicActionSheet', '$scope', '$stateParams', 'c
             camera.getPicture(options).then(function(imageData) {
                 $scope.currentUser.picData = imageData;
                 $scope.currentUser.$save().then(function(userObj) {
-                    $scope.$digest();
+                    $scope.user = $scope.currentUser;
+                    $scope.$apply();
                 });
             }, function err(error) {
                 console.log(error);
