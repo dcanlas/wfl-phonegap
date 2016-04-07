@@ -1,6 +1,6 @@
 /* Friends controller */
-app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicModal', '$scope', '$state', 'firebaseMain', 'userService', 'Friends',
-    function FriendsCtrlFunction(_, $cordovaToast, $firebaseArray, $ionicModal, $scope, $state, firebaseMain, userService, Friends) {
+app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$firebaseObject', '$ionicModal', '$scope', '$state', 'firebaseMain', 'userService', 'Friends',
+    function FriendsCtrlFunction(_, $cordovaToast, $firebaseArray, $firebaseObject, $ionicModal, $scope, $state, firebaseMain, userService, Friends) {
 
         //Controller variables
         var friendsRef;
@@ -18,6 +18,10 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicMo
         $scope.friends.$loaded(function () {
             //Add something here later?
             console.log("it loaded:", $scope.friends);
+            _.each($scope.friends, function(friend, idx) {
+                $scope.friends[idx] = $firebaseObject(firebaseMain.userRef.child(friend.$id));
+            });
+            console.log("all refrerences:", $scope.friends);
         });
 
         //actions on friends
@@ -61,6 +65,11 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicMo
             }
         };
 
+        $scope.goToProfile = function(user) {
+            $scope.closeModal();
+            $state.go('dashboard.profile', {userId: user.id});
+        };
+
         //setup modal
         $ionicModal.fromTemplateUrl('templates/modals/addFriends.html', {
             scope: $scope,
@@ -91,6 +100,7 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$ionicMo
         $scope.closeModal = function closeModal() {
             $scope.userResult = [];
             $scope.currentFriends = [];
+            $scope.modalValues.searchTerm = "";
             $scope.addModal.hide();
         };
 

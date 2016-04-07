@@ -5,7 +5,7 @@
         </button>
     </ion-nav-buttons>
     <div class="bar bar-subheader friend-item user-item">
-        <div class="food-image"></div>
+
         <div class="user-image profile-picture">
             <img ng-if="currentUser.picData || currentUser.picUrl"
                 ng-src="{{currentUser.picData ? ('data:image/jpeg;base64,' + currentUser.picData) : currentUser.picUrl }}"
@@ -14,32 +14,26 @@
         <div class="box"
              ui-sref="dashboard.profile({userId: currentUser.id})">
             <h2 class="user-name">{{currentUser.name}}</h2>
-            <p class="user-desc">some stuff here</p>
         </div>
         <div class="actions">
-            <button class="button button-clear">
-                foo
-            </button>
+            <div class="food-image"></div>
         </div>
     </div>
     <ion-content class="post-content has-footer has-header has-subheader">
         <ion-list>
             <ion-item class="friend-item"
                       ng-repeat="friend in friends | filter : searchFriend">
-                <div class="food-image"></div>
+
                 <div class="user-image profile-picture">
                     <img ng-if="friend.picData || friend.picUrl"
                         ng-src="{{friend.picData ? ('data:image/jpeg;base64,' + friend.picData) : friend.picUrl }}"
                         alt="profile" />
                 </div>
                 <div class="text-container" ng-click="sendMessage(friend)">
-                    <h2>{{friend.name}}</h2>
-                    <p>some stuff here later</p>
+                    <h2 class="name">{{friend.name}}</h2>
                 </div>
                 <div class="actions">
-                    <button class="button button-clear">
-                        foo
-                    </button>
+                    <div class="food-image"></div>
                 </div>
             </ion-item>
         </ion-list>

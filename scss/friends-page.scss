@@ -4,18 +4,23 @@
         $img-size: 40px;
 
         display: block;
-        padding: 16px 72px 16px 105px;
+        padding: 16px 72px;
         min-height: 72px;
         position: relative;
 
         &.user-item {
             border-bottom: 2px solid red;
 
+            .box {
+                margin-top: 7px;
+            }
+
             h2 {
                 margin: 0;
                 padding: 0;
-                font-size: 16px;
+                font-size: 20px;
                 font-weight: bold;
+                text-transform: capitalize;
             }
 
             p {
@@ -40,7 +45,7 @@
         .user-image {
             border-radius: 50%;
             top: 16px;
-            left: 55px;
+            left: 15px;
             @extend %image-def;
 
             img {
@@ -54,12 +59,18 @@
             cursor: pointer;
             overflow: hidden;
             white-space: nowrap;
+            margin-top: 10px;
+
+            .name {
+                text-transform: capitalize;
+                font-size: 18px;
+            }
         }
 
         .actions {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 0px;
+            right: 66px;
         }
 
     }
@@ -89,6 +100,11 @@
             .user-name {
                 display: inline-block;
                 vertical-align: middle;
+            }
+
+            .button {
+                position: absolute;
+                right: 0px;
             }
         }
 

@@ -12,7 +12,8 @@
     <ion-content>
 
         <ion-list class="user-list">
-            <ion-item class="item-button-right user-item"
+            <ion-item class="user-item"
+                      ng-click="goToProfile(user)"
                       ng-repeat="user in userResult">
                   <div class="profile-picture">
                       <img ng-if="user.picData || user.picUrl"
@@ -20,9 +21,7 @@
                           alt="profile" />
                   </div>
                   <h2 class="user-name item-text-wrap">{{user.name}}</h2>
-                  <button class="button button-clear ion-plus-round"
-                        ng-click="addFriend(user)">
-                  </button>
+                  <button class="button button-clear ion-chevron-right"></button>
             </ion-item>
         </ion-list>
         <div class="item item-divider" ng-if="currentFriends.length > 0">
@@ -30,6 +29,7 @@
         </div>
         <ion-list class="user-list" ng-if="currentFriends.length > 0">
             <ion-item class="user-item"
+                    ng-click="goToProfile(user)"
                     ng-repeat="user in currentFriends">
                 <div class="profile-picture">
                     <img ng-if="user.picData || user.picUrl"
@@ -37,6 +37,7 @@
                         alt="profile" />
                 </div>
                 <h2 class="user-name item-text-wrap">{{user.name}}</h2>
+                <button class="button button-clear ion-chevron-right"></button>
             </ion-item>
         </ion-list>
         <h2 ng-show="noUserResult" class="no-result">No users found.</h2>
