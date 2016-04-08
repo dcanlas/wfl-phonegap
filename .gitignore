@@ -66,3 +66,7 @@ node_modules/*
 #bower stuff
 bower_components
 bower_components/*
+
+#exclude plugins directory
+plugins/*
+plugins
