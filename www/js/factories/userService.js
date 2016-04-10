@@ -1,9 +1,10 @@
-app.factory('userService', ['$q', '$firebaseObject', '$cordovaFacebook', 'firebaseMain',
-    function userService($q, $firebaseObject, $cordovaFacebook, firebaseMain) {
+app.factory('userService', ['$q', '$firebaseArray', '$firebaseObject', '$cordovaFacebook', 'firebaseMain',
+    function userService($q, $firebaseArray, $firebaseObject, $cordovaFacebook, firebaseMain) {
 
         var ref = firebaseMain.userRef,
             userSetDeferred = $q.defer(),
             currentUser = null,
+            currentUserFriends = null,
             currentUserRef = null; //a firebase ref to the user object
 
 
@@ -40,6 +41,8 @@ app.factory('userService', ['$q', '$firebaseObject', '$cordovaFacebook', 'fireba
         function setCurrentUser(user) {
             if (!currentUser) {
                 currentUser = $firebaseObject(ref.child(user.id));
+                var friendsRef = firebaseMain.friendsRef.child(user.id);
+                currentUserFriends = $firebaseArray(friendsRef);
                 currentUserRef = ref.child(user.id);
                 userSetDeferred.resolve(currentUser);
                 console.log("user has been set");
@@ -64,6 +67,10 @@ app.factory('userService', ['$q', '$firebaseObject', '$cordovaFacebook', 'fireba
             return currentUser;
         }
 
+        function getCurrentUserFriends() {
+            return currentUserFriends;
+        }
+
         function removeCurrentUser() {
             currentUser = null;
         }
@@ -83,15 +90,26 @@ app.factory('userService', ['$q', '$firebaseObject', '$cordovaFacebook', 'fireba
             return firebaseMain.friendsRef.update(updateObj);
         }
 
+        function removeFriendFromUser(friend) {
+            var updateObj = {},
+                userPath = currentUser.id + "/" + friend.id,
+                friendPath = friend.id + "/" + currentUser.id;
+            updateObj[userPath] = null;
+            updateObj[friendPath] = null;
+            return firebaseMain.friendsRef.update(updateObj);
+        }
+
         return {
             createUser: createUser,
             saveUser: saveUser,
             getUser: getUser,
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
+            getCurrentUserFriends: getCurrentUserFriends,
             removeCurrentUser: removeCurrentUser,
             createFbUser: createFbUser,
             addFriendToUser: addFriendToUser,
+            removeFriendFromUser: removeFriendFromUser,
             getCurrentUserRef: getCurrentUserRef,
             waitForUserSet: userSetDeferred.promise
         };

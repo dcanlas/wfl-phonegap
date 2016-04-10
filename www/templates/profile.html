@@ -14,7 +14,19 @@
       <button id="change-pic"
               ng-if="user.id === currentUser.id"
               ng-click="uploadPhoto()"
-              class="button button-icon icon ion-camera">
+              class="button button-icon icon ion-camera icon-action">
+      </button>
+      <button id="add-friend"
+              ng-if="user.id !== currentUser.id && !alreadyFriend"
+              ng-click="addFriend(user)"
+              class="button icon-left ion-plus icon-action">
+              Add Friend
+      </button>
+      <button id="remove-friend"
+              ng-if="user.id !== currentUser.id && alreadyFriend"
+              ng-click="removeFriend(user)"
+              class="button icon-left ion-minus icon-action">
+              Unfriend
       </button>
     </div>
 

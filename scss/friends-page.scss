@@ -44,6 +44,7 @@
 
         .user-image {
             border-radius: 50%;
+            border: 2px solid $gray-border;
             top: 16px;
             left: 15px;
             @extend %image-def;

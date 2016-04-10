@@ -1,14 +1,41 @@
 /*  Profile page template */
-app.controller('ProfileCtrl', ['$ionicActionSheet', '$scope', '$stateParams', 'camera', 'userService',
-    function profileCtrl($ionicActionSheet, $scope, $stateParams, camera, userService) {
+app.controller('ProfileCtrl', ['$cordovaToast', '$ionicActionSheet', '$scope', '$stateParams', 'camera', 'userService',
+    function profileCtrl($cordovaToast, $ionicActionSheet, $scope, $stateParams, camera, userService) {
 
         $scope.currentUser = userService.getCurrentUser();
+        var userFriends = userService.getCurrentUserFriends();
         console.log("currentUser: ", $scope.currentUser);
 
         userService.getUser($stateParams.userId)
             .then(function gotUser(user) {
                 $scope.user = user;
+                $scope.alreadyFriend = _.find(userFriends, function(friend) {
+                    return friend.$id === user.id;
+                });
             });
+
+        //This can be done if you are looking at others profile
+        $scope.addFriend = function addFriend(friend) {
+            return userService.addFriendToUser(friend)
+                .then(function success() {
+                    $scope.alreadyFriend = true;
+                    $scope.$apply();
+                    $cordovaToast.showLongBottom("Friend added.");
+                }, function err(error) {
+                    console.log("add failed ", error);
+                });
+        };
+
+        $scope.removeFriend = function removeFriend(friend) {
+            return userService.removeFriendFromUser(friend)
+                .then(function success() {
+                    $scope.alreadyFriend = false;
+                    $scope.$apply();
+                    $cordovaToast.showLongBottom("Friend removed.");
+                }, function err(error) {
+                    console.log("remove failed", error);
+                });
+        }
 
         //This can only be done when you are editing your profile.
         $scope.uploadPhoto = function uploadPhoto() {

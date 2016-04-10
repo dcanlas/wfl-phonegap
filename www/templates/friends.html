@@ -24,7 +24,8 @@
             <ion-item class="friend-item"
                       ng-repeat="friend in friends | filter : searchFriend">
 
-                <div class="user-image profile-picture">
+                <div class="user-image profile-picture"
+                    ui-sref="dashboard.profile({userId: friend.id})">
                     <img ng-if="friend.picData || friend.picUrl"
                         ng-src="{{friend.picData ? ('data:image/jpeg;base64,' + friend.picData) : friend.picUrl }}"
                         alt="profile" />

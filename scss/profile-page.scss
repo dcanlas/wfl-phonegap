@@ -10,13 +10,13 @@
 
         .profile-picture {
             display: inline-block;
-            vertical-align: top;
+            vertical-align: middle;
             margin-right: 6px;
             border-radius: 50%;
             width: $img-size;
             height: $img-size;
-            padding: 2px;
-            background: red;
+            padding: 0;
+            border: 2px solid $gray-border;
 
             .pic {
                 width: 100%;
@@ -27,7 +27,7 @@
 
         .details {
             display: inline-block;
-            vertical-align: top;
+            vertical-align: middle;
 
             .text {
                 color: black;
@@ -37,10 +37,19 @@
 
         }
 
-        #change-pic {
+        .icon-action {
             position: absolute;
-            bottom: -5px;
-            right: 5px;
+            bottom: 6px;
+            right: 6px;
+            min-height: 0px;
+            height: 30px;
+            line-height: 30px;
+
+            &:before {
+                padding-right: 6px;
+                line-height: 30px;
+                font-size: 18px;
+            }
         }
     }
 }
