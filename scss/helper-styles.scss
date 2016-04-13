@@ -20,10 +20,33 @@ by the app
     }
 }
 
+//Custom Backdrop
+.custom-backdrop {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.3;
+
+    &.hide {
+        display: none;
+    }
+}
+
 //General class stylings
 .profile-picture {
     background: url('../img/blank-profile.png') no-repeat;
     background-size: cover;
+}
+
+//todo: we probably need to change this later based on size.
+.food-image {
+    width: 32px;
+    height: 32px;
+    background: url('../img/food-spritesheet.png');
 }
 
 @mixin round-pic($size) {

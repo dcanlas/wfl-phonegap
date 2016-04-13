@@ -1,12 +1,14 @@
-<ion-view view-title="WFL" id="friends-page">
+<ion-view view-title="WFL" id="friends-page" wfl-backdrop>
     <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-person-add"
                 ng-click="addFriendModal()">
         </button>
     </ion-nav-buttons>
+
     <div class="bar bar-subheader friend-item user-item">
 
-        <div class="user-image profile-picture">
+        <div class="user-image profile-picture"
+            ui-sref="dashboard.profile({userId: currentUser.id})">
             <img ng-if="currentUser.picData || currentUser.picUrl"
                 ng-src="{{currentUser.picData ? ('data:image/jpeg;base64,' + currentUser.picData) : currentUser.picUrl }}"
                 alt="profile" />
@@ -16,10 +18,12 @@
             <h2 class="user-name">{{currentUser.name}}</h2>
         </div>
         <div class="actions">
-            <div class="food-image"></div>
+            <div class="food-image" ng-click="showFoodGrid()"></div>
         </div>
     </div>
+
     <ion-content class="post-content has-footer has-header has-subheader">
+
         <ion-list>
             <ion-item class="friend-item"
                       ng-repeat="friend in friends | filter : searchFriend">
@@ -38,11 +42,40 @@
                 </div>
             </ion-item>
         </ion-list>
+
     </ion-content>
+
     <ion-footer-bar class="bar-light item-input-inset" keyboard-attach>
         <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <input type="search" placeholder="Type friend name to search" ng-model="searchFriend">
         </label>
     </ion-footer-bar>
+
+    <div class="food-grid-container"
+        ng-show="foodGridShown"
+        ng-init="foodSet = (foodIcons | groupItems:4)">
+
+        <ion-scroll class="icons-container">
+            <div class="row" ng-repeat="iconRow in foodSet">
+                <div class="col"
+                     ng-class="{'selected-icon': foodSelected === item}"
+                     ng-repeat="item in iconRow"
+                     ng-click="selectFood(item)">
+                    <div class="food-image"
+                         alt="{{item.name}}"
+                         ng-style="{'background-position': (item.x * foodSize)+'px '+(item.y * foodSize)+'px' }">
+                    </div>
+                </div>
+            </div>
+        </ion-scroll>
+
+        <div class="buttons-container">
+            <div class="button-bar">
+              <a class="button button-assertive">Update</a>
+              <a class="button button-dark" ng-click="hideFoodGrid()">Cancel</a>
+            </div>
+        </div>
+    </div>
+
 </ion-view>

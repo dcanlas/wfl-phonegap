@@ -7,6 +7,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "message-page";
 @import "profile-page";
 @import "ionic-overrides";
+// Include animate.css from Dan Eden
+@import "animate";
 //Note: these two files need to be last.
 @import "../www/lib/ionic/scss/ionic";
 @import "mob-template-style";

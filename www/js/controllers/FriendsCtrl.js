@@ -1,6 +1,6 @@
 /* Friends controller */
-app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$firebaseObject', '$ionicModal', '$scope', '$state', 'firebaseMain', 'userService', 'Friends',
-    function FriendsCtrlFunction(_, $cordovaToast, $firebaseArray, $firebaseObject, $ionicModal, $scope, $state, firebaseMain, userService, Friends) {
+app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$firebaseObject', '$ionicModal', '$ionicPopover', '$scope', '$state', 'firebaseMain', 'foodIcons', 'userService',
+    function FriendsCtrlFunction(_, $cordovaToast, $firebaseArray, $firebaseObject, $ionicModal, $ionicPopover, $scope, $state, firebaseMain, foodIcons, userService) {
 
         //Controller variables
         var friendsRef;
@@ -10,6 +10,12 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$firebas
         $scope.times = 0 ;
         $scope.postsCompleted = false;
         $scope.noUserResult = false;
+
+        //Food grid related stuff
+        $scope.foodIcons = foodIcons.getFoods();
+        $scope.foodSize = foodIcons.foodSize;
+        $scope.foodSelected = false;
+        $scope.foodGridShown = false;
 
         $scope.currentUser = userService.getCurrentUser();
         friendsRef = firebaseMain.friendsRef.child($scope.currentUser.$id);
@@ -28,6 +34,17 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$firebas
         $scope.sendMessage = function sendMessage(user) {
             console.log("send to user: ", user);
             $state.go('dashboard.message', {friendId: user.$id});
+        };
+
+        $scope.showFoodGrid = function showFoodGrid() {
+            $scope.foodGridShown = true;
+            //this is from the directive.
+            $scope.showBackdrop();
+        };
+
+        $scope.hideFoodGrid = function hideFoodGrid() {
+            $scope.foodGridShown = false;
+            $scope.hideBackdrop();
         };
 
         //Modal variables
