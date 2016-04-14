@@ -1,6 +1,6 @@
 /* Friends controller */
-app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$firebaseObject', '$ionicModal', '$ionicPopover', '$scope', '$state', 'firebaseMain', 'foodIcons', 'userService',
-    function FriendsCtrlFunction(_, $cordovaToast, $firebaseArray, $firebaseObject, $ionicModal, $ionicPopover, $scope, $state, firebaseMain, foodIcons, userService) {
+app.controller('FriendsCtrl', ['_', 'moment', '$cordovaToast', '$firebaseArray', '$firebaseObject', '$ionicModal', '$scope', '$state', 'firebaseMain', 'foodIcons', 'foodManager', 'userService',
+    function FriendsCtrlFunction(_, moment, $cordovaToast, $firebaseArray, $firebaseObject, $ionicModal, $scope, $state, firebaseMain, foodIcons, foodManager, userService) {
 
         //Controller variables
         var friendsRef;
@@ -13,6 +13,7 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$firebas
 
         //Food grid related stuff
         $scope.foodIcons = foodIcons.getFoods();
+        console.log('foodIcons ', $scope.foodIcons);
         $scope.foodSize = foodIcons.foodSize;
         $scope.foodSelected = false;
         $scope.foodGridShown = false;
@@ -44,7 +45,27 @@ app.controller('FriendsCtrl', ['_', '$cordovaToast', '$firebaseArray', '$firebas
 
         $scope.hideFoodGrid = function hideFoodGrid() {
             $scope.foodGridShown = false;
+            $scope.foodSelected = false;
             $scope.hideBackdrop();
+        };
+
+        //actions on foods
+        $scope.selectFood = function selectFood(item) {
+            $scope.foodSelected = item;
+        };
+
+        $scope.updateFoodSelected = function updateFoodSelected() {
+            console.log("myselected: ", $scope.foodSelected);
+            if ($scope.foodSelected) {
+                var foodUpdate = {
+                    food: $scope.foodSelected,
+                    date: moment().valueOf()
+                };
+                foodManager.addFood(foodUpdate).then(function suc() {
+                    $scope.hideFoodGrid();
+                    $scope.$apply();
+                });
+            }
         };
 
         //Modal variables

@@ -18,7 +18,15 @@
             <h2 class="user-name">{{currentUser.name}}</h2>
         </div>
         <div class="actions">
-            <div class="food-image" ng-click="showFoodGrid()"></div>
+            <div class="food-image-container"
+                ng-class="{'has-food': currentUser.recentFood}"
+                ng-click="showFoodGrid()">
+                <div class="food-image"
+                     alt="{{currentUser.recentFood.food.name}}"
+                     ng-if="currentUser.recentFood"
+                     ng-style="{'background-position': (currentUser.recentFood.food.x * foodSize)+'px '+(currentUser.recentFood.food.y * foodSize)+'px' }">
+                </div>
+            </div>
         </div>
     </div>
 
@@ -38,7 +46,7 @@
                     <h2 class="name">{{friend.name}}</h2>
                 </div>
                 <div class="actions">
-                    <div class="food-image"></div>
+                    <div class="food-image-container"></div>
                 </div>
             </ion-item>
         </ion-list>
@@ -57,10 +65,10 @@
         ng-init="foodSet = (foodIcons | groupItems:4)">
 
         <ion-scroll class="icons-container">
-            <div class="row" ng-repeat="iconRow in foodSet">
-                <div class="col"
+            <div class="row" ng-repeat="iconRow in foodSet track by $index">
+                <div class="col col-item"
                      ng-class="{'selected-icon': foodSelected === item}"
-                     ng-repeat="item in iconRow"
+                     ng-repeat="item in iconRow track by item.name"
                      ng-click="selectFood(item)">
                     <div class="food-image"
                          alt="{{item.name}}"
@@ -72,7 +80,7 @@
 
         <div class="buttons-container">
             <div class="button-bar">
-              <a class="button button-assertive">Update</a>
+              <a class="button button-assertive" ng-click="updateFoodSelected()">Update</a>
               <a class="button button-dark" ng-click="hideFoodGrid()">Cancel</a>
             </div>
         </div>

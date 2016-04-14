@@ -54,10 +54,10 @@
             </ion-scroll>
 
             <div class="food-grid" ng-init="foodSet = (foodIcons | groupItems:4)">
-                <div class="row" ng-repeat="iconRow in foodSet">
+                <div class="row" ng-repeat="iconRow in foodSet track by $index">
                     <div class="col"
                          ng-class="{'selected-icon': foodSelected === item}"
-                         ng-repeat="item in iconRow"
+                         ng-repeat="item in iconRow track by item.name"
                          ng-click="selectFood(item)">
                         <div class="food-item"
                              alt="{{item.name}}"

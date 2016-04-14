@@ -34,12 +34,16 @@
             height: $img-size;
         }
 
-        .food-image {
+        .food-image-container {
             background: url('../img/empty-plate.png');
             background-size: cover;
             top: 16px;
             left: 10px;
             @extend %image-def;
+
+            &.has-food {
+                background: none;
+            }
         }
 
         .user-image {
@@ -97,9 +101,16 @@
         .icons-container {
             height: 290px;
 
-            .food-image {
-                margin: 0 auto;
+            .col-item {
+                &.selected-icon {
+                    background-color: #5a5a5a;
+                }
+
+                .food-image {
+                    margin: 0 auto;
+                }
             }
+
         }
 
         .buttons-container {

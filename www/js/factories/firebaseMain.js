@@ -6,6 +6,7 @@ app.factory('firebaseMain', ['FirebaseConfig', function firebaseMain(FirebaseCon
         'ref': firebaseRef,
         'userRef': firebaseRef.child('users'),
         'messagesRef': firebaseRef.child('messages'),
-        'friendsRef': firebaseRef.child('friends')
+        'friendsRef': firebaseRef.child('friends'),
+        'foodLogRef': firebaseRef.child('foodLog')
     };
 }]);

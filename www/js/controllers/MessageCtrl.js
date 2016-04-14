@@ -32,7 +32,6 @@ app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebase
         };
 
         $scope.addMessage = function addMessage(){
-            console.log("myselected: ", $scope.foodSelected);
             if ($scope.foodSelected) {
                 var newMessage = {
                     food: $scope.foodSelected,
