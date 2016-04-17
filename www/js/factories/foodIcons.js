@@ -10,21 +10,25 @@ app.factory('foodIcons', ['_',
             'other': 'other'
         };
 
-        var foodSize = 32;
+        var foodSize = 64;
 
         var foods = [
-            {name: 'bento', type: foodTypes.other, x: 0, y: 0},
-            {name: 'burger', type: foodTypes.other, x: -1, y: 0},
-            {name: 'hotdog', type: foodTypes.meat, x: -2, y: 0},
-            {name: 'pasta', type: foodTypes.other, x: -3, y: 0},
-            {name: 'ice-cream', type: foodTypes.dessert, x: 0, y: -1},
-            {name: 'kabob', type: foodTypes.meat, x: -1, y: -1},
-            {name: 'ramen', type: foodTypes.other, x: -2, y: -1},
-            {name: 'tacos', type: foodTypes.other, x: -3, y: -1},
-            {name: 'pancake', type: foodTypes.other, x: 0, y: -2},
-            {name: 'pizza', type: foodTypes.other, x: -1, y: -2},
-            {name: 'lamb-rack', type: foodTypes.meat, x: -2, y: -2},
-            {name: 'burrito', type: foodTypes.other, x: -3, y: -2}
+            {name: 'fried rice', type: foodTypes.other, x: 0, y: 0},
+            {name: 'sausage', type: foodTypes.other, x: -1, y: 0},
+            {name: 'corn', type: foodTypes.meat, x: -2, y: 0},
+            {name: 'shrimp rice', type: foodTypes.other, x: -3, y: 0},
+            {name: 'veggie pasta', type: foodTypes.dessert, x: 0, y: -1},
+            {name: 'brown rice', type: foodTypes.meat, x: -1, y: -1},
+            {name: 'falafel', type: foodTypes.other, x: -2, y: -1},
+            {name: 'yellow stuff', type: foodTypes.other, x: -3, y: -1},
+            {name: 'tomato wrap', type: foodTypes.other, x: 0, y: -2},
+            {name: 'pita bread', type: foodTypes.other, x: -1, y: -2},
+            {name: 'dolma', type: foodTypes.meat, x: -2, y: -2},
+            {name: 'veggie curry', type: foodTypes.other, x: -3, y: -2},
+            {name: 'tomato soup', type: foodTypes.other, x: 0, y: -3},
+            {name: 'ham salad', type: foodTypes.other, x: -1, y: -3},
+            {name: 'onion rings', type: foodTypes.meat, x: -2, y: -3},
+            {name: 'tomato with topping', type: foodTypes.other, x: -3, y: -3}
         ];
 
         function getFoods(type) {

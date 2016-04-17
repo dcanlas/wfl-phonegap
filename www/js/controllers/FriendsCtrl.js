@@ -13,7 +13,6 @@ app.controller('FriendsCtrl', ['_', 'moment', '$cordovaToast', '$firebaseArray',
 
         //Food grid related stuff
         $scope.foodIcons = foodIcons.getFoods();
-        console.log('foodIcons ', $scope.foodIcons);
         $scope.foodSize = foodIcons.foodSize;
         $scope.foodSelected = false;
         $scope.foodGridShown = false;

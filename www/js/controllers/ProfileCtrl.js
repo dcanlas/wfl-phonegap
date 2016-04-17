@@ -20,17 +20,14 @@ app.controller('ProfileCtrl', ['_', 'moment', '$cordovaToast', '$ionicActionShee
 
         //processing food log
         foodLog.$loaded(function() {
-            $scope.foodLog = _.chain(foodLog)
+            $scope.foodLog = _.chain(foodLog.reverse())
                 .each(function (item) {
                     var mom = moment(item.date);
                     item.day = mom.format('MM/DD');
-                    item.time = mom.format('hA');
+                    item.time = mom.format('h A');
                 })
                 .groupBy('day').value();
             console.log("foods ", $scope.foodLog);
-            //for testing
-            var clone = foodLog[0];
-            // for ()
         });
 
         //This can be done if you are looking at others profile

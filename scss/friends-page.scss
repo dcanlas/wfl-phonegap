@@ -1,7 +1,7 @@
 #friends-page {
 
     .friend-item {
-        $img-size: 40px;
+        $img-size: 50px;
 
         display: block;
         padding: 16px 72px;
@@ -38,8 +38,8 @@
         .food-image-container {
             background: url('../img/empty-plate.png');
             background-size: cover;
-            top: 16px;
-            left: 10px;
+            top: 13px;
+            left: 0px;
             @extend %image-def;
 
             &.has-food {
@@ -47,7 +47,10 @@
             }
 
             .food-image {
-                margin: 4px auto;
+                position: absolute;
+                top: -7px;
+                left: -8px;
+
             }
         }
 
@@ -56,7 +59,9 @@
             border: 2px solid $gray-border;
             top: 16px;
             left: 15px;
-            @extend %image-def;
+            width: 45px;
+            height: 45px;
+            position: absolute;
 
             img {
                 width: 100%;
@@ -107,7 +112,7 @@
         }
 
         .icons-container {
-            height: 290px;
+            height: 240px;
 
             .col-item {
                 &.selected-icon {

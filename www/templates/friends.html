@@ -17,7 +17,7 @@
              ui-sref="dashboard.profile({userId: currentUser.id})">
             <h2 class="user-name">{{currentUser.name}}</h2>
             <p class="update-text">
-                <span ng-if="!currentUser.recentFood">No Food Updates</span> 
+                <span ng-if="!currentUser.recentFood">No Food Updates</span>
                 <span ng-if="currentUser.recentFood">Last Update: {{currentUser.recentFood.date | amCalendar}}</span>
             </p>
         </div>

@@ -17,7 +17,7 @@
                                     <div class="message preword" ng-if="message.message">
                                         {{message.message}}
                                     </div>
-                                    <div class="food-message"
+                                    <div class="food-image"
                                          alt="{{message.food.name}}"
                                          ng-if="message.food"
                                          ng-style="{'background-position': (message.food.x * foodSize)+'px '+(message.food.y * foodSize)+'px' }">
@@ -32,7 +32,7 @@
                                     <div class="message preword" ng-if="message.message">
                                         {{message.message}}
                                     </div>
-                                    <div class="food-message"
+                                    <div class="food-image"
                                          alt="{{message.food.name}}"
                                          ng-if="message.food"
                                          ng-style="{'background-position': (message.food.x * foodSize)+'px '+(message.food.y * foodSize)+'px' }">
@@ -53,20 +53,20 @@
                 </ion-infinite-scroll>
             </ion-scroll>
 
-            <div class="food-grid" ng-init="foodSet = (foodIcons | groupItems:4)">
+            <ion-scroll class="food-grid" ng-init="foodSet = (foodIcons | groupItems:4)">
                 <div class="row" ng-repeat="iconRow in foodSet track by $index">
                     <div class="col"
                          ng-class="{'selected-icon': foodSelected === item}"
                          ng-repeat="item in iconRow track by item.name"
                          ng-click="selectFood(item)">
-                        <div class="food-item"
+                        <div class="food-image"
                              alt="{{item.name}}"
                              ng-style="{'background-position': (item.x * foodSize)+'px '+(item.y * foodSize)+'px' }">
                         </div>
                     </div>
                 </div>
 
-            </div>
+            </ion-scroll>
 
         </div>
     </ion-content>

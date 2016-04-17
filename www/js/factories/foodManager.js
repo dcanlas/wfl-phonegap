@@ -13,7 +13,8 @@ app.factory('foodManager', ['$q', '$firebaseArray', 'firebaseMain', 'userService
         }
 
         function getUserFoodLog(userId) {
-            return $firebaseArray(ref.child(userId));
+            //todo: we can change limit later
+            return $firebaseArray(ref.child(userId).limitToLast(50));
         }
 
 

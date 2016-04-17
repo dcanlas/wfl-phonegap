@@ -1,5 +1,5 @@
-<ion-view view-title="Profile" id="profile-page">
-  <ion-content has-header="true" scroll="false">
+<ion-view view-title="Food Log" id="profile-page">
+  <ion-content class="profile-content" has-header="true" scroll="false">
 
     <div id="profile-top" >
       <div class="profile-picture">
@@ -30,12 +30,7 @@
       </button>
     </div>
 
-    <div class="log-header">
-        <span class="text">Food Log</span>
-    </div>
-
-    <div class="log-grid">
-
+    <ion-scroll class="log-grid">
         <div class="row row-center log-row"
             ng-repeat="(day, foodArr) in foodLog">
             <div class="col col-20 log-col-label">
@@ -54,9 +49,8 @@
                 </div>
             </div>
         </div>
-        
 
-    </div>
+    </ion-scroll>
 
   </ion-content>
 

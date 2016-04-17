@@ -109,8 +109,8 @@ app.config(function(moment) {
             nextDay: '[Tomorrow]',
             nextWeek: 'dddd',
             lastDay: '[Yesterday]',
-            lastWeek: 'DD/MM/YYYY',
-            sameElse: 'DD/MM/YYYY'
+            lastWeek: 'MM/DD/YY',
+            sameElse: 'MM/DD/YY'
         }
     });
 });
@@ -123,7 +123,3 @@ app.controller('FeaturesCtrl', ['$scope', 'Features', function($scope, Features)
 /* About us Controller */
 app.controller('AboutCtrl', ['$scope', function($scope) {
 }]);
-
-
-
-
