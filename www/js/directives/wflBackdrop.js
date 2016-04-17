@@ -4,11 +4,17 @@ app.directive('wflBackdrop', function() {
        link: function(scope, elm, attr) {
            var element = jQuery(elm);
 	       element.append('<div class="custom-backdrop hide"></div>');
+           var backdrop = element.find('.custom-backdrop');
+           backdrop.click(function() {
+               if (!backdrop.hasClass('hide')) {
+                   scope.$broadcast('backdrop-clicked');
+               }
+           });
            scope.showBackdrop = function() {
-               element.find('.custom-backdrop').removeClass('hide')
+               backdrop.removeClass('hide')
            }
            scope.hideBackdrop = function() {
-               element.find('.custom-backdrop').addClass('hide');
+               backdrop.addClass('hide');
            }
        }
    };

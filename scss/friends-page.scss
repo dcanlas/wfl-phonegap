@@ -12,20 +12,21 @@
             border-bottom: 2px solid red;
 
             .box {
-                margin-top: 7px;
+                margin-top: 0px;
+
+                .user-name {
+                    margin: 0;
+                    padding: 0;
+                    font-size: 20px;
+                    font-weight: bold;
+                    text-transform: capitalize;
+                }
+
+                .update-text {
+                    color: $gray-text;
+                }
             }
 
-            h2 {
-                margin: 0;
-                padding: 0;
-                font-size: 20px;
-                font-weight: bold;
-                text-transform: capitalize;
-            }
-
-            p {
-                color: $gray-text;
-            }
         }
 
         %image-def {
@@ -43,6 +44,10 @@
 
             &.has-food {
                 background: none;
+            }
+
+            .food-image {
+                margin: 4px auto;
             }
         }
 
@@ -64,11 +69,14 @@
             cursor: pointer;
             overflow: hidden;
             white-space: nowrap;
-            margin-top: 10px;
 
             .name {
                 text-transform: capitalize;
                 font-size: 18px;
+            }
+
+            .update-text {
+                color: $gray-text;
             }
         }
 

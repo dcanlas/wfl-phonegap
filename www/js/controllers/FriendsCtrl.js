@@ -37,6 +37,7 @@ app.controller('FriendsCtrl', ['_', 'moment', '$cordovaToast', '$firebaseArray',
             $state.go('dashboard.message', {friendId: user.$id});
         };
 
+        //actions on foods
         $scope.showFoodGrid = function showFoodGrid() {
             $scope.foodGridShown = true;
             //this is from the directive.
@@ -49,7 +50,11 @@ app.controller('FriendsCtrl', ['_', 'moment', '$cordovaToast', '$firebaseArray',
             $scope.hideBackdrop();
         };
 
-        //actions on foods
+        $scope.$on('backdrop-clicked', function() {
+            $scope.hideFoodGrid();
+            $scope.$apply();
+        });
+
         $scope.selectFood = function selectFood(item) {
             $scope.foodSelected = item;
         };

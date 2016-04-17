@@ -57,4 +57,56 @@
             }
         }
     }
+
+    .log-header {
+        margin: 10px auto;
+        text-align: center;
+        display: block;
+
+        .text {
+            font-weight: bold;
+            font-size: 17px;
+        }
+    }
+
+    .log-grid {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+
+        .log-row {
+            border-bottom: 1px solid $gray-border;
+            margin-top: 10px;
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            &:last-child {
+                border: none;
+            }
+
+            .log-col-label {
+                text-align: center;
+                font-weight: bold;
+                font-size: 15px;
+            }
+
+            .log-col-content {
+
+                .food-entry {
+                    display: inline-block;
+                    width: 50px;
+                    height: 50px;
+
+                    .food-image {
+                        margin: 0 auto;
+                        display: block;
+                    }
+                }
+            }
+        }
+
+    }
+
 }

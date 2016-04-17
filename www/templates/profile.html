@@ -30,6 +30,34 @@
       </button>
     </div>
 
+    <div class="log-header">
+        <span class="text">Food Log</span>
+    </div>
+
+    <div class="log-grid">
+
+        <div class="row row-center log-row"
+            ng-repeat="(day, foodArr) in foodLog">
+            <div class="col col-20 log-col-label">
+                {{day}}
+            </div>
+            <div class="col log-col-content">
+                <div class="food-entry"
+                    ng-repeat="item in foodArr">
+                    <div class="food-image"
+                         alt="{{item.food.name}}"
+                         ng-style="{'background-position': (item.food.x * foodSize)+'px '+(item.food.y * foodSize)+'px' }">
+                    </div>
+                    <div class="food-time">
+                        {{item.time}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+
   </ion-content>
 
 </ion-view>

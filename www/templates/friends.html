@@ -16,6 +16,10 @@
         <div class="box"
              ui-sref="dashboard.profile({userId: currentUser.id})">
             <h2 class="user-name">{{currentUser.name}}</h2>
+            <p class="update-text">
+                <span ng-if="!currentUser.recentFood">No Food Updates</span> 
+                <span ng-if="currentUser.recentFood">Last Update: {{currentUser.recentFood.date | amCalendar}}</span>
+            </p>
         </div>
         <div class="actions">
             <div class="food-image-container"
@@ -44,9 +48,20 @@
                 </div>
                 <div class="text-container" ng-click="sendMessage(friend)">
                     <h2 class="name">{{friend.name}}</h2>
+                    <p class="update-text">
+                        <span ng-if="!friend.recentFood">No Food Updates</span>
+                        <span ng-if="friend.recentFood">Last Update: {{friend.recentFood.date | amCalendar}}</span>
+                    </p>
                 </div>
                 <div class="actions">
-                    <div class="food-image-container"></div>
+                    <div class="food-image-container"
+                        ng-class="{'has-food': friend.recentFood}">
+                        <div class="food-image"
+                             alt="{{friend.recentFood.food.name}}"
+                             ng-if="friend.recentFood"
+                             ng-style="{'background-position': (friend.recentFood.food.x * foodSize)+'px '+(friend.recentFood.food.y * foodSize)+'px' }">
+                        </div>
+                    </div>
                 </div>
             </ion-item>
         </ion-list>

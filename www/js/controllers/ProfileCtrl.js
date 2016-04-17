@@ -1,11 +1,15 @@
 /*  Profile page template */
-app.controller('ProfileCtrl', ['$cordovaToast', '$ionicActionSheet', '$scope', '$stateParams', 'camera', 'userService',
-    function profileCtrl($cordovaToast, $ionicActionSheet, $scope, $stateParams, camera, userService) {
+app.controller('ProfileCtrl', ['_', 'moment', '$cordovaToast', '$ionicActionSheet', '$scope', '$stateParams', 'camera', 'foodIcons', 'foodManager', 'userService',
+    function profileCtrl(_, moment, $cordovaToast, $ionicActionSheet, $scope, $stateParams, camera, foodIcons, foodManager, userService) {
 
         $scope.currentUser = userService.getCurrentUser();
-        var userFriends = userService.getCurrentUserFriends();
-        console.log("currentUser: ", $scope.currentUser);
+        var userFriends = userService.getCurrentUserFriends(),
+            foodLog = foodManager.getUserFoodLog($stateParams.userId);
 
+        //foodIcons stuff
+        $scope.foodSize = foodIcons.foodSize
+
+        //setting the user
         userService.getUser($stateParams.userId)
             .then(function gotUser(user) {
                 $scope.user = user;
@@ -13,6 +17,21 @@ app.controller('ProfileCtrl', ['$cordovaToast', '$ionicActionSheet', '$scope', '
                     return friend.$id === user.id;
                 });
             });
+
+        //processing food log
+        foodLog.$loaded(function() {
+            $scope.foodLog = _.chain(foodLog)
+                .each(function (item) {
+                    var mom = moment(item.date);
+                    item.day = mom.format('MM/DD');
+                    item.time = mom.format('hA');
+                })
+                .groupBy('day').value();
+            console.log("foods ", $scope.foodLog);
+            //for testing
+            var clone = foodLog[0];
+            // for ()
+        });
 
         //This can be done if you are looking at others profile
         $scope.addFriend = function addFriend(friend) {

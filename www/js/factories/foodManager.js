@@ -1,21 +1,25 @@
-app.factory('foodManager', ['$q', 'firebaseMain', 'userService',
-    function foodManager($q, firebaseMain, userService) {
+app.factory('foodManager', ['$q', '$firebaseArray', 'firebaseMain', 'userService',
+    function foodManager($q, $firebaseArray, firebaseMain, userService) {
 
         var ref = firebaseMain.foodLogRef,
             currentUser = userService.getCurrentUser();
 
         function addFood(foodObj) {
-            console.log('user here ', currentUser, foodObj);
-            return ref.child("" + currentUser.$id).push(foodObj)
+            return ref.child(currentUser.$id).push(foodObj)
                 .then(function suc() {
                     currentUser.recentFood = foodObj;
                     return currentUser.$save();
                 });
         }
 
+        function getUserFoodLog(userId) {
+            return $firebaseArray(ref.child(userId));
+        }
+
 
         return {
-            addFood: addFood
+            addFood: addFood,
+            getUserFoodLog: getUserFoodLog
         };
     }
 ]);
