@@ -74,5 +74,8 @@ app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebase
             $scope.$broadcast('scroll.refreshComplete');
         };
 
+        //TODO: For some reason something broke and I have to call this now.
+        $scope.doRefresh();
+
     }
 ]);

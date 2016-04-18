@@ -47,9 +47,10 @@
                     </div>
                 </div>
                 <ion-infinite-scroll
-                        ng-if="postsCompleted == false"
+                        ng-if="!postsCompleted"
                         on-infinite="getMessages()"
-                        distance="10%">
+                        immediate-check="true"
+                        distance="1%">
                 </ion-infinite-scroll>
             </ion-scroll>
 
