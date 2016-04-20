@@ -1,6 +1,6 @@
 // single message
-app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebaseObject', '$scope', '$stateParams', 'firebaseMain', 'foodIcons', 'messageService', 'userService', 'userSet',
-    function messageCtrlFunction(_, moment, $ionicScrollDelegate, $firebaseObject, $scope, $stateParams, firebaseMain, foodIcons, messageService, userService, userSet){
+app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebaseObject', '$scope', '$stateParams', 'firebaseMain', 'foodIcons', 'messageService', 'userService', 'userAlertService',
+    function messageCtrlFunction(_, moment, $ionicScrollDelegate, $firebaseObject, $scope, $stateParams, firebaseMain, foodIcons, messageService, userService, userAlertService){
 
         $scope.messages = [];
         $scope.postsCompleted = false; //this is for infinite scrolling later
@@ -39,7 +39,13 @@ app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebase
                     date: moment().valueOf()
                 };
                 console.log("new message, ", newMessage);
-                $scope.messages.$add(newMessage);
+                $scope.messages.$add(newMessage)
+                    .then(function addAlert() {
+                        userAlertService.sendAlert($scope.friendObj.id)
+                            .then(function() {
+                                console.log("alert set.");
+                            });
+                    });
                 $scope.foodSelected = false;
                 scrollHack();
             }

@@ -38,7 +38,7 @@
 
         <ion-list>
             <ion-item class="friend-item"
-                      ng-repeat="friend in friends | filter : searchFriend">
+                      ng-repeat="friend in friends | filter:searchFriend:strict | orderBy:'displayName' ">
 
                 <div class="user-image profile-picture"
                     ui-sref="dashboard.profile({userId: friend.id})">
@@ -55,10 +55,10 @@
                 </div>
                 <div class="actions">
                     <div class="food-image-container"
-                        ng-class="{'has-food': friend.recentFood}">
+                        ng-class="{'has-food': friend.recentFood && !isFoodOutdated(friend.recentFood.date)}">
                         <div class="food-image"
                              alt="{{friend.recentFood.food.name}}"
-                             ng-if="friend.recentFood"
+                             ng-if="friend.recentFood && !isFoodOutdated(friend.recentFood.date)"
                              ng-style="{'background-position': (friend.recentFood.food.x * foodSize)+'px '+(friend.recentFood.food.y * foodSize)+'px' }">
                         </div>
                     </div>
@@ -71,7 +71,7 @@
     <ion-footer-bar class="bar-light item-input-inset" keyboard-attach>
         <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="Type friend name to search" ng-model="searchFriend">
+            <input type="search" placeholder="Type friend name to search" ng-model="searchFriend.displayName">
         </label>
     </ion-footer-bar>
 

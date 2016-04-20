@@ -30,6 +30,11 @@ app.controller('FriendsCtrl', ['_', 'moment', '$cordovaToast', '$firebaseArray',
             console.log("all refrerences:", $scope.friends);
         });
 
+        $scope.isFoodOutdated = function isFoodOutdated(date) {
+            var earlier = moment().subtract(2, 'h');
+            return moment(date).isBefore(earlier);
+        };
+
         //actions on friends
         $scope.sendMessage = function sendMessage(user) {
             console.log("send to user: ", user);
@@ -150,30 +155,5 @@ app.controller('FriendsCtrl', ['_', 'moment', '$cordovaToast', '$firebaseArray',
             $scope.addModal.remove();
         });
 
-        // load more content function
-        //below is for delayed infinite scrolling which is unused right now
-        //uses ion-infinite-scroll
-        $scope.getPosts = function(){
-            Friends.getFriends()
-                .success(function (posts) {
-                    $scope.items = $scope.items.concat(posts);
-                    $scope.$broadcast('scroll.infiniteScrollComplete');
-                    $scope.times = $scope.times + 1;
-                    if($scope.times >= 4) {
-                        $scope.postsCompleted = true;
-                    }
-                })
-                .error(function (error) {
-                    $scope.items = [];
-                });
-        };
-        // pull to refresh buttons
-        $scope.doRefresh = function(){
-            $scope.times = 0 ;
-            $scope.items = [];
-            $scope.postsCompleted = false;
-            $scope.getPosts();
-            $scope.$broadcast('scroll.refreshComplete');
-        };
     }
 ]);
