@@ -3,7 +3,8 @@
     <ion-content class="has-footer" scroll="false">
         <div class="flex-container">
 
-            <ion-scroll class="message-list">
+            <ion-scroll class="message-list"
+                        delegate-handle="message-list">
                 <ion-refresher
                         pulling-text="Pull to refresh..."
                         on-refresh="doRefresh()">
@@ -54,7 +55,9 @@
                 </ion-infinite-scroll>
             </ion-scroll>
 
-            <ion-scroll class="food-grid" ng-init="foodSet = (foodIcons | groupItems:4)">
+            <ion-scroll class="food-grid"
+                    delegate-handle="food-grid"
+                    ng-init="foodSet = (foodIcons | groupItems:4)">
                 <div class="row" ng-repeat="iconRow in foodSet track by $index">
                     <div class="col"
                          ng-class="{'selected-icon': foodSelected === item}"

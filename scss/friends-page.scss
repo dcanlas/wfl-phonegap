@@ -37,6 +37,19 @@
 
         }
 
+        &.has-alert {
+            &:before {
+                content:' ';
+                display: block;
+                background-color: red;
+                width: 6px;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+
         %image-def {
             position: absolute;
             width: $img-size;

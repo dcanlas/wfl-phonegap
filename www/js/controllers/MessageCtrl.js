@@ -25,9 +25,12 @@ app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebase
                 .then(function (data) {
                     $scope.messages = data.messages;
                     console.log('messages ', $scope.messages);
-                    $ionicScrollDelegate.scrollBottom();
+                    scrollHack();
                     //todo: paginate stuff later, we just pull all messages for now.
                     $scope.postsCompleted = true;
+                })
+                .then(function removeAlert() {
+                    return userAlertService.removeAlert($scope.friendObj.id);
                 });
         };
 
@@ -41,10 +44,7 @@ app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebase
                 console.log("new message, ", newMessage);
                 $scope.messages.$add(newMessage)
                     .then(function addAlert() {
-                        userAlertService.sendAlert($scope.friendObj.id)
-                            .then(function() {
-                                console.log("alert set.");
-                            });
+                        return userAlertService.sendAlert($scope.friendObj.id);
                     });
                 $scope.foodSelected = false;
                 scrollHack();
@@ -52,7 +52,7 @@ app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebase
         };
 
         function scrollHack() {
-            $ionicScrollDelegate.scrollBottom();
+            $ionicScrollDelegate.$getByHandle('message-list').scrollBottom();
         }
 
         /*

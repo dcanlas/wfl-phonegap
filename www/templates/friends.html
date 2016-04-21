@@ -38,7 +38,8 @@
 
         <ion-list>
             <ion-item class="friend-item"
-                      ng-repeat="friend in friends | filter:searchFriend:strict | orderBy:'displayName' ">
+                      ng-class="{'has-alert': friend.hasAlert === 1}"
+                      ng-repeat="friend in friends | filter:searchFriend:strict ">
 
                 <div class="user-image profile-picture"
                     ui-sref="dashboard.profile({userId: friend.id})">

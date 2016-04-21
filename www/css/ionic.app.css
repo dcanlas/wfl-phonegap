@@ -57,6 +57,15 @@ by the app
         color: #666666; }
     #friends-page .friend-item.user-item .food-image-container {
       top: 9px; }
+  #friends-page .friend-item.has-alert:before {
+    content: ' ';
+    display: block;
+    background-color: red;
+    width: 6px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0; }
   #friends-page .friend-item .food-image-container {
     position: absolute;
     width: 50px;

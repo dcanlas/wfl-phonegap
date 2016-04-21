@@ -1,9 +1,11 @@
 /* Friends controller */
-app.controller('FriendsCtrl', ['_', 'moment', '$cordovaToast', '$firebaseArray', '$firebaseObject', '$ionicModal', '$scope', '$state', 'firebaseMain', 'foodIcons', 'foodManager', 'userService',
-    function FriendsCtrlFunction(_, moment, $cordovaToast, $firebaseArray, $firebaseObject, $ionicModal, $scope, $state, firebaseMain, foodIcons, foodManager, userService) {
+app.controller('FriendsCtrl', ['_', 'moment', '$cordovaToast', '$firebaseArray', '$firebaseObject', '$ionicModal', '$scope', '$state', '$timeout', 'firebaseMain', 'foodIcons', 'foodManager', 'userService',
+    function FriendsCtrlFunction(_, moment, $cordovaToast, $firebaseArray, $firebaseObject, $ionicModal, $scope, $state, $timeout, firebaseMain, foodIcons, foodManager, userService) {
 
         //Controller variables
-        var friendsRef;
+        var friendsRef,
+            userAlertRef = firebaseMain.userAlertRef,
+            alertListenerSet = false;
 
         //Page variables
         $scope.items = [];
@@ -27,8 +29,32 @@ app.controller('FriendsCtrl', ['_', 'moment', '$cordovaToast', '$firebaseArray',
             _.each($scope.friends, function(friend, idx) {
                 $scope.friends[idx] = $firebaseObject(firebaseMain.userRef.child(friend.$id));
             });
-            console.log("all refrerences:", $scope.friends);
+            checkForAlerts();
         });
+
+        function checkForAlerts() {
+            if (!alertListenerSet) {
+                userAlertRef.child($scope.currentUser.id).on("value", alertAddedCb);
+                alertListenerSet = true;
+            }
+        }
+
+        function alertAddedCb(snapshot) {
+            var alerts = snapshot.val();
+            $timeout(function() {
+                $scope.friends = _.chain($scope.friends)
+                    .each(function(friend, idx) {
+                        friend.hasAlert = 0;
+                        if (alerts && alerts[friend.id]) {
+                            friend.hasAlert = 1;
+                        }
+                    }).sortBy('hasAlert').value().reverse();
+            });
+        }
+
+        $scope.orderByFunc = function orderByFunc(friend) {
+            return parseInt(friend.hasAlert);
+        };
 
         $scope.isFoodOutdated = function isFoodOutdated(date) {
             var earlier = moment().subtract(2, 'h');
@@ -153,6 +179,7 @@ app.controller('FriendsCtrl', ['_', 'moment', '$cordovaToast', '$firebaseArray',
 
         $scope.$on('$destroy', function() {
             $scope.addModal.remove();
+            userAlertRef.child($scope.currentUser.id).off("value");
         });
 
     }

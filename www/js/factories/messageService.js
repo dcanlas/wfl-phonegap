@@ -9,7 +9,7 @@ app.factory('messageService', ['$q', '$firebaseArray', '$firebaseObject', '$cord
             var friendRef = $firebaseObject(firebaseMain.userRef.child(friendId));
             //case where messages between user and friend already exist
             if (currentUser.messages && currentUser.messages[friendId]) {
-                var query = ref.child(currentUser.messages[friendId]);
+                var query = ref.child(currentUser.messages[friendId]).limitToLast(50);
                 var resQuery = $firebaseArray(query);
                 resQuery.$loaded(function () {
                     deferred.resolve({ messages : resQuery });
