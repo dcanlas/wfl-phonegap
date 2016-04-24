@@ -1,5 +1,5 @@
-app.factory('userService', ['$q', '$firebaseArray', '$firebaseObject', '$cordovaFacebook', 'firebaseMain',
-    function userService($q, $firebaseArray, $firebaseObject, $cordovaFacebook, firebaseMain) {
+app.factory('userService', ['moment', '$q', '$firebaseArray', '$firebaseObject', '$cordovaFacebook', 'firebaseMain',
+    function userService(moment, $q, $firebaseArray, $firebaseObject, $cordovaFacebook, firebaseMain) {
 
         var ref = firebaseMain.userRef,
             userSetDeferred = $q.defer(),
@@ -45,7 +45,6 @@ app.factory('userService', ['$q', '$firebaseArray', '$firebaseObject', '$cordova
                 currentUserFriends = $firebaseArray(friendsRef);
                 currentUserRef = ref.child(user.id);
                 userSetDeferred.resolve(currentUser);
-                console.log("user has been set");
             } else {
                 console.log("this should happen only once!");
             }
@@ -99,6 +98,12 @@ app.factory('userService', ['$q', '$firebaseArray', '$firebaseObject', '$cordova
             return firebaseMain.friendsRef.update(updateObj);
         }
 
+        function setFriendUpdateTime(friendId) {
+            var now = moment().valueOf();
+            return firebaseMain.friendsRef.child(currentUser.id).child(friendId)
+                .update({"lastInteractionTime": now});
+        }
+
         return {
             createUser: createUser,
             saveUser: saveUser,
@@ -111,6 +116,7 @@ app.factory('userService', ['$q', '$firebaseArray', '$firebaseObject', '$cordova
             addFriendToUser: addFriendToUser,
             removeFriendFromUser: removeFriendFromUser,
             getCurrentUserRef: getCurrentUserRef,
+            setFriendUpdateTime: setFriendUpdateTime,
             waitForUserSet: userSetDeferred.promise
         };
     }]

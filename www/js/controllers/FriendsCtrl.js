@@ -1,10 +1,12 @@
 /* Friends controller */
-app.controller('FriendsCtrl', ['_', 'moment', '$cordovaToast', '$firebaseArray', '$firebaseObject', '$ionicModal', '$scope', '$state', '$timeout', 'firebaseMain', 'foodIcons', 'foodManager', 'userService',
-    function FriendsCtrlFunction(_, moment, $cordovaToast, $firebaseArray, $firebaseObject, $ionicModal, $scope, $state, $timeout, firebaseMain, foodIcons, foodManager, userService) {
+app.controller('FriendsCtrl', ['_', 'moment', '$q', '$cordovaToast', '$firebaseArray', '$firebaseObject', '$ionicModal', '$scope', '$state', '$timeout', 'firebaseMain', 'foodIcons', 'foodManager', 'userService',
+    function FriendsCtrlFunction(_, moment, $q, $cordovaToast, $firebaseArray, $firebaseObject, $ionicModal, $scope, $state, $timeout, firebaseMain, foodIcons, foodManager, userService) {
 
         //Controller variables
         var friendsRef,
             userAlertRef = firebaseMain.userAlertRef,
+            initDone = false,
+            initFriendLastKey = "";
             alertListenerSet = false;
 
         //Page variables
@@ -22,19 +24,52 @@ app.controller('FriendsCtrl', ['_', 'moment', '$cordovaToast', '$firebaseArray',
         $scope.currentUser = userService.getCurrentUser();
         friendsRef = firebaseMain.friendsRef.child($scope.currentUser.$id);
         //Note: by using $firebaseArray, this object is sync with server so it auto-updates
-        $scope.friends = $firebaseArray(friendsRef);
-        $scope.friends.$loaded(function () {
-            //Add something here later?
-            console.log("it loaded:", $scope.friends);
-            _.each($scope.friends, function(friend, idx) {
-                $scope.friends[idx] = $firebaseObject(firebaseMain.userRef.child(friend.$id));
+        function init() {
+            if (!initDone) {
+                $scope.friends = $firebaseArray(friendsRef);
+                $scope.friends.$loaded(function () {
+                    var allRefs = [];
+                    console.log("it loaded:", $scope.friends);
+                    _.each($scope.friends, function(friend, idx) {
+                        var friendObjRef = $firebaseObject(firebaseMain.userRef.child(friend.$id));
+                        allRefs.push(friendObjRef.$loaded().then(function() {
+                            friendObjRef.lastInteractionTime = friend.lastInteractionTime ? friend.lastInteractionTime : 1;
+                            $scope.friends[idx] = friendObjRef;
+                            $scope.friends[idx].hasAlert = 0;
+                        }));
+                    });
+                    $q.all(allRefs).then(function() {
+                        console.log("friends now: ", $scope.friends);
+                        doFriendsWatch();
+                        checkForAlerts();
+                    });
+                });
+                initDone = true;
+            }
+        }
+
+        function doFriendsWatch() {
+            $scope.friends.$watch(function (event) {
+                console.log("event: ", event);
+                if (event.event === 'child_added') {
+                    var idx = $scope.friends.$indexFor(event.key);
+                    console.log("my idx: ", idx);
+                    var newRef = $firebaseObject(firebaseMain.userRef.child(event.key));
+                    newRef.$loaded().then(function() {
+                        $scope.friends[idx] = newRef;
+                        newRef.hasAlert = 0;
+                        newRef.lastInteractionTime = 1;
+                        console.log("current new friend: ", $scope.friends[idx]);
+                        console.log("new friends: ", $scope.friends);
+                        sortFriends();
+                    });
+                }
             });
-            checkForAlerts();
-        });
+        }
 
         function checkForAlerts() {
             if (!alertListenerSet) {
-                userAlertRef.child($scope.currentUser.id).on("value", alertAddedCb);
+                userAlertRef.child($scope.currentUser.$id).on("value", alertAddedCb);
                 alertListenerSet = true;
             }
         }
@@ -42,19 +77,36 @@ app.controller('FriendsCtrl', ['_', 'moment', '$cordovaToast', '$firebaseArray',
         function alertAddedCb(snapshot) {
             var alerts = snapshot.val();
             $timeout(function() {
-                $scope.friends = _.chain($scope.friends)
-                    .each(function(friend, idx) {
-                        friend.hasAlert = 0;
-                        if (alerts && alerts[friend.id]) {
-                            friend.hasAlert = 1;
-                        }
-                    }).sortBy('hasAlert').value().reverse();
+                var promiseArray = [];
+                _.each($scope.friends, function(friend) {
+                    // friend.hasAlert = 0;
+                    if (alerts && alerts[friend.id || friend.$id]) {
+                        promiseArray.push(
+                            userService.setFriendUpdateTime(friend.id || friend.$id).then(function() {
+                                var idx = $scope.friends.$indexFor(friend.$id);
+                                var ref = $firebaseObject(firebaseMain.userRef.child(friend.id || friend.$id));
+                                return ref.$loaded().then(function() {
+                                    console.log("I should run first");
+                                    ref.hasAlert = 1
+                                    ref.lastInteractionTime = friend.lastInteractionTime;
+                                    $scope.friends[idx] = ref;
+                                    console.log("my ref: ", ref, $scope.friends[idx]);
+                                });
+                            })
+                        );
+                    }
+                });
+                $q.all(promiseArray).then(sortFriends);
             });
         }
 
-        $scope.orderByFunc = function orderByFunc(friend) {
-            return parseInt(friend.hasAlert);
-        };
+        function sortFriends() {
+            $scope.friends.sort(function (a, b) {
+                return b.lastInteractionTime - a.lastInteractionTime;
+            });
+            console.log("I should run last");
+            console.log("friends being sorted: ", $scope.friends);
+        }
 
         $scope.isFoodOutdated = function isFoodOutdated(date) {
             var earlier = moment().subtract(2, 'h');
@@ -176,6 +228,9 @@ app.controller('FriendsCtrl', ['_', 'moment', '$cordovaToast', '$firebaseArray',
             $scope.modalValues.searchTerm = "";
             $scope.addModal.hide();
         };
+
+        //Init call
+        init();
 
         $scope.$on('$destroy', function() {
             $scope.addModal.remove();

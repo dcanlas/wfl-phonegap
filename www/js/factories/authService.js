@@ -81,7 +81,6 @@ app.factory('authService', ['$q', '$rootScope', '$state', '$cordovaFacebook', '$
         onAuthCallback = function(authData) {
             if (authData) {
                 authDeferred.resolve(authData);
-                console.log("authData: ", authData);
                 svc.authenticated = true;
                 if (authData.provider === 'facebook') {
                     setFbUser(authData);

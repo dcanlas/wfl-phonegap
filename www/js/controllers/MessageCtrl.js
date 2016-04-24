@@ -24,7 +24,6 @@ app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebase
             messageService.getMessagesWithFriend($stateParams.friendId)
                 .then(function (data) {
                     $scope.messages = data.messages;
-                    console.log('messages ', $scope.messages);
                     scrollHack();
                     //todo: paginate stuff later, we just pull all messages for now.
                     $scope.postsCompleted = true;
