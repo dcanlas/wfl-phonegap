@@ -31,7 +31,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             resolve: {
                 //we need to inject userSet into child controllers so we can wait for it
                 userSet: ['userService', function(userService) {
-                    //this basically waits for user to be set before even showing dashboard
+                    //IMPORTANT: this basically waits for user to be set before even showing dashboard
                     return userService.waitForUserSet;
                 }]
             }

@@ -42,25 +42,25 @@
                       ng-repeat="friend in friends | filter:searchFriend:strict ">
 
                 <div class="user-image profile-picture"
-                    ui-sref="dashboard.profile({userId: friend.id})">
-                    <img ng-if="friend.picData || friend.picUrl"
-                        ng-src="{{friend.picData ? ('data:image/jpeg;base64,' + friend.picData) : friend.picUrl }}"
+                    ui-sref="dashboard.profile({userId: friend.user.id})">
+                    <img ng-if="friend.user.picData || friend.user.picUrl"
+                        ng-src="{{friend.user.picData ? ('data:image/jpeg;base64,' + friend.user.picData) : friend.user.picUrl }}"
                         alt="profile" />
                 </div>
-                <div class="text-container" ng-click="sendMessage(friend)">
-                    <h2 class="name">{{friend.name}}</h2>
+                <div class="text-container" ng-click="sendMessage(friend.user)">
+                    <h2 class="name">{{friend.user.name}}</h2>
                     <p class="update-text">
-                        <span ng-if="!friend.recentFood">No Food Updates</span>
-                        <span ng-if="friend.recentFood">Last Update: {{friend.recentFood.date | amCalendar}}</span>
+                        <span ng-if="!friend.user.recentFood">No Food Updates</span>
+                        <span ng-if="friend.user.recentFood">Last Update: {{friend.user.recentFood.date | amCalendar}}</span>
                     </p>
                 </div>
                 <div class="actions">
                     <div class="food-image-container"
-                        ng-class="{'has-food': friend.recentFood && !isFoodOutdated(friend.recentFood.date)}">
+                        ng-class="{'has-food': friend.user.recentFood && !isFoodOutdated(friend.user.recentFood.date)}">
                         <div class="food-image"
-                             alt="{{friend.recentFood.food.name}}"
-                             ng-if="friend.recentFood && !isFoodOutdated(friend.recentFood.date)"
-                             ng-style="{'background-position': (friend.recentFood.food.x * foodSize)+'px '+(friend.recentFood.food.y * foodSize)+'px' }">
+                             alt="{{friend.user.recentFood.food.name}}"
+                             ng-if="friend.user.recentFood && !isFoodOutdated(friend.user.recentFood.date)"
+                             ng-style="{'background-position': (friend.user.recentFood.food.x * foodSize)+'px '+(friend.user.recentFood.food.y * foodSize)+'px' }">
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
     <ion-footer-bar class="bar-light item-input-inset" keyboard-attach>
         <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="Type friend name to search" ng-model="searchFriend.displayName">
+            <input type="search" placeholder="Type friend name to search" ng-model="searchFriend.user.displayName">
         </label>
     </ion-footer-bar>
 

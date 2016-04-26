@@ -1,6 +1,6 @@
 /* Friends controller */
-app.controller('FriendsCtrl', ['_', 'moment', '$q', '$cordovaToast', '$firebaseArray', '$firebaseObject', '$ionicModal', '$scope', '$state', '$timeout', 'firebaseMain', 'foodIcons', 'foodManager', 'userService',
-    function FriendsCtrlFunction(_, moment, $q, $cordovaToast, $firebaseArray, $firebaseObject, $ionicModal, $scope, $state, $timeout, firebaseMain, foodIcons, foodManager, userService) {
+app.controller('FriendsCtrl', ['_', 'moment', '$q', '$cordovaToast', '$firebaseArray', '$firebaseObject', '$ionicModal', '$scope', '$state', '$timeout', 'firebaseMain', 'foodIcons', 'foodManager', 'friendsService', 'userService', '$rootScope',
+    function FriendsCtrlFunction(_, moment, $q, $cordovaToast, $firebaseArray, $firebaseObject, $ionicModal, $scope, $state, $timeout, firebaseMain, foodIcons, foodManager, friendsService, userService, $rootScope) {
 
         //Controller variables
         var friendsRef,
@@ -26,86 +26,22 @@ app.controller('FriendsCtrl', ['_', 'moment', '$q', '$cordovaToast', '$firebaseA
         //Note: by using $firebaseArray, this object is sync with server so it auto-updates
         function init() {
             if (!initDone) {
-                $scope.friends = $firebaseArray(friendsRef);
-                $scope.friends.$loaded(function () {
-                    var allRefs = [];
-                    console.log("it loaded:", $scope.friends);
-                    _.each($scope.friends, function(friend, idx) {
-                        var friendObjRef = $firebaseObject(firebaseMain.userRef.child(friend.$id));
-                        allRefs.push(friendObjRef.$loaded().then(function() {
-                            friendObjRef.lastInteractionTime = friend.lastInteractionTime ? friend.lastInteractionTime : 1;
-                            $scope.friends[idx] = friendObjRef;
-                            $scope.friends[idx].hasAlert = 0;
-                        }));
-                    });
-                    $q.all(allRefs).then(function() {
-                        console.log("friends now: ", $scope.friends);
-                        doFriendsWatch();
-                        checkForAlerts();
-                    });
+                friendsService.init().then(function(friendsArr) {
+                    console.log(friendsService.friendsHash);
+                    console.log(friendsArr);
+                    $scope.friends = friendsService.getFriendsArr();
+                    setFriendListener();
                 });
                 initDone = true;
             }
         }
 
-        function doFriendsWatch() {
-            $scope.friends.$watch(function (event) {
-                console.log("event: ", event);
-                if (event.event === 'child_added') {
-                    var idx = $scope.friends.$indexFor(event.key);
-                    console.log("my idx: ", idx);
-                    var newRef = $firebaseObject(firebaseMain.userRef.child(event.key));
-                    newRef.$loaded().then(function() {
-                        $scope.friends[idx] = newRef;
-                        newRef.hasAlert = 0;
-                        newRef.lastInteractionTime = 1;
-                        console.log("current new friend: ", $scope.friends[idx]);
-                        console.log("new friends: ", $scope.friends);
-                        sortFriends();
-                    });
-                }
+        function setFriendListener() {
+            //gotta use $rootscope here cause I think $scope gets paused somehow
+            $rootScope.$on('friendListChange', function(e) {
+                $scope.friends = friendsService.getFriendsArr();
+                console.log("got new list: ", friendsService.getFriendsArr());
             });
-        }
-
-        function checkForAlerts() {
-            if (!alertListenerSet) {
-                userAlertRef.child($scope.currentUser.$id).on("value", alertAddedCb);
-                alertListenerSet = true;
-            }
-        }
-
-        function alertAddedCb(snapshot) {
-            var alerts = snapshot.val();
-            $timeout(function() {
-                var promiseArray = [];
-                _.each($scope.friends, function(friend) {
-                    // friend.hasAlert = 0;
-                    if (alerts && alerts[friend.id || friend.$id]) {
-                        promiseArray.push(
-                            userService.setFriendUpdateTime(friend.id || friend.$id).then(function() {
-                                var idx = $scope.friends.$indexFor(friend.$id);
-                                var ref = $firebaseObject(firebaseMain.userRef.child(friend.id || friend.$id));
-                                return ref.$loaded().then(function() {
-                                    console.log("I should run first");
-                                    ref.hasAlert = 1
-                                    ref.lastInteractionTime = friend.lastInteractionTime;
-                                    $scope.friends[idx] = ref;
-                                    console.log("my ref: ", ref, $scope.friends[idx]);
-                                });
-                            })
-                        );
-                    }
-                });
-                $q.all(promiseArray).then(sortFriends);
-            });
-        }
-
-        function sortFriends() {
-            $scope.friends.sort(function (a, b) {
-                return b.lastInteractionTime - a.lastInteractionTime;
-            });
-            console.log("I should run last");
-            console.log("friends being sorted: ", $scope.friends);
         }
 
         $scope.isFoodOutdated = function isFoodOutdated(date) {
@@ -178,7 +114,7 @@ app.controller('FriendsCtrl', ['_', 'moment', '$q', '$cordovaToast', '$firebaseA
                     });
                     //create a hash of friends we already have for easy lookup.
                     _.each($scope.friends, function(item) {
-                        friendIdMap[item.$id] = true;
+                        friendIdMap[item.user.$id] = true;
                     });
                     _.each(newResults, function(item) {
                         friendIdMap[item.id] ? myFriends.push(item) : notFriends.push(item);
