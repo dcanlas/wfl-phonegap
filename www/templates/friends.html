@@ -38,7 +38,7 @@
 
         <ion-list>
             <ion-item class="friend-item"
-                      ng-class="{'has-alert': friend.hasAlert === 1}"
+                      ng-class="{'has-alert': friend.hasAlert}"
                       ng-repeat="friend in friends | filter:searchFriend:strict ">
 
                 <div class="user-image profile-picture"

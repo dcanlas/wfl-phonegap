@@ -31,6 +31,9 @@
     </div>
 
     <ion-scroll class="log-grid">
+        <div class="no-data" ng-if="!foodLog || foodLog.length === 0">
+            No Food Updates
+        </div>
         <div class="row row-center log-row"
             ng-repeat="(day, foodArr) in foodLog">
             <div class="col col-20 log-col-label">

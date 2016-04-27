@@ -67,6 +67,12 @@
             margin-top: 10px;
             flex: 1;
 
+            .no-data {
+                text-align: center;
+                font-weight: bold;
+                font-size: 18px;
+            }
+
             .log-row {
                 border-bottom: 1px solid $gray-border;
                 margin-top: 10px;

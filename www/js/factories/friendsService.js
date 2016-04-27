@@ -1,18 +1,20 @@
-app.factory('friendsService', ['_', '$q', '$rootScope', '$firebaseObject', 'firebaseMain', 'userService',
-    function friendsService(_, $q, $rootScope, $firebaseObject, firebaseMain, userService) {
+app.factory('friendsService', ['_', 'moment', '$q', '$rootScope', '$firebaseObject', 'firebaseMain', 'userService',
+    function friendsService(_, moment, $q, $rootScope, $firebaseObject, firebaseMain, userService) {
 
         var currentUser = userService.getCurrentUser(),
             friendsRef = firebaseMain.friendsRef.child(currentUser.$id),
             userAlertRef = firebaseMain.userAlertRef,
             initDone = false,
             initDeferred = $q.defer(),
-            friendCount = 0;
-            friendsHash = {};
+            friendCount = 0,
+            friendsHash = {},
             friendsArr = [];
 
         //this is for sorting friendsArr based on some attribute.
         function doSort() {
-            console.log("sorting started");
+            friendsArr.sort(function(a, b) {
+                return b.lastInteractionTime - a.lastInteractionTime;
+            });
         }
 
         function broadcastChange() {
@@ -28,6 +30,7 @@ app.factory('friendsService', ['_', '$q', '$rootScope', '$firebaseObject', 'fire
                     obj = {};
 
                 obj.user = $firebaseObject(firebaseMain.userRef.child(key));
+                obj.lastInteractionTime = data.lastInteractionTime ? data.lastInteractionTime : 0;
                 friendsHash[key] = obj;
                 friendsArr.push(obj);
                 initChildCount++;
@@ -45,12 +48,45 @@ app.factory('friendsService', ['_', '$q', '$rootScope', '$firebaseObject', 'fire
             friendsRef.on('child_removed', function(snapshot) {
                 var key = snapshot.key();
                 console.log("friend removed", key);
-                console.log('friendsArr ', friendsArr.length, friendsArr);
                 friendsArr = _.reject(friendsArr, function(item) {
                     return item.user.id === key;
                 });
-                console.log('friendsArr after ', friendsArr.length, friendsArr);
                 delete friendsHash[key];
+                broadcastChange();
+            });
+        }
+
+        function alertAddWatch() {
+            userAlertRef.child(currentUser.id).on('child_added', function(snapshot) {
+                var key = snapshot.key();
+                var val = snapshot.val();
+                friendsHash[key].hasAlert = true;
+                friendsHash[key].lastInteractionTime = moment().valueOf();
+                userService.setFriendUpdateTime(key);
+                doSort();
+                broadcastChange();
+            });
+        }
+
+        function alertRemoveWatch() {
+            userAlertRef.child(currentUser.id).on('child_removed', function(snapshot) {
+                var key = snapshot.key();
+                var val = snapshot.val();
+                friendsHash[key].hasAlert = false;
+                //move this item down
+                var tempArr = _.reject(friendsArr, function (friend) {
+                    return friend.user.id === key;
+                });
+                var idx = 0;
+                for(var i = 0; i < tempArr.length; i++) {
+                    if (tempArr[i].hasAlert) {
+                        idx++;
+                    } else {
+                        break;
+                    }
+                }
+                tempArr.splice(idx, 0, friendsHash[key]);
+                friendsArr = tempArr;
                 broadcastChange();
             });
         }
@@ -67,6 +103,11 @@ app.factory('friendsService', ['_', '$q', '$rootScope', '$firebaseObject', 'fire
                 countDeferred.promise.then(function (count) {
                     startFriendAddWatch();
                     startFriendRemoveWatch();
+                });
+                //when the initial array has loaded, watch for alerts
+                initDeferred.promise.then(function() {
+                    alertAddWatch();
+                    alertRemoveWatch();
                 });
                 initDone = true;
             }

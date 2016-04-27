@@ -228,6 +228,10 @@ by the app
   #profile-page .profile-content .log-grid {
     margin-top: 10px;
     flex: 1; }
+    #profile-page .profile-content .log-grid .no-data {
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px; }
     #profile-page .profile-content .log-grid .log-row {
       border-bottom: 1px solid gray;
       margin-top: 10px; }

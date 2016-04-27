@@ -8,6 +8,7 @@ app.controller('ProfileCtrl', ['_', 'moment', '$cordovaToast', '$ionicActionShee
 
         //foodIcons stuff
         $scope.foodSize = foodIcons.foodSize
+        $scope.foodLog = false;
 
         //setting the user
         userService.getUser($stateParams.userId)
@@ -28,6 +29,9 @@ app.controller('ProfileCtrl', ['_', 'moment', '$cordovaToast', '$ionicActionShee
                 })
                 .groupBy('day').value();
             console.log("foods ", $scope.foodLog);
+            if (_.isEmpty($scope.foodLog)) {
+                $scope.foodLog = false;
+            }
         });
 
         //This can be done if you are looking at others profile
