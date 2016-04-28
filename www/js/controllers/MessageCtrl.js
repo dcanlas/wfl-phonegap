@@ -1,6 +1,6 @@
 // single message
-app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebaseObject', '$scope', '$stateParams', 'firebaseMain', 'foodIcons', 'messageService', 'userService', 'userAlertService',
-    function messageCtrlFunction(_, moment, $ionicScrollDelegate, $firebaseObject, $scope, $stateParams, firebaseMain, foodIcons, messageService, userService, userAlertService){
+app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebaseObject', '$scope', '$stateParams', 'firebaseMain', 'foodIcons', 'friendsService', 'messageService', 'userService', 'userAlertService',
+    function messageCtrlFunction(_, moment, $ionicScrollDelegate, $firebaseObject, $scope, $stateParams, firebaseMain, foodIcons, friendsService, messageService, userService, userAlertService){
 
         $scope.messages = [];
         $scope.postsCompleted = false; //this is for infinite scrolling later
@@ -43,7 +43,13 @@ app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebase
                 console.log("new message, ", newMessage);
                 $scope.messages.$add(newMessage)
                     .then(function addAlert() {
-                        return userAlertService.sendAlert($scope.friendObj.id);
+                        return userAlertService.sendAlert($scope.friendObj.id)
+                            .then(function() {
+                                return userService.setFriendUpdateTime($scope.friendObj.id)
+                                    .then(function() {
+                                        friendsService.triggerUserInteract($scope.friendObj.id);
+                                    });
+                            });
                     });
                 $scope.foodSelected = false;
                 scrollHack();

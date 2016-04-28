@@ -118,10 +118,29 @@ app.factory('friendsService', ['_', 'moment', '$q', '$rootScope', '$firebaseObje
             return friendsArr;
         }
 
+        //This function will update the userinteraction time in the friend hash and will always
+        //move the friend to the beginning of array.
+        function triggerUserInteract(friendId) {
+            friendsHash[friendId].lastInteractionTime = moment().valueOf();
+            var idx = 0;
+            for(var i = 0; i < friendsArr.length; i++) {
+                if (friendsArr[i].user.id === friendId) {
+                    idx = i;
+                    break;
+                }
+            }
+            if (idx > 0) {
+                friendsArr.splice(idx, 1);
+                friendsArr.splice(0, 0, friendsHash[friendId]);
+                broadcastChange();
+            }
+        }
+
         return {
             init: init,
             getFriendsArr: getFriendsArr,
-            friendsHash: friendsHash
+            friendsHash: friendsHash,
+            triggerUserInteract: triggerUserInteract
         };
 
     }

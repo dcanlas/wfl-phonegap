@@ -1,31 +1,27 @@
-<ion-view view-title="Login" class="grey_bg">
-	<ion-content padding="10">
-		<div class="list">
-			<p class="form_logo">
-				<img title="" alt="" src="img/logomain.png" class="">
-			</p>
-			<label class="item item-input">
+<ion-view view-title="Login" id="login-page">
+	<ion-content scroll="false">
+		<div class="content">
+
+			<div class="logo">
+				Logo goes here.
+			</div>
+			<label class="item item-input label">
 				<input ng-model="credentials.email" type="email" placeholder="email">
 			</label>
-			<label class="item item-input">
+			<label class="item item-input label">
 				<input ng-model="credentials.password" type="password" placeholder="password">
 			</label>
 
-			<button ng-click="doLogin();" class="button button-block button-assertive">
+			<button ng-click="doLogin();" class="button button-assertive button-small login-button first-button">
 				LOGIN
 			</button>
-			<button ng-click="doFbLogin();" class="button button-block button-positive">
+			<button ng-click="doFbLogin();" class="button button-positive button-small login-button">
 				LOGIN w/ FACEBOOK
-			</button>
-			<button ng-click="doLogout();" class="button button-block button-assertive">
-				LOGOUT
-			</button>
-			<button class="button button-clear button-block">
-				Don't have an account?
 			</button>
 			<a ng-href="#/signup" class="button button-clear button-block button-assertive">
 				Create Account
 			</a>
+
 		</div>
 
 	</ion-content>
