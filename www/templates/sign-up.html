@@ -1,24 +1,24 @@
-<ion-view view-title="Register" class="grey_bg">
-	<ion-content padding="10">
-		<div class="list">
-			<p class="form_logo">
-				<img title="" alt="" src="img/logomain.png" class="">
+<ion-view view-title="Register" id="signup-page">
+	<ion-content scroll="false">
+		<div class="content">
+			<p class="logo">
+				Logo goes here.
 			</p>
-			<label class="item item-input">
+			<label class="item item-input label">
 				<input ng-model="credentials.name" type="text" placeholder="full name" required="true">
 			</label>
-			<label class="item item-input">
+			<label class="item item-input label">
 				<input ng-model="credentials.email" type="email" placeholder="email" required="true">
 			</label>
-			<label class="item item-input">
+			<label class="item item-input label">
 				<input ng-model="credentials.password" type="password" placeholder="password" required="true">
 			</label>
-			<button ng-click="doRegister();" class="button button-block button-assertive">
+			<button ng-click="doRegister();" class="button button-small login-button button-assertive first-button">
 				SIGN UP
 			</button>
-			<button class="button button-clear button-block">
+			<p class="account-text">
 				Already have an account?
-			</button>
+			</p>
 			<a ng-href="#/login" class="button button-clear button-block button-assertive">
 				Login
 			</a>

@@ -1,7 +1,11 @@
-#login-page {
+#login-page, #signup-page {
 
     .content {
-        position: relative;
+        position: absolute;
+        top: 50%;
+        height: 500px;
+        width: 100%;
+        margin-top: -250px;
         padding: 15px;
 
         .logo {
@@ -11,7 +15,7 @@
             height: 80px;
             border-radius: 4px;
             border: 1px solid;
-            margin: 80px auto 40px;
+            margin: 0 auto 40px;
         }
 
         .label {
@@ -29,6 +33,11 @@
             &.first-button {
                 margin-top: 20px;
             }
+        }
+
+        .account-text {
+            margin-top: 20px;
+            text-align: center;
         }
     }
 }

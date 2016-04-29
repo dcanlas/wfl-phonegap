@@ -10,42 +10,42 @@
                         on-refresh="doRefresh()">
                 </ion-refresher>
                 <div class="list">
-                    <div class="">
-                        <div ng-repeat="message in messages" class="message-wrapper">
+                    
+                    <div ng-repeat="message in messages" class="message-wrapper">
 
-                            <div ng-if="message.from == friendObj.id">
-                                <div class="chat-bubble left">
-                                    <div class="message preword" ng-if="message.message">
-                                        {{message.message}}
-                                    </div>
-                                    <div class="food-image"
-                                         alt="{{message.food.name}}"
-                                         ng-if="message.food"
-                                         ng-style="{'background-position': (message.food.x * foodSize)+'px '+(message.food.y * foodSize)+'px' }">
-                                    </div>
-                                    <div class="message-detail">
-                                        <span>{{message.date | amCalendar}}</span>
-                                    </div>
+                        <div ng-if="message.from == friendObj.id">
+                            <div class="chat-bubble left">
+                                <div class="message preword" ng-if="message.message">
+                                    {{message.message}}
+                                </div>
+                                <div class="food-image"
+                                     alt="{{message.food.name}}"
+                                     ng-if="message.food"
+                                     ng-style="{'background-position': (message.food.x * foodSize)+'px '+(message.food.y * foodSize)+'px' }">
+                                </div>
+                                <div class="message-detail">
+                                    <span>{{message.date | amCalendar}}</span>
                                 </div>
                             </div>
-                            <div ng-if="message.from == currentUser.id">
-                                <div class="chat-bubble right">
-                                    <div class="message preword" ng-if="message.message">
-                                        {{message.message}}
-                                    </div>
-                                    <div class="food-image"
-                                         alt="{{message.food.name}}"
-                                         ng-if="message.food"
-                                         ng-style="{'background-position': (message.food.x * foodSize)+'px '+(message.food.y * foodSize)+'px' }">
-                                    </div>
-                                    <div class="message-detail">
-                                        <span>{{message.date | amCalendar}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="cf"></div>
                         </div>
+                        <div ng-if="message.from == currentUser.id">
+                            <div class="chat-bubble right">
+                                <div class="message preword" ng-if="message.message">
+                                    {{message.message}}
+                                </div>
+                                <div class="food-image"
+                                     alt="{{message.food.name}}"
+                                     ng-if="message.food"
+                                     ng-style="{'background-position': (message.food.x * foodSize)+'px '+(message.food.y * foodSize)+'px' }">
+                                </div>
+                                <div class="message-detail">
+                                    <span>{{message.date | amCalendar}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cf"></div>
                     </div>
+
                 </div>
                 <ion-infinite-scroll
                         ng-if="!postsCompleted"

@@ -8,6 +8,26 @@
         .message-list {
             flex: 2;
 
+            .message-wrapper {
+
+                .chat-bubble {
+                    min-width: 40%;
+                    clear: both;
+
+                    &.right {
+                        background: none;
+                        border: 2px solid #ef473a;
+                        color: #000000;
+                    }
+
+                    &.left {
+                        background: none;
+                        border: 2px solid #e6e5eb;
+                    }
+                }
+
+            }
+
             .food-image {
                 margin: 2px auto;
             }
@@ -20,7 +40,19 @@
             background: whitesmoke;
 
             .selected-icon {
-                background-color: #5a5a5a;
+                position: relative;
+
+                &:before {
+                    content: '';
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    border: 1px solid $gray-border;
+                    border-radius: 4px;
+                }
             }
 
             .food-image {
