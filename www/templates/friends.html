@@ -62,6 +62,10 @@
                              ng-if="friend.user.recentFood && !isFoodOutdated(friend.user.recentFood.date)"
                              ng-style="{'background-position': (friend.user.recentFood.food.x * foodSize)+'px '+(friend.user.recentFood.food.y * foodSize)+'px' }">
                         </div>
+                        <div class="wfl-image"
+                            ng-if="!friend.user.recentFood || isFoodOutdated(friend.user.recentFood.date)"
+                            ng-click="sendWfl(friend.user.id, friend.user.name)">
+                        </div>
                     </div>
                 </div>
             </ion-item>

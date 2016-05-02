@@ -1,5 +1,5 @@
-app.factory('messageService', ['$q', '$firebaseArray', '$firebaseObject', '$cordovaFacebook', 'firebaseMain', 'userService',
-    function messageService($q, $firebaseArray, $firebaseObject, $cordovaFacebook, firebaseMain, userService) {
+app.factory('messageService', ['moment', '$q', '$firebaseArray', '$firebaseObject', '$cordovaFacebook', 'firebaseMain', 'friendsService', 'userService', 'userAlertService',
+    function messageService(moment, $q, $firebaseArray, $firebaseObject, $cordovaFacebook, firebaseMain, friendsService, userService, userAlertService) {
 
         var ref = firebaseMain.messagesRef,
             currentUser = userService.getCurrentUser();
@@ -43,8 +43,27 @@ app.factory('messageService', ['$q', '$firebaseArray', '$firebaseObject', '$cord
             return deferred.promise;
         }
 
+        function sendWfl(friendId) {
+            var mRef = ref.child(currentUser.messages[friendId]);
+            var msg = {
+                from: currentUser.id,
+                date: moment().valueOf(),
+                wfl: true
+            }
+            return mRef.push(msg).then(function() {
+                return userAlertService.sendAlert(friendId)
+                    .then(function() {
+                        return userService.setFriendUpdateTime(friendId)
+                            .then(function() {
+                                friendsService.triggerUserInteract(friendId);
+                            });
+                    });
+            });
+        }
+
         return {
-            getMessagesWithFriend: getMessagesWithFriend
+            getMessagesWithFriend: getMessagesWithFriend,
+            sendWfl: sendWfl
         };
 
     }]

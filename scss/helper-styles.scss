@@ -52,6 +52,13 @@ by the app
     background-size: 400%;
 }
 
+.wfl-image {
+    background: url('../img/empty-plate.png');
+    background-size: cover;
+    width: 64px;
+    height: 64px;
+}
+
 @mixin round-pic($size) {
     width: $size;
     height: $size;

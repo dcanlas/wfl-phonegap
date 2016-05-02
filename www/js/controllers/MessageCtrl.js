@@ -56,6 +56,13 @@ app.controller('MessageCtrl', ['_', 'moment', '$ionicScrollDelegate', '$firebase
             }
         };
 
+        $scope.sendWfl = function sendWfl() {
+            messageService.sendWfl($scope.friendObj.id)
+                .then(function() {
+                    scrollHack();
+                });
+        }
+
         function scrollHack() {
             $ionicScrollDelegate.$getByHandle('message-list').scrollBottom();
         }

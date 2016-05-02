@@ -1,6 +1,6 @@
 <ion-view id="message-view">
     <ion-nav-title>{{friendObj.name}}</ion-nav-title>
-    <ion-content class="has-footer" scroll="false">
+    <ion-content scroll="false">
         <div class="flex-container">
 
             <ion-scroll class="message-list"
@@ -10,76 +10,83 @@
                         on-refresh="doRefresh()">
                 </ion-refresher>
                 <div class="list">
-                    
-                    <div ng-repeat="message in messages" class="message-wrapper">
 
-                        <div ng-if="message.from == friendObj.id">
-                            <div class="chat-bubble left">
-                                <div class="message preword" ng-if="message.message">
-                                    {{message.message}}
-                                </div>
+                    <div ng-repeat="message in messages"
+                        ng-if="message.food || message.wfl"
+                        class="message-wrapper">
+
+                        <div class="chat-box"
+                            ng-class="{'left': message.from == friendObj.id, 'right' : message.from == currentUser.id}">
+
+                            <div class="user-image profile-picture"
+                                ng-if="message.from == friendObj.id">
+                                <img ng-if="friendObj.picData || friendObj.picUrl"
+                                    ng-src="{{friendObj.picData ? ('data:image/jpeg;base64,' + friendObj.picData) : friendObj.picUrl }}"
+                                    alt="profile" />
+                            </div>
+
+                            <div class="food-detail">
                                 <div class="food-image"
                                      alt="{{message.food.name}}"
                                      ng-if="message.food"
                                      ng-style="{'background-position': (message.food.x * foodSize)+'px '+(message.food.y * foodSize)+'px' }">
                                 </div>
-                                <div class="message-detail">
-                                    <span>{{message.date | amCalendar}}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div ng-if="message.from == currentUser.id">
-                            <div class="chat-bubble right">
-                                <div class="message preword" ng-if="message.message">
-                                    {{message.message}}
-                                </div>
-                                <div class="food-image"
-                                     alt="{{message.food.name}}"
-                                     ng-if="message.food"
-                                     ng-style="{'background-position': (message.food.x * foodSize)+'px '+(message.food.y * foodSize)+'px' }">
+                                <div class="wfl-image"
+                                    alt="WFL?"
+                                    ng-if="message.wfl">
                                 </div>
                                 <div class="message-detail">
                                     <span>{{message.date | amCalendar}}</span>
                                 </div>
                             </div>
+
                         </div>
                         <div class="cf"></div>
                     </div>
 
                 </div>
-                <ion-infinite-scroll
-                        ng-if="!postsCompleted"
-                        on-infinite="getMessages()"
-                        immediate-check="true"
-                        distance="1%">
-                </ion-infinite-scroll>
             </ion-scroll>
 
-            <ion-scroll class="food-grid"
-                    delegate-handle="food-grid"
-                    ng-init="foodSet = (foodIcons | groupItems:4)">
-                <div class="row" ng-repeat="iconRow in foodSet track by $index">
-                    <div class="col"
-                         ng-class="{'selected-icon': foodSelected === item}"
-                         ng-repeat="item in iconRow track by item.name"
-                         ng-click="selectFood(item)">
-                        <div class="food-image"
-                             alt="{{item.name}}"
-                             ng-style="{'background-position': (item.x * foodSize)+'px '+(item.y * foodSize)+'px' }">
+            <div class="food-grid"
+                ng-init="foodSet = (foodIcons | groupItems:4)">
+
+                <div class="container">
+
+                    <ion-scroll class="food-scroll"
+                            delegate-handle="food-grid">
+                        <div class="row" ng-repeat="iconRow in foodSet track by $index">
+                            <div class="col"
+                                 ng-class="{'selected-icon': foodSelected === item}"
+                                 ng-repeat="item in iconRow track by item.name"
+                                 ng-click="selectFood(item)">
+                                <div class="food-image"
+                                     alt="{{item.name}}"
+                                     ng-style="{'background-position': (item.x * foodSize)+'px '+(item.y * foodSize)+'px' }">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-            </ion-scroll>
+                    </ion-scroll>
+
+                    <div class="btn-container">
+                        <div class="button-bar">
+                            <button id="send-button" class="button button-assertive"
+                                    ng-click="addMessage()">
+                                SEND
+                            </button>
+                            <button id="wfl-button" class="button button-dark"
+                                    ng-click="sendWfl()">
+                                WFL?
+                            </button>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
 
         </div>
     </ion-content>
-
-    <div class="bar bar-footer bar-stable comment-stable-main" keyboard-attach>
-        <button id="send-button" class="button button-block button-assertive"
-                ng-click="addMessage()">
-            SEND
-        </button>
-    </div>
 
 </ion-view>

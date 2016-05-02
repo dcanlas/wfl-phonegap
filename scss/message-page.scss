@@ -9,27 +9,58 @@
             flex: 2;
 
             .message-wrapper {
+                display: block;
+                position: relative;
+                height: 105px;
+                margin: 0 15px;
 
-                .chat-bubble {
-                    min-width: 40%;
-                    clear: both;
+                .chat-box {
+                    position: absolute;
+                    top: 0;
+                    background: none;
+                    color: #000000;
 
                     &.right {
-                        background: none;
-                        border: 2px solid #ef473a;
-                        color: #000000;
+                        right: 0;
                     }
 
                     &.left {
-                        background: none;
-                        border: 2px solid #e6e5eb;
+                        left: 0;
+                    }
+
+                    .user-image {
+                        display: inline-block;
+                        vertical-align: middle;
+                        border-radius: 50%;
+                        border: 2px solid $gray-border;
+                        width: 45px;
+                        height: 45px;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 50%;
+                        }
+                    }
+
+                    .food-detail {
+                        display: inline-block;
+                        margin-left: 6px;
+                        vertical-align: middle;
+                        width: 70px;
+
+                        .food-image {
+                            display: block;
+                            margin: 2px auto;
+                        }
+
+                        .message-detail {
+                            display: block;
+                            text-align: center;
+                        }
                     }
                 }
 
-            }
-
-            .food-image {
-                margin: 2px auto;
             }
 
         }
@@ -39,30 +70,49 @@
             border-top: 2px solid darkred;
             background: whitesmoke;
 
-            .selected-icon {
+            .container {
                 position: relative;
+                height: 100%;
 
-                &:before {
-                    content: '';
-                    display: block;
-                    width: 100%;
-                    height: 100%;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    border: 1px solid $gray-border;
-                    border-radius: 4px;
+                .food-scroll {
+                    max-height: 230px;
+
+                    .selected-icon {
+                        position: relative;
+
+                        &:before {
+                            content: '';
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            border: 1px solid $gray-border;
+                            border-radius: 4px;
+                        }
+                    }
+
+                    .food-image {
+                        margin: 0 auto;
+                    }
+
+                }
+
+                .btn-container {
+                    padding: 6px;
+                    height: 50px;
+
+                    .button {
+                        line-height: 35px;
+                        height: 35px;
+                        margin: 0 auto;
+                        min-height: 0px;
+                    }
                 }
             }
 
-            .food-image {
-                margin: 0 auto;
-            }
         }
-    }
-
-    #send-button {
-        margin: 0 auto;
     }
 
 }

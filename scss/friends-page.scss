@@ -57,8 +57,6 @@
         }
 
         .food-image-container {
-            background: url('../img/empty-plate.png');
-            background-size: cover;
             top: 13px;
             left: 0px;
             @extend %image-def;
@@ -71,7 +69,11 @@
                 position: absolute;
                 top: -7px;
                 left: -8px;
+            }
 
+            .wfl-image {
+                width: $img-size;
+                height: $img-size;
             }
         }
 

@@ -36,6 +36,12 @@ by the app
   background: url("../img/food-big-sprite.png");
   background-size: 400%; }
 
+.wfl-image {
+  background: url("../img/empty-plate.png");
+  background-size: cover;
+  width: 64px;
+  height: 64px; }
+
 #friends-page .friend-item {
   display: block;
   padding: 16px 72px;
@@ -71,8 +77,6 @@ by the app
     width: 50px;
     height: 50px; }
   #friends-page .friend-item .food-image-container {
-    background: url("../img/empty-plate.png");
-    background-size: cover;
     top: 13px;
     left: 0px; }
     #friends-page .friend-item .food-image-container.has-food {
@@ -81,6 +85,9 @@ by the app
       position: absolute;
       top: -7px;
       left: -8px; }
+    #friends-page .friend-item .food-image-container .wfl-image {
+      width: 50px;
+      height: 50px; }
   #friends-page .friend-item .user-image {
     border-radius: 50%;
     border: 2px solid gray;
@@ -179,39 +186,73 @@ by the app
   flex-direction: column; }
   #message-view .flex-container .message-list {
     flex: 2; }
-    #message-view .flex-container .message-list .message-wrapper .chat-bubble {
-      min-width: 40%;
-      clear: both; }
-      #message-view .flex-container .message-list .message-wrapper .chat-bubble.right {
+    #message-view .flex-container .message-list .message-wrapper {
+      display: block;
+      position: relative;
+      height: 105px;
+      margin: 0 15px; }
+      #message-view .flex-container .message-list .message-wrapper .chat-box {
+        position: absolute;
+        top: 0;
         background: none;
-        border: 2px solid #ef473a;
         color: #000000; }
-      #message-view .flex-container .message-list .message-wrapper .chat-bubble.left {
-        background: none;
-        border: 2px solid #e6e5eb; }
-    #message-view .flex-container .message-list .food-image {
-      margin: 2px auto; }
+        #message-view .flex-container .message-list .message-wrapper .chat-box.right {
+          right: 0; }
+        #message-view .flex-container .message-list .message-wrapper .chat-box.left {
+          left: 0; }
+        #message-view .flex-container .message-list .message-wrapper .chat-box .user-image {
+          display: inline-block;
+          vertical-align: middle;
+          border-radius: 50%;
+          border: 2px solid gray;
+          width: 45px;
+          height: 45px; }
+          #message-view .flex-container .message-list .message-wrapper .chat-box .user-image img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%; }
+        #message-view .flex-container .message-list .message-wrapper .chat-box .food-detail {
+          display: inline-block;
+          margin-left: 6px;
+          vertical-align: middle;
+          width: 70px; }
+          #message-view .flex-container .message-list .message-wrapper .chat-box .food-detail .food-image {
+            display: block;
+            margin: 2px auto; }
+          #message-view .flex-container .message-list .message-wrapper .chat-box .food-detail .message-detail {
+            display: block;
+            text-align: center; }
   #message-view .flex-container .food-grid {
     flex: 1;
     border-top: 2px solid darkred;
     background: whitesmoke; }
-    #message-view .flex-container .food-grid .selected-icon {
-      position: relative; }
-      #message-view .flex-container .food-grid .selected-icon:before {
-        content: '';
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border: 1px solid gray;
-        border-radius: 4px; }
-    #message-view .flex-container .food-grid .food-image {
-      margin: 0 auto; }
-
-#message-view #send-button {
-  margin: 0 auto; }
+    #message-view .flex-container .food-grid .container {
+      position: relative;
+      height: 100%; }
+      #message-view .flex-container .food-grid .container .food-scroll {
+        max-height: 230px; }
+        #message-view .flex-container .food-grid .container .food-scroll .selected-icon {
+          position: relative; }
+          #message-view .flex-container .food-grid .container .food-scroll .selected-icon:before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 1px solid gray;
+            border-radius: 4px; }
+        #message-view .flex-container .food-grid .container .food-scroll .food-image {
+          margin: 0 auto; }
+      #message-view .flex-container .food-grid .container .btn-container {
+        padding: 6px;
+        height: 50px; }
+        #message-view .flex-container .food-grid .container .btn-container .button {
+          line-height: 35px;
+          height: 35px;
+          margin: 0 auto;
+          min-height: 0px; }
 
 #profile-page .profile-content {
   display: flex;

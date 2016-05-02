@@ -1,6 +1,6 @@
 /* Friends controller */
-app.controller('FriendsCtrl', ['_', 'moment', '$q', '$cordovaToast', '$firebaseArray', '$firebaseObject', '$ionicModal', '$scope', '$state', '$timeout', 'firebaseMain', 'foodIcons', 'foodManager', 'friendsService', 'userService', '$rootScope',
-    function FriendsCtrlFunction(_, moment, $q, $cordovaToast, $firebaseArray, $firebaseObject, $ionicModal, $scope, $state, $timeout, firebaseMain, foodIcons, foodManager, friendsService, userService, $rootScope) {
+app.controller('FriendsCtrl', ['_', 'moment', '$q', '$cordovaToast', '$firebaseArray', '$ionicModal', '$scope', '$state', 'firebaseMain', 'foodIcons', 'foodManager', 'friendsService', 'messageService', 'userService', '$rootScope',
+    function FriendsCtrlFunction(_, moment, $q, $cordovaToast, $firebaseArray, $ionicModal, $scope, $state, firebaseMain, foodIcons, foodManager, friendsService, messageService, userService, $rootScope) {
 
         //Controller variables
         var friendsRef,
@@ -53,6 +53,14 @@ app.controller('FriendsCtrl', ['_', 'moment', '$q', '$cordovaToast', '$firebaseA
         $scope.sendMessage = function sendMessage(user) {
             console.log("send to user: ", user);
             $state.go('dashboard.message', {friendId: user.$id});
+        };
+
+        $scope.sendWfl = function sendWfl(friendId, friendName) {
+            return messageService.sendWfl(friendId)
+                .then(function() {
+                    $scope.$apply();
+                    $cordovaToast.showLongBottom("WFL? sent to " + friendName);
+                });
         };
 
         //actions on foods
