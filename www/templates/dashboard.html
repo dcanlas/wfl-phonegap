@@ -21,41 +21,9 @@
     <ion-side-menu side="left">
         <ion-content>
             <ion-list>
-                <ion-item menu-close-keep-history ui-sref="dashboard.profile({userId: user.$id})" class="item-icon-left">
-                    <i class="icon ion-ios-home"></i>
-                    Profile
-                </ion-item>
-                <ion-item menu-close-keep-history href="#/app/friends" class="item-icon-left">
-                    <i class="icon ion-ios-people"></i>
-                    Friends
-                </ion-item>
-                <ion-item menu-close-keep-history href="#/app/gallery" class="item-icon-left">
-                    <i class="icon ion-images"></i>
-                    Photos
-                </ion-item>
                 <ion-item menu-close-keep-history class="item-icon-left" ng-click="logout()">
                     <i class="icon ion-log-out"></i>
                     Logout
-                </ion-item>
-            </ion-list>
-        </ion-content>
-    </ion-side-menu>
-    <ion-side-menu side="right">
-        <ion-content class="grey_bg">
-            <div class="list list-inset">
-                <label class="item item-input">
-                    <i class="icon ion-search placeholder-icon"></i>
-                    <input type="text" placeholder="Search">
-                </label>
-            </div>
-            <ion-list>
-                <ion-item menu-close-keep-history href="#/app/profile" class="item-icon-left">
-                    <i class="icon ion-ios-home"></i>
-                    Profile
-                </ion-item>
-                <ion-item menu-close-keep-history href="#/app/settings" class="item-icon-left">
-                    <i class="icon ion-ios-gear"></i>
-                    Settings
                 </ion-item>
             </ion-list>
         </ion-content>

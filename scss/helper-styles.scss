@@ -3,20 +3,30 @@ This file contains styles that can be extended and used
 by the app
 */
 
+//Colors
+$gray-border: gray;
+
+$gray-text: #666666;
+
+$wfl-red: #de2826;
+$padding: 3px;
+$margin: 3px;
+
 //Splash screen
 #splash {
-    background-color: #ef473a;
+    background-color: #fff;
 
     .container {
         height: 100%;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
     }
 
     #splash-title {
-        color: white;
-        font-size: 40px;
+        color: $wfl-red;
+        font-size: 38px;
     }
 }
 
@@ -37,6 +47,18 @@ by the app
 }
 
 //General class stylings
+.logo {
+    width: 100px;
+    height: 100px;
+    background: url('../img/logo.png') no-repeat;
+    background-size: cover;
+}
+
+.logo-name {
+    color: $wfl-red;
+    font-size: 18px;
+}
+
 .profile-picture {
     background: url('../img/blank-profile.png') no-repeat;
     background-size: cover;
@@ -47,16 +69,33 @@ by the app
     width: 64px;
     height: 64px;
     // border: 1px solid;
-    background: url('../img/food-big-sprite.png');
+    background: url('../img/food-sprite-1.png');
     //note: this is 400% x 400% because the sprite is 4x4
     background-size: 400%;
 }
 
 .wfl-image {
-    background: url('../img/empty-plate.png');
-    background-size: cover;
+    border-radius: 50%;
+    border: 2px solid $wfl-red;
+    box-sizing: border-box;
     width: 64px;
     height: 64px;
+
+    &:after {
+        content: "?";
+        position: absolute;
+        top: 8px;
+        left: 14px;
+        display: block;
+        width: 48px;
+        height: 48px;
+        background-color: $wfl-red;
+        color: #fff;
+        font-size: 30px;
+        text-align: center;
+        line-height: 48px;
+        border-radius: 50%;
+    }
 }
 
 @mixin round-pic($size) {
@@ -65,11 +104,3 @@ by the app
     border-radius: 50%;
     border: 2px solid $gray-border;
 }
-
-//Colors
-$gray-border: gray;
-
-$gray-text: #666666;
-
-$padding: 3px;
-$margin: 3px;

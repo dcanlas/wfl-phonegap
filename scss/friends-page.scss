@@ -9,7 +9,7 @@
         position: relative;
 
         &.user-item {
-            border-bottom: 2px solid red;
+            border-bottom: 2px solid $wfl-red;
 
             .user-image {
                 top: 13px;
@@ -41,7 +41,7 @@
             &:before {
                 content:' ';
                 display: block;
-                background-color: red;
+                background-color: $wfl-red;
                 width: 6px;
                 height: 100%;
                 position: absolute;
@@ -74,6 +74,14 @@
             .wfl-image {
                 width: $img-size;
                 height: $img-size;
+
+                &:after {
+                    top: 7px;
+                    left: 7px;
+                    line-height: 36px;
+                    width: 36px;
+                    height: 36px;
+                }
             }
         }
 

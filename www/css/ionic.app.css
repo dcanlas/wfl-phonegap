@@ -4,15 +4,16 @@ This file contains styles that can be extended and used
 by the app
 */
 #splash {
-  background-color: #ef473a; }
+  background-color: #fff; }
   #splash .container {
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center; }
   #splash #splash-title {
-    color: white;
-    font-size: 40px; }
+    color: #de2826;
+    font-size: 38px; }
 
 .custom-backdrop {
   z-index: 10;
@@ -26,6 +27,16 @@ by the app
   .custom-backdrop.hide {
     display: none; }
 
+.logo {
+  width: 100px;
+  height: 100px;
+  background: url("../img/logo.png") no-repeat;
+  background-size: cover; }
+
+.logo-name {
+  color: #de2826;
+  font-size: 18px; }
+
 .profile-picture {
   background: url("../img/blank-profile.png") no-repeat;
   background-size: cover; }
@@ -33,14 +44,29 @@ by the app
 .food-image {
   width: 64px;
   height: 64px;
-  background: url("../img/food-big-sprite.png");
+  background: url("../img/food-sprite-1.png");
   background-size: 400%; }
 
 .wfl-image {
-  background: url("../img/empty-plate.png");
-  background-size: cover;
+  border-radius: 50%;
+  border: 2px solid #de2826;
+  box-sizing: border-box;
   width: 64px;
   height: 64px; }
+  .wfl-image:after {
+    content: "?";
+    position: absolute;
+    top: 8px;
+    left: 14px;
+    display: block;
+    width: 48px;
+    height: 48px;
+    background-color: #de2826;
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+    line-height: 48px;
+    border-radius: 50%; }
 
 #friends-page .friend-item {
   display: block;
@@ -48,7 +74,7 @@ by the app
   min-height: 72px;
   position: relative; }
   #friends-page .friend-item.user-item {
-    border-bottom: 2px solid red; }
+    border-bottom: 2px solid #de2826; }
     #friends-page .friend-item.user-item .user-image {
       top: 13px; }
     #friends-page .friend-item.user-item .box {
@@ -66,7 +92,7 @@ by the app
   #friends-page .friend-item.has-alert:before {
     content: ' ';
     display: block;
-    background-color: red;
+    background-color: #de2826;
     width: 6px;
     height: 100%;
     position: absolute;
@@ -88,6 +114,12 @@ by the app
     #friends-page .friend-item .food-image-container .wfl-image {
       width: 50px;
       height: 50px; }
+      #friends-page .friend-item .food-image-container .wfl-image:after {
+        top: 7px;
+        left: 7px;
+        line-height: 36px;
+        width: 36px;
+        height: 36px; }
   #friends-page .friend-item .user-image {
     border-radius: 50%;
     border: 2px solid gray;
@@ -260,7 +292,7 @@ by the app
   #profile-page .profile-content #profile-top {
     position: relative;
     height: 80px;
-    border-bottom: 2px solid red;
+    border-bottom: 2px solid #de2826;
     box-sizing: border-box;
     padding: 10px;
     flex: none; }
@@ -338,11 +370,12 @@ by the app
     display: block;
     width: 80px;
     height: 80px;
-    border-radius: 4px;
-    border: 1px solid;
+    margin: 0 auto 10px; }
+  #login-page .content .logo-name, #signup-page .content .logo-name {
+    text-align: center;
     margin: 0 auto 40px; }
   #login-page .content .label, #signup-page .content .label {
-    border: 1px solid red;
+    border: 1px solid #de2826;
     border-radius: 6px;
     width: 245px;
     margin: 0 auto 12px; }
@@ -6641,14 +6674,14 @@ a.subdued {
     .bar.bar-calm.bar-footer {
       background-image: linear-gradient(180deg, #0a9dc7, #0a9dc7 50%, transparent 50%); }
   .bar.bar-assertive {
-    border-color: #e42112;
-    background-color: #ef473a;
-    background-image: linear-gradient(0deg, #e42112, #e42112 50%, transparent 50%);
+    border-color: #b51d1c;
+    background-color: #de2826;
+    background-image: linear-gradient(0deg, #b51d1c, #b51d1c 50%, transparent 50%);
     color: #fff; }
     .bar.bar-assertive .title {
       color: #fff; }
     .bar.bar-assertive.bar-footer {
-      background-image: linear-gradient(180deg, #e42112, #e42112 50%, transparent 50%); }
+      background-image: linear-gradient(180deg, #b51d1c, #b51d1c 50%, transparent 50%); }
   .bar.bar-balanced {
     border-color: #28a54c;
     background-color: #33cd5f;
@@ -6867,15 +6900,15 @@ a.subdued {
     background: none; }
 
 .bar-assertive .button {
-  border-color: #e42112;
-  background-color: #ef473a;
+  border-color: #b51d1c;
+  background-color: #de2826;
   color: #fff; }
   .bar-assertive .button:hover {
     color: #fff;
     text-decoration: none; }
   .bar-assertive .button.active, .bar-assertive .button.activated {
-    border-color: #e42112;
-    background-color: #e42112;
+    border-color: #b51d1c;
+    background-color: #b51d1c;
     box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); }
   .bar-assertive .button.button-clear {
     border-color: transparent;
@@ -7116,14 +7149,14 @@ a.subdued {
 
 .tabs-assertive > .tabs,
 .tabs.tabs-assertive {
-  border-color: #e42112;
-  background-color: #ef473a;
-  background-image: linear-gradient(0deg, #e42112, #e42112 50%, transparent 50%);
+  border-color: #b51d1c;
+  background-color: #de2826;
+  background-image: linear-gradient(0deg, #b51d1c, #b51d1c 50%, transparent 50%);
   color: #fff; }
   .tabs-assertive > .tabs .tab-item .badge,
   .tabs.tabs-assertive .tab-item .badge {
     background-color: #fff;
-    color: #ef473a; }
+    color: #de2826; }
 
 .tabs-balanced > .tabs,
 .tabs.tabs-balanced {
@@ -7258,7 +7291,7 @@ a.subdued {
   top: 4%; }
 
 .tabs-striped.tabs-assertive .tabs {
-  background-color: #ef473a; }
+  background-color: #de2826; }
 
 .tabs-striped.tabs-assertive .tab-item {
   color: rgba(255, 255, 255, 0.4);
@@ -7364,7 +7397,7 @@ a.subdued {
   background-image: none; }
 
 .tabs-striped.tabs-background-assertive .tabs {
-  background-color: #ef473a;
+  background-color: #de2826;
   background-image: none; }
 
 .tabs-striped.tabs-background-balanced .tabs {
@@ -7440,14 +7473,14 @@ a.subdued {
       opacity: 1; }
 
 .tabs-striped.tabs-color-assertive .tab-item {
-  color: rgba(239, 71, 58, 0.4);
+  color: rgba(222, 40, 38, 0.4);
   opacity: 1; }
   .tabs-striped.tabs-color-assertive .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-color-assertive .tab-item.tab-item-active, .tabs-striped.tabs-color-assertive .tab-item.active, .tabs-striped.tabs-color-assertive .tab-item.activated {
     margin-top: -2px;
-    color: #ef473a;
-    border: 0 solid #ef473a;
+    color: #de2826;
+    border: 0 solid #de2826;
     border-top-width: 2px; }
     .tabs-striped.tabs-color-assertive .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-assertive .tab-item.active .badge, .tabs-striped.tabs-color-assertive .tab-item.activated .badge {
       top: 2px;
@@ -7535,9 +7568,9 @@ a.subdued {
 
 .tabs-background-assertive .tabs,
 .tabs-background-assertive > .tabs {
-  background-color: #ef473a;
-  background-image: linear-gradient(0deg, #e42112, #e42112 50%, transparent 50%);
-  border-color: #e42112; }
+  background-color: #de2826;
+  background-image: linear-gradient(0deg, #b51d1c, #b51d1c 50%, transparent 50%);
+  border-color: #b51d1c; }
 
 .tabs-background-balanced .tabs,
 .tabs-background-balanced > .tabs {
@@ -7608,13 +7641,13 @@ a.subdued {
       opacity: 1; }
 
 .tabs-color-assertive .tab-item {
-  color: rgba(239, 71, 58, 0.4);
+  color: rgba(222, 40, 38, 0.4);
   opacity: 1; }
   .tabs-color-assertive .tab-item .badge {
     opacity: 0.4; }
   .tabs-color-assertive .tab-item.tab-item-active, .tabs-color-assertive .tab-item.active, .tabs-color-assertive .tab-item.activated {
-    color: #ef473a;
-    border: 0 solid #ef473a; }
+    color: #de2826;
+    border: 0 solid #de2826; }
     .tabs-color-assertive .tab-item.tab-item-active .badge, .tabs-color-assertive .tab-item.active .badge, .tabs-color-assertive .tab-item.activated .badge {
       opacity: 1; }
 
@@ -7685,7 +7718,7 @@ ion-tabs.tabs-color-active-calm .tab-item {
 ion-tabs.tabs-color-active-assertive .tab-item {
   color: #444; }
   ion-tabs.tabs-color-active-assertive .tab-item.tab-item-active, ion-tabs.tabs-color-active-assertive .tab-item.active, ion-tabs.tabs-color-active-assertive .tab-item.activated {
-    color: #ef473a; }
+    color: #de2826; }
 
 ion-tabs.tabs-color-active-balanced .tab-item {
   color: #444; }
@@ -7871,7 +7904,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
   .tab-item.tab-item-active.tab-item-assertive,
   .tab-item.active.tab-item-assertive,
   .tab-item.activated.tab-item-assertive {
-    color: #ef473a; }
+    color: #de2826; }
   .tab-item.tab-item-active.tab-item-balanced,
   .tab-item.active.tab-item-balanced,
   .tab-item.activated.tab-item-balanced {
@@ -8412,8 +8445,8 @@ ion-tabs.tabs-color-active-dark .tab-item {
     background-color: #11c1f3;
     color: #fff; }
   .item.item-assertive {
-    border-color: #e42112;
-    background-color: #ef473a;
+    border-color: #b51d1c;
+    background-color: #de2826;
     color: #fff; }
   .item.item-balanced {
     border-color: #28a54c;
@@ -8484,8 +8517,8 @@ ion-tabs.tabs-color-active-dark .tab-item {
   .item-complex.activated .item-content.item-assertive,
   .item .item-content.active.item-assertive,
   .item .item-content.activated.item-assertive {
-    border-color: #e42112;
-    background-color: #e42112; }
+    border-color: #b51d1c;
+    background-color: #b51d1c; }
   .item.active.item-balanced,
   .item.activated.item-balanced,
   .item-complex.active .item-content.item-balanced,
@@ -8637,12 +8670,12 @@ a.item-content {
     background-color: #0a9dc7; }
 
 .item-complex.item-assertive > .item-content {
-  border-color: #e42112;
-  background-color: #ef473a;
+  border-color: #b51d1c;
+  background-color: #de2826;
   color: #fff; }
   .item-complex.item-assertive > .item-content.active, .item-complex.item-assertive > .item-content:active {
-    border-color: #e42112;
-    background-color: #e42112; }
+    border-color: #b51d1c;
+    background-color: #b51d1c; }
 
 .item-complex.item-balanced > .item-content {
   border-color: #28a54c;
@@ -9048,7 +9081,7 @@ button.item.item-button-right {
   transition-delay: 125ms; }
 
 .item-delete .button.icon {
-  color: #ef473a;
+  color: #de2826;
   font-size: 24px; }
   .item-delete .button.icon:hover {
     opacity: .7; }
@@ -9284,7 +9317,7 @@ button.item.item-button-right {
 
 .tabs .tab-item .badge.badge-assertive,
 .badge.badge-assertive {
-  background-color: #ef473a;
+  background-color: #de2826;
   color: #fff; }
 
 .tabs .tab-item .badge.badge-balanced,
@@ -9495,8 +9528,8 @@ button.item.item-button-right {
     stroke: #33cd5f;
     fill: #33cd5f; }
   .spinner.spinner-assertive {
-    stroke: #ef473a;
-    fill: #ef473a; }
+    stroke: #de2826;
+    fill: #de2826; }
   .spinner.spinner-energized {
     stroke: #ffc900;
     fill: #ffc900; }
@@ -9537,7 +9570,7 @@ button.item.item-button-right {
   stop-color: #33cd5f; }
 
 .spinner-spiral.spinner-assertive .stop2 {
-  stop-color: #ef473a; }
+  stop-color: #de2826; }
 
 .spinner-spiral.spinner-energized .stop2 {
   stop-color: #ffc900; }
@@ -9922,12 +9955,12 @@ input[type="checkbox"][readonly] {
 
 .checkbox-assertive input:before,
 .checkbox-assertive .checkbox-icon:before {
-  border-color: #ef473a; }
+  border-color: #de2826; }
 
 .checkbox-assertive input:checked:before,
 .checkbox-assertive input:checked + .checkbox-icon:before {
-  background: #ef473a;
-  border-color: #ef473a; }
+  background: #de2826;
+  border-color: #de2826; }
 
 .checkbox-balanced input:before,
 .checkbox-balanced .checkbox-icon:before {
@@ -10115,8 +10148,8 @@ input:checked + .checkbox-icon:after {
   background-color: #11c1f3; }
 
 .toggle.toggle-assertive input:checked + .track {
-  border-color: #ef473a;
-  background-color: #ef473a; }
+  border-color: #de2826;
+  background-color: #de2826; }
 
 .toggle.toggle-balanced input:checked + .track {
   border-color: #33cd5f;
@@ -10257,10 +10290,10 @@ input:checked + .checkbox-icon:after {
   background-color: #11c1f3; }
 
 .toggle-small .toggle-assertive input:checked + .track {
-  background-color: rgba(239, 71, 58, 0.5); }
+  background-color: rgba(222, 40, 38, 0.5); }
 
 .toggle-small .toggle-assertive input:checked + .track .handle {
-  background-color: #ef473a; }
+  background-color: #de2826; }
 
 .toggle-small .toggle-balanced input:checked + .track {
   background-color: rgba(51, 205, 95, 0.5); }
@@ -10424,9 +10457,9 @@ input:checked + .checkbox-icon:after {
   .range.range-balanced input::-ms-fill-lower {
     background: #33cd5f; }
   .range.range-assertive input::-webkit-slider-thumb:before {
-    background: #ef473a; }
+    background: #de2826; }
   .range.range-assertive input::-ms-fill-lower {
-    background: #ef473a; }
+    background: #de2826; }
   .range.range-energized input::-webkit-slider-thumb:before {
     background: #ffc900; }
   .range.range-energized input::-ms-fill-lower {
@@ -10544,7 +10577,7 @@ input:checked + .checkbox-icon:after {
   .item-select.item-calm:after, .item-select.item-calm .input-label {
     color: #fff; }
   .item-select.item-assertive select {
-    background: #ef473a;
+    background: #de2826;
     color: #fff; }
   .item-select.item-assertive:after, .item-select.item-assertive .input-label {
     color: #fff; }
@@ -10748,30 +10781,30 @@ progress {
         box-shadow: none;
         color: #fff; }
   .button.button-assertive {
-    border-color: #e42112;
-    background-color: #ef473a;
+    border-color: #b51d1c;
+    background-color: #de2826;
     color: #fff; }
     .button.button-assertive:hover {
       color: #fff;
       text-decoration: none; }
     .button.button-assertive.active, .button.button-assertive.activated {
-      border-color: #e42112;
-      background-color: #e42112;
+      border-color: #b51d1c;
+      background-color: #b51d1c;
       box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); }
     .button.button-assertive.button-clear {
       border-color: transparent;
       background: none;
       box-shadow: none;
-      color: #ef473a; }
+      color: #de2826; }
     .button.button-assertive.button-icon {
       border-color: transparent;
       background: none; }
     .button.button-assertive.button-outline {
-      border-color: #ef473a;
+      border-color: #de2826;
       background: transparent;
-      color: #ef473a; }
+      color: #de2826; }
       .button.button-assertive.button-outline.active, .button.button-assertive.button-outline.activated {
-        background-color: #ef473a;
+        background-color: #de2826;
         box-shadow: none;
         color: #fff; }
   .button.button-balanced {
@@ -11511,13 +11544,13 @@ a.button {
   border-color: #0a9dc7; }
 
 .assertive, a.assertive {
-  color: #ef473a; }
+  color: #de2826; }
 
 .assertive-bg {
-  background-color: #ef473a; }
+  background-color: #de2826; }
 
 .assertive-border {
-  border-color: #e42112; }
+  border-color: #b51d1c; }
 
 .balanced, a.balanced {
   color: #33cd5f; }

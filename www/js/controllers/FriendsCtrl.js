@@ -1,6 +1,6 @@
 /* Friends controller */
-app.controller('FriendsCtrl', ['_', 'moment', '$q', '$cordovaToast', '$firebaseArray', '$ionicModal', '$scope', '$state', 'firebaseMain', 'foodIcons', 'foodManager', 'friendsService', 'messageService', 'userService', '$rootScope',
-    function FriendsCtrlFunction(_, moment, $q, $cordovaToast, $firebaseArray, $ionicModal, $scope, $state, firebaseMain, foodIcons, foodManager, friendsService, messageService, userService, $rootScope) {
+app.controller('FriendsCtrl', ['_', 'moment', '$q', '$cordovaToast', '$firebaseArray', '$ionicModal', '$ionicLoading', '$scope', '$state', '$timeout', 'firebaseMain', 'foodIcons', 'foodManager', 'friendsService', 'messageService', 'userService', '$rootScope',
+    function FriendsCtrlFunction(_, moment, $q, $cordovaToast, $firebaseArray, $ionicModal, $ionicLoading, $scope, $state, $timeout, firebaseMain, foodIcons, foodManager, friendsService, messageService, userService, $rootScope) {
 
         //Controller variables
         var friendsRef,
@@ -26,11 +26,17 @@ app.controller('FriendsCtrl', ['_', 'moment', '$q', '$cordovaToast', '$firebaseA
         //Note: by using $firebaseArray, this object is sync with server so it auto-updates
         function init() {
             if (!initDone) {
+                $scope.listHidden = true;
+                $ionicLoading.show({
+                  template: 'Loading...'
+                });
                 friendsService.init().then(function(friendsArr) {
-                    console.log(friendsService.friendsHash);
-                    console.log(friendsArr);
                     $scope.friends = friendsService.getFriendsArr();
                     setFriendListener();
+                    $timeout(function() {
+                      $ionicLoading.hide();
+                      $scope.listHidden = false;
+                    }, 300);
                 });
                 initDone = true;
             }

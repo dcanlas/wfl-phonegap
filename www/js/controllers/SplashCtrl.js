@@ -12,5 +12,6 @@ app.controller('SplashCtrl', ['$state', 'authService',
                 $state.go('login');
             });
         }
+
     }
 ]);

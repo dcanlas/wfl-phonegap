@@ -36,7 +36,7 @@
 
     <ion-content class="post-content has-footer has-header has-subheader">
 
-        <ion-list>
+        <ion-list ng-hide="listHidden">
             <ion-item class="friend-item"
                       ng-class="{'has-alert': friend.hasAlert}"
                       ng-repeat="friend in friends | filter:searchFriend:strict ">
