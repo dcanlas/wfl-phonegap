@@ -20,7 +20,7 @@ app.run(function($ionicPlatform, $cordovaStatusbar) {
         */
         //set status bar to red.
         if (window.StatusBar) {
-            $cordovaStatusbar.styleHex('#FF0000');
+            $cordovaStatusbar.styleHex('#de2826');
         }
 
         //for local notification with ios.

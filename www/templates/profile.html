@@ -43,6 +43,7 @@
                 <div class="food-entry"
                     ng-repeat="item in foodArr">
                     <div class="food-image"
+                         ng-class="item.food.spriteClass || 'sprite-1'"
                          alt="{{item.food.name}}"
                          ng-style="{'background-position': (item.food.x * foodSize)+'px '+(item.food.y * foodSize)+'px' }">
                     </div>

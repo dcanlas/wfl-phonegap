@@ -44,28 +44,32 @@ by the app
 .food-image {
   width: 64px;
   height: 64px;
-  background: url("../img/food-sprite-1.png");
   background-size: 400%; }
+  .food-image.sprite-1 {
+    background-image: url("../img/food-sprite-1.png"); }
+  .food-image.sprite-2 {
+    background-image: url("../img/food-sprite-2.png"); }
 
 .wfl-image {
   border-radius: 50%;
   border: 2px solid #de2826;
   box-sizing: border-box;
-  width: 64px;
-  height: 64px; }
+  width: 56px;
+  height: 56px;
+  position: relative; }
   .wfl-image:after {
     content: "?";
     position: absolute;
-    top: 8px;
-    left: 14px;
+    top: 5px;
+    left: 5px;
     display: block;
-    width: 48px;
-    height: 48px;
+    width: 42px;
+    height: 42px;
     background-color: #de2826;
     color: #fff;
     font-size: 30px;
     text-align: center;
-    line-height: 48px;
+    line-height: 42px;
     border-radius: 50%; }
 
 #friends-page .friend-item {
@@ -115,8 +119,8 @@ by the app
       width: 50px;
       height: 50px; }
       #friends-page .friend-item .food-image-container .wfl-image:after {
-        top: 7px;
-        left: 7px;
+        top: 5px;
+        left: 5px;
         line-height: 36px;
         width: 36px;
         height: 36px; }
@@ -250,6 +254,8 @@ by the app
           width: 70px; }
           #message-view .flex-container .message-list .message-wrapper .chat-box .food-detail .food-image {
             display: block;
+            margin: 2px auto; }
+          #message-view .flex-container .message-list .message-wrapper .chat-box .food-detail .wfl-image {
             margin: 2px auto; }
           #message-view .flex-container .message-list .message-wrapper .chat-box .food-detail .message-detail {
             display: block;

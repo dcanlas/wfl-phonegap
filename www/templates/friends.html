@@ -26,6 +26,7 @@
                 ng-class="{'has-food': currentUser.recentFood}"
                 ng-click="showFoodGrid()">
                 <div class="food-image"
+                     ng-class="currentUser.recentFood.food.spriteClass || 'sprite-1'"
                      alt="{{currentUser.recentFood.food.name}}"
                      ng-if="currentUser.recentFood"
                      ng-style="{'background-position': (currentUser.recentFood.food.x * foodSize)+'px '+(currentUser.recentFood.food.y * foodSize)+'px' }">
@@ -58,6 +59,7 @@
                     <div class="food-image-container"
                         ng-class="{'has-food': friend.user.recentFood && !isFoodOutdated(friend.user.recentFood.date)}">
                         <div class="food-image"
+                             ng-class="friend.user.recentFood.food.spriteClass || 'sprite-1'"
                              alt="{{friend.user.recentFood.food.name}}"
                              ng-if="friend.user.recentFood && !isFoodOutdated(friend.user.recentFood.date)"
                              ng-style="{'background-position': (friend.user.recentFood.food.x * foodSize)+'px '+(friend.user.recentFood.food.y * foodSize)+'px' }">
@@ -91,6 +93,7 @@
                      ng-repeat="item in iconRow track by item.name"
                      ng-click="selectFood(item)">
                     <div class="food-image"
+                         ng-class="item.spriteClass || 'sprite-1'"
                          alt="{{item.name}}"
                          ng-style="{'background-position': (item.x * foodSize)+'px '+(item.y * foodSize)+'px' }">
                     </div>

@@ -27,6 +27,7 @@
 
                             <div class="food-detail">
                                 <div class="food-image"
+                                     ng-class="message.food.spriteClass || 'sprite-1'"
                                      alt="{{message.food.name}}"
                                      ng-if="message.food"
                                      ng-style="{'background-position': (message.food.x * foodSize)+'px '+(message.food.y * foodSize)+'px' }">
@@ -60,6 +61,7 @@
                                  ng-repeat="item in iconRow track by item.name"
                                  ng-click="selectFood(item)">
                                 <div class="food-image"
+                                     ng-class="item.spriteClass || 'sprite-1'"
                                      alt="{{item.name}}"
                                      ng-style="{'background-position': (item.x * foodSize)+'px '+(item.y * foodSize)+'px' }">
                                 </div>

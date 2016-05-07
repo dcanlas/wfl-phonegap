@@ -12,7 +12,7 @@ app.factory('foodIcons', ['_',
 
         var foodSize = 64;
 
-        var foods = [
+        var foodsOne = [
             {name: 'fried rice', type: foodTypes.other, x: 0, y: 0},
             {name: 'sausage', type: foodTypes.other, x: -1, y: 0},
             {name: 'corn', type: foodTypes.meat, x: -2, y: 0},
@@ -30,6 +30,35 @@ app.factory('foodIcons', ['_',
             {name: 'onion rings', type: foodTypes.meat, x: -2, y: -3},
             {name: 'tomato with topping', type: foodTypes.other, x: -3, y: -3}
         ];
+
+        var foodsTwo = [
+            {name: 'pizza', type: foodTypes.other, x: 0, y: 0},
+            {name: 'sushi with roe', type: foodTypes.other, x: -1, y: 0},
+            {name: 'burger', type: foodTypes.meat, x: -2, y: 0},
+            {name: 'vegetable salad', type: foodTypes.other, x: -3, y: 0},
+            {name: 'salmon plate', type: foodTypes.dessert, x: 0, y: -1},
+            {name: 'tomato pasta', type: foodTypes.meat, x: -1, y: -1},
+            {name: 'french fries', type: foodTypes.other, x: -2, y: -1},
+            {name: 'fried chicken', type: foodTypes.other, x: -3, y: -1},
+            {name: 'tomato with salmon', type: foodTypes.other, x: 0, y: -2},
+            {name: 'red curry', type: foodTypes.other, x: -1, y: -2},
+            {name: 'bacon and eggs', type: foodTypes.meat, x: -2, y: -2},
+            {name: 'steak', type: foodTypes.other, x: -3, y: -2},
+            {name: 'beef kebab', type: foodTypes.other, x: 0, y: -3},
+            {name: 'vegetable wrap', type: foodTypes.other, x: -1, y: -3},
+            {name: 'hotdog', type: foodTypes.meat, x: -2, y: -3},
+            {name: 'mashed potatoes', type: foodTypes.other, x: -3, y: -3}
+        ];
+
+        _.each(foodsOne, function(item) {
+            item.spriteClass = "sprite-1";
+        });
+
+        _.each(foodsTwo, function(item) {
+            item.spriteClass = "sprite-2";
+        });
+
+        var foods = foodsOne.concat(foodsTwo);
 
         function getFoods(type) {
             if (type) {
